@@ -1,0 +1,161 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const guides = [
+  {
+    href: '/pace-calculator/',
+    title: 'Swim Pace Calculator',
+    desc: 'Turn any total time and distance into target paces per 25, 50, 100 or 200 — in yards or meters.',
+    tag: 'Calculator',
+  },
+  {
+    href: '/split-calculator/',
+    title: 'Swim Split Calculator',
+    desc: 'Break a race goal into even cumulative splits down to every 25 or 50.',
+    tag: 'Calculator',
+  },
+  {
+    href: '/css-calculator/',
+    title: 'Critical Swim Speed (CSS)',
+    desc: 'Run a 400 + 200 test and get your threshold pace, five training zones and projected times.',
+    tag: 'Calculator',
+  },
+  {
+    href: '/interval-calculator/',
+    title: 'Interval & Send-off Calculator',
+    desc: 'Build a swim set from repeats, distance and pace — get repeat times and wall-clock send-offs.',
+    tag: 'Calculator',
+  },
+  {
+    href: '/speed-calculator/',
+    title: 'Swim Speed & Race Projection',
+    desc: 'Pace per 100m and per 100yd, speed in m/s / km/h / mph, and projected 200–mile times.',
+    tag: 'Calculator',
+  },
+  {
+    href: '/calories-calculator/',
+    title: 'Swimming Calories Calculator',
+    desc: 'Estimate calories burned by stroke, intensity, body weight and session time.',
+    tag: 'Calculator',
+  },
+  {
+    href: '/lengths-converter/',
+    title: 'Swim Lengths to Distance',
+    desc: 'Convert pool lengths to distance and back for 25 yd, 25 m and 50 m pools.',
+    tag: 'Calculator',
+  },
+  {
+    href: '/scy-to-lcm/',
+    title: 'SCY to LCM Conversion',
+    desc: 'Short-course yards to long-course meters, with distance-event pairings explained.',
+    tag: 'Conversion',
+  },
+  {
+    href: '/scy-to-scm/',
+    title: 'SCY to SCM Conversion',
+    desc: 'The most common U.S. ↔ international short-course conversion, and why 1.11 works.',
+    tag: 'Conversion',
+  },
+  {
+    href: '/scm-to-lcm/',
+    title: 'SCM to LCM Conversion',
+    desc: 'Same distances, different pool — see how turn count changes an equivalent time.',
+    tag: 'Conversion',
+  },
+  {
+    href: '/lcm-to-scy/',
+    title: 'LCM to SCY Conversion',
+    desc: 'Long-course meters back to short-course yards for U.S. meets and NCAA planning.',
+    tag: 'Conversion',
+  },
+  {
+    href: '/lcm-to-scm/',
+    title: 'LCM to SCM Conversion',
+    desc: 'Reverse the turn advantage to estimate a 25-meter time from your 50-meter pool swims.',
+    tag: 'Conversion',
+  },
+  {
+    href: '/scm-to-scy/',
+    title: 'SCM to SCY Conversion',
+    desc: 'International short course to U.S. short course, including 400→500 and 1500→1650.',
+    tag: 'Conversion',
+  },
+];
+
+const steps = [
+  {
+    title: 'Understand the three courses',
+    body: 'SCY is swum in 25 yards, SCM in 25 meters and LCM in 50 meters. Yards and meters change distance; 25 vs 50 changes the number of turns. Everything else about time conversion follows from these two facts.',
+  },
+  {
+    title: 'Match the events first',
+    body: 'Pair the event you swam with the event you are converting to. Most events convert 1:1 (100 Free → 100 Free), but distance freestyle does not: 500 combines with 400, 1000 with 800, and 1650 with 1500.',
+  },
+  {
+    title: 'Scale, then adjust turns',
+    body: 'When the lane length changes, scale the time by the distance ratio and add or remove turn time. When only the turn count changes (SCM ↔ LCM), adjust turns only. The tools on this site do all of this for you, but knowing the logic makes results easier to trust.',
+  },
+  {
+    title: 'Treat every result as an estimate',
+    body: 'No conversion is exact — turns, breathing, walls and pacing all vary by swimmer. Use the numbers as comparison and planning tools, and always submit official times through the governing body when entries require them.',
+  },
+];
+---
+
+<Layout
+  title="Guides – Swim Time Converter"
+  description="Learn how to convert swimming times between SCY, SCM and LCM, calculate pace, and plan race splits with step-by-step guides."
+>
+  <section class="mx-auto w-full max-w-3xl px-4 pb-10 pt-10 sm:px-6">
+    <h1 class="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">Guides</h1>
+    <p class="mt-4 text-base leading-relaxed text-ink-muted">
+      Everything you need to compare swimming times across courses, plan paces, and build race splits.
+    </p>
+  </section>
+
+  <section class="mx-auto w-full max-w-3xl px-4 sm:px-6">
+    <div class="grid gap-3 sm:grid-cols-2">
+      {guides.map((g) => (
+        <a
+          href={g.href}
+          class="group rounded-xl border border-hairline bg-surface-1 p-5 shadow-sm transition-colors hover:border-hairline-strong"
+        >
+          <p class="text-xs font-medium uppercase tracking-wide text-primary">{g.tag}</p>
+          <h2 class="mt-2 font-semibold text-ink group-hover:underline">{g.title}</h2>
+          <p class="mt-1.5 text-sm leading-relaxed text-ink-muted">{g.desc}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="mx-auto w-full max-w-3xl px-4 py-14 sm:px-6">
+    <h2 class="text-2xl font-semibold tracking-tight text-ink">How Swim Time Conversions Work</h2>
+    <div class="mt-6 space-y-6">
+      {steps.map((s, i) => (
+        <div class="flex gap-4">
+          <span class="mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-md bg-primary/10 text-sm font-bold text-primary">{i + 1}</span>
+          <div>
+            <h3 class="font-semibold text-ink">{s.title}</h3>
+            <p class="mt-1 text-[15px] leading-relaxed text-ink-muted">{s.body}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+    <div class="mt-8 rounded-xl border border-hairline bg-surface-1 p-6 text-[15px] leading-relaxed text-ink-muted">
+      <p class="font-semibold text-ink">Quick reference</p>
+      <ul class="mt-3 list-disc space-y-1.5 pl-5">
+        <li><strong class="text-ink">SCY → SCM:</strong> multiply by 1.11 (near-matching events)</li>
+        <li><strong class="text-ink">SCM → SCY:</strong> divide by 1.11</li>
+        <li><strong class="text-ink">SCM → LCM:</strong> add turn time (distance ÷ 50 extra turns × stroke value)</li>
+        <li><strong class="text-ink">SCY → LCM:</strong> scale by 1.11, then add turn time</li>
+        <li><strong class="text-ink">Distance pairings:</strong> 500↔400 · 1000↔800 · 1650↔1500</li>
+      </ul>
+      <p class="mt-4">
+        Once you have a target time, build the race with the <a href="/pace-calculator/" class="font-medium text-primary hover:underline">Pace Calculator</a>,
+        the <a href="/split-calculator/" class="font-medium text-primary hover:underline">Split Calculator</a>, and the
+        <a href="/interval-calculator/" class="font-medium text-primary hover:underline">Interval &amp; Send-off Calculator</a>, and check it against your
+        <a href="/css-calculator/" class="font-medium text-primary hover:underline">Critical Swim Speed</a>.
+      </p>
+    </div>
+  </section>
+</Layout>

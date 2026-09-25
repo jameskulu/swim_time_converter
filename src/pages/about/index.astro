@@ -1,0 +1,64 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  title="About – Swim Time Converter"
+  description="Swim Time Converter is a free tool for converting swim times between short course yards, short course meters and long course meters."
+>
+  <section class="mx-auto w-full max-w-3xl px-4 pb-10 pt-10 sm:px-6">
+    <h1 class="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">About</h1>
+    <p class="mt-4 text-base leading-relaxed text-ink-muted">
+      Swim Time Converter is a free, fast and privacy-friendly tool for converting swimming performances between the three pool courses used in competition.
+    </p>
+  </section>
+
+  <section class="mx-auto w-full max-w-3xl space-y-6 px-4 pb-16 text-[15px] leading-relaxed text-ink-muted sm:px-6">
+    <div class="space-y-3">
+      <h2 class="text-xl font-semibold text-ink">Why we built it</h2>
+      <p>
+        Swimmers regularly have to compare times between yards and meters — when moving between U.S. and international meets, when using split/pace tools, or when checking where a personal best would stack up in another course. Most published conversions are bundles of spreadsheet tables that are awkward to use on a phone. We wanted one calculator page that works on any device, does the whole course at once, and uses a widely understood method.
+      </p>
+      <p>
+        Everything runs in your browser. There is no server-side database, and your times never leave your device.
+      </p>
+    </div>
+
+    <div class="space-y-3">
+      <h2 class="text-xl font-semibold text-ink">The conversion method</h2>
+      <p>
+        The calculator implements the factor-based approach published by <strong class="text-ink">Colorado Timing</strong> and used widely by timing and team-management platforms. It converts yard times to meters with a factor of 1.11, applies stroke-based per-turn adjustments for pool length changes (0.8&nbsp;s freestyle/medley, 0.6&nbsp;s backstroke, 1.0&nbsp;s breaststroke, 0.7&nbsp;s butterfly per extra turn), and pairs distance freestyles (500↔400, 1000↔800, 1650↔1500) with their own factors.
+      </p>
+      <p>
+        This is the same family of methodology used in common references for age-group and masters swimming comparison. It produces close estimates — no conversion is official without the governing body that issued the time.
+      </p>
+    </div>
+
+    <div class="space-y-3">
+      <h2 class="text-xl font-semibold text-ink">What we provide</h2>
+      <p>This site is a set of free browser-based tools:</p>
+      <ul class="list-disc space-y-1 pl-5">
+        <li>The <a href="/" class="font-medium text-primary hover:underline">Swim Time Converter</a> for SCY, SCM and LCM times</li>
+        <li>Six dedicated conversion pages — <a href="/scy-to-lcm/" class="font-medium text-primary hover:underline">SCY to LCM</a>, <a href="/scy-to-scm/" class="font-medium text-primary hover:underline">SCY to SCM</a>, <a href="/scm-to-lcm/" class="font-medium text-primary hover:underline">SCM to LCM</a>, <a href="/lcm-to-scy/" class="font-medium text-primary hover:underline">LCM to SCY</a>, <a href="/lcm-to-scm/" class="font-medium text-primary hover:underline">LCM to SCM</a> and <a href="/scm-to-scy/" class="font-medium text-primary hover:underline">SCM to SCY</a> — with the math explained per pairing</li>
+        <li>A <a href="/pace-calculator/" class="font-medium text-primary hover:underline">Pace Calculator</a> and a <a href="/split-calculator/" class="font-medium text-primary hover:underline">Split Calculator</a> for training and race planning</li>
+        <li>A <a href="/css-calculator/" class="font-medium text-primary hover:underline">Critical Swim Speed calculator</a>, an <a href="/interval-calculator/" class="font-medium text-primary hover:underline">Interval &amp; Send-off calculator</a> and a <a href="/speed-calculator/" class="font-medium text-primary hover:underline">Speed &amp; Race Projection calculator</a> for threshold testing and set building</li>
+        <li>A <a href="/calories-calculator/" class="font-medium text-primary hover:underline">Swimming calories calculator</a> and a <a href="/lengths-converter/" class="font-medium text-primary hover:underline">Lengths &amp; distance converter</a> for everyday pool math</li>
+        <li>Plain-language guides in the <a href="/guides/" class="font-medium text-primary hover:underline">Guides</a> section</li>
+      </ul>
+    </div>
+
+    <div class="space-y-3">
+      <h2 class="text-xl font-semibold text-ink">Limitations</h2>
+      <p>
+        No conversion is exact, and different methods can disagree by a few tenths. Turns, breathing patterns, altitude, pacing and stroke style all affect real race performance. Always use official submission rules for times entered into competition, and consult your governing body when a converted time matters for qualification.
+      </p>
+    </div>
+
+    <div class="space-y-3">
+      <h2 class="text-xl font-semibold text-ink">Contact</h2>
+      <p>
+        Questions, corrections or suggestions? Reach us through the <a href="/contact/" class="font-medium text-primary hover:underline">Contact page</a>.
+      </p>
+    </div>
+  </section>
+</Layout>

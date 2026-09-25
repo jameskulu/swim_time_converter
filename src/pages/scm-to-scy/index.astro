@@ -1,0 +1,37 @@
+---
+import ConversionPage from '../../components/ConversionPage.astro';
+import { buildExamples } from '../../lib/examples';
+---
+
+<ConversionPage
+  from="SCM"
+  to="SCY"
+  metaTitle="SCM to SCY Converter – Swim Time Converter"
+  metaDescription="Convert SCM swim times to SCY. Get estimated short-course yards equivalents for your 25-meter pool times, ready for U.S. meets."
+  h1="SCM to SCY Converter"
+  lead="Convert swimming times from short-course meters (SCM) to short-course yards (SCY). Enter your event and time to estimate what it would be in a 25-yard pool."
+  paragraphs={[
+    `SCM to SCY is the reverse of the standard <a href="/scy-to-scm/" class="font-medium text-primary hover:underline">SCY to SCM</a> conversion. Both pools are short course, so the number of turns is the same — the calculator just scales the distance down, since a 25-yard lane is shorter than a 25-meter lane.`,
+    `Distances are paired to their usual equivalents: <strong class="text-ink">400&nbsp;Free</strong> converts to <strong class="text-ink">500&nbsp;Free</strong>, <strong class="text-ink">800&nbsp;Free</strong> to <strong class="text-ink">1000&nbsp;Free</strong>, and <strong class="text-ink">1500&nbsp;Free</strong> to <strong class="text-ink">1650&nbsp;Free</strong>. Near-identical events scale by the 1.11 factor inverted.`,
+    `Because both courses share the same turn profile, SCM and SCY conversions are the most predictable of the six pairings — useful when you are planning U.S. competition after an international short-course meet. Results are estimates.`,
+  ]}
+  examples={buildExamples('SCM', 'SCY')}
+  faqs={[
+    {
+      question: 'What is the SCM to SCY conversion factor?',
+      answer: 'Divide SCM seconds by 1.11 for matching events, since the number of turns is identical and only the lane distance changes. Distance freestyle events use the standard 400/500, 800/1000 and 1500/1650 pairings.',
+    },
+    {
+      question: 'Are SCY times slower or faster than SCM times?',
+      answer: 'Faster. A 100-yard race measures 91.44 m, while a 100-meter race is a full 100 m — same number of turns, shorter total distance in yards.',
+    },
+    {
+      question: 'What does a 400 SCM freestyle convert to in SCY?',
+      answer: 'It converts to the 500-yard freestyle, the standard short-course yards equivalent. The 800 converts to 1000, and the 1500 to the 1650.',
+    },
+    {
+      question: 'Can I use SCM to SCY converted times to enter U.S. meets?',
+      answer: 'Traditionally yes for many meets, but confirm the entry policy first — organizers and governing bodies may apply their own conversion methods for seeding.',
+    },
+  ]}
+/>

@@ -1,11 +1,361 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import SwimCalculator from '../components/calculator/SwimCalculator';
+import FAQ from '../components/FAQ.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const siteUrl = 'https://onlineswimtimeconverter.com';
+
+const faqs = [
+  {
+    question: 'What is a swim time converter?',
+    answer:
+      'A swim time converter estimates how your time in one pool type would compare to an equivalent time in another pool type. Because a 50-meter pool, a 25-meter pool, and a 25-yard pool all pace differently, the same effort produces different finish times in each course.',
+  },
+  {
+    question: 'What is SCY in swimming?',
+    answer: 'SCY stands for Short Course Yards — competition swum in a 25-yard pool, the standard for U.S. high school and NCAA swimming.',
+  },
+  {
+    question: 'What is SCM in swimming?',
+    answer: 'SCM stands for Short Course Meters — competition swum in a 25-meter pool, common in Europe, Australia, and international short-course season.',
+  },
+  {
+    question: 'What is LCM in swimming?',
+    answer: 'LCM stands for Long Course Meters — competition swum in a 50-meter Olympic-size pool, the course used at the Olympic Games and World Championships.',
+  },
+  {
+    question: 'How do I convert SCY to LCM?',
+    answer:
+      'Select SCY as the course you are converting from, choose your event and time, then select LCM as the target. This converter applies a documented yard-to-meter factor plus a per-turn adjustment for the larger number of turns in a 25-yard pool.',
+  },
+  {
+    question: 'Why are SCY and LCM times different?',
+    answer:
+      'Short-course pools are swum in 25-yard lengths, meaning more turns — and each turn lets the swimmer push off the wall and glide. Long-course (50m) swimming has half the turns, so the same swimmer is generally a few seconds slower, especially in longer events.',
+  },
+  {
+    question: 'Are swimming time conversions exact?',
+    answer:
+      'No. Every conversion is an estimate. Different swimmers gain different amounts from turns and walls, so no single factor is exact for everyone. Different organizations also publish different conversion models — treat results as close approximations.',
+  },
+  {
+    question: 'Which swimming conversion method should I use?',
+    answer:
+      'For general use, the standard factor-based method (the Colorado factor set used by U.S. Masters Swimming and many age-group programs) is the most common. This site uses that method by default. If you need an official NCAA or performance-based conversion, check the relevant governing body.',
+  },
+];
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+  })),
+};
+
+const appLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Swim Time Converter',
+  alternateName: 'Swimming Time Converter',
+  url: `${siteUrl}/`,
+  description:
+    'Convert swimming times between SCY, SCM, and LCM. Compare equivalent swim times across courses with a free swimming time converter.',
+  applicationCategory: 'SportsApplication',
+  operatingSystem: 'Web',
+  browserRequirements: 'Requires a modern web browser with JavaScript enabled',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  author: { '@type': 'Organization', name: 'Swim Time Converter', url: siteUrl },
+};
 ---
 
-<Layout>
-	<Welcome />
+<Layout
+  title="Swim Time Converter – SCY, SCM & LCM"
+  description="Convert swimming times between SCY, SCM, and LCM. Compare equivalent swim times across courses with our free swimming time converter."
+  jsonLd={[appLd, faqLd]}
+>
+  <!-- Hero -->
+  <section class="mx-auto w-full max-w-6xl px-4 pb-10 pt-12 sm:px-6 sm:pt-16">
+    <div class="mx-auto max-w-2xl text-center">
+      <p class="text-[13px] font-medium uppercase tracking-[0.08em] text-primary">Free Swimming Calculator</p>
+      <h1 class="mt-3 text-4xl font-semibold tracking-tight text-ink sm:text-5xl">Swim Time Converter</h1>
+      <p class="mt-4 text-lg text-ink-muted">Convert swimming times between SCY, SCM, and LCM courses.</p>
+      <p class="mt-2 text-sm text-ink-subtle">
+        Enter your event and time to see equivalent swimming times across different course lengths.
+      </p>
+      <div class="mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm">
+        <a href="/pace-calculator/" class="font-medium text-primary hover:underline">Pace Calculator</a>
+        <a href="/css-calculator/" class="font-medium text-primary hover:underline">Critical Swim Speed</a>
+        <a href="/interval-calculator/" class="font-medium text-primary hover:underline">Interval &amp; Send-off</a>
+        <a href="/guides/" class="font-medium text-primary hover:underline">Guides</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Calculator -->
+  <section id="calculator" class="mx-auto w-full max-w-3xl scroll-mt-24 px-4 sm:px-6" aria-label="Swim time converter">
+    <SwimCalculator client:load />
+  </section>
+
+  <!-- Related calculators -->
+  <section class="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6" aria-label="Related swimming calculators">
+    <h2 class="text-center text-2xl font-semibold tracking-tight text-ink sm:text-3xl">Related Swim Calculators</h2>
+    <div class="mx-auto mt-8 grid max-w-5xl gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <a
+        href="/pace-calculator/"
+        class="group rounded-xl border border-hairline bg-surface-1 p-6 transition-colors hover:border-hairline-strong hover:bg-surface-2"
+      >
+        <span class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" class="h-5 w-5">
+            <circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.6" />
+            <path d="M12 7.5V12l3 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+          </svg>
+        </span>
+        <h3 class="mt-4 text-base font-semibold text-ink">Swim Pace Calculator</h3>
+        <p class="mt-1.5 text-sm text-ink-subtle">
+          Work out your pace per 25, 50 or 100 for any race distance and target time.
+        </p>
+        <span class="mt-3 block text-sm font-medium text-primary group-hover:underline">Open calculator →</span>
+      </a>
+
+      <a
+        href="/split-calculator/"
+        class="group rounded-xl border border-hairline bg-surface-1 p-6 transition-colors hover:border-hairline-strong hover:bg-surface-2"
+      >
+        <span class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" class="h-5 w-5">
+            <path d="M9 4v16M15 4v16M4 9h16M4 15h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+          </svg>
+        </span>
+        <h3 class="mt-4 text-base font-semibold text-ink">Swim Split Calculator</h3>
+        <p class="mt-1.5 text-sm text-ink-subtle">
+          Generate even, target splits for any event and number of lengths.
+        </p>
+        <span class="mt-3 block text-sm font-medium text-primary group-hover:underline">Open calculator →</span>
+      </a>
+
+      <a
+        href="/css-calculator/"
+        class="group rounded-xl border border-hairline bg-surface-1 p-6 transition-colors hover:border-hairline-strong hover:bg-surface-2"
+      >
+        <span class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" class="h-5 w-5">
+            <path d="M12 3v6m0 0 3-3m-3 3L9 6m3 6v6m0 0 3-3m-3 3-3-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+            <circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.6" />
+          </svg>
+        </span>
+        <h3 class="mt-4 text-base font-semibold text-ink">Critical Swim Speed (CSS)</h3>
+        <p class="mt-1.5 text-sm text-ink-subtle">
+          Find your threshold pace from a 400 + 200 test, with training zones and projected times.
+        </p>
+        <span class="mt-3 block text-sm font-medium text-primary group-hover:underline">Open calculator →</span>
+      </a>
+
+      <a
+        href="/interval-calculator/"
+        class="group rounded-xl border border-hairline bg-surface-1 p-6 transition-colors hover:border-hairline-strong hover:bg-surface-2"
+      >
+        <span class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" class="h-5 w-5">
+            <path d="M4 4h16v4H4zM4 12h16v4H4zM4 20h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </span>
+        <h3 class="mt-4 text-base font-semibold text-ink">Interval &amp; Send-off</h3>
+        <p class="mt-1.5 text-sm text-ink-subtle">
+          Build training sets: pick repeats, distance and pace to get repeat times and wall-clock send-offs.
+        </p>
+        <span class="mt-3 block text-sm font-medium text-primary group-hover:underline">Open calculator →</span>
+      </a>
+
+      <a
+        href="/speed-calculator/"
+        class="group rounded-xl border border-hairline bg-surface-1 p-6 transition-colors hover:border-hairline-strong hover:bg-surface-2"
+      >
+        <span class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" class="h-5 w-5">
+            <path d="m13 5-1-1-1 1M9 14v3m6-3v3M12 7v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+            <path d="M4 20h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+          </svg>
+        </span>
+        <h3 class="mt-4 text-base font-semibold text-ink">Speed &amp; Race Projection</h3>
+        <p class="mt-1.5 text-sm text-ink-subtle">
+          Convert any swim into pace per 100, speed in m/s / km/h / mph, and projected mile times.
+        </p>
+        <span class="mt-3 block text-sm font-medium text-primary group-hover:underline">Open calculator →</span>
+      </a>
+
+      <a
+        href="/calories-calculator/"
+        class="group rounded-xl border border-hairline bg-surface-1 p-6 transition-colors hover:border-hairline-strong hover:bg-surface-2"
+      >
+        <span class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" class="h-5 w-5">
+            <path d="M12 3c1 2 5 4 5 9a5 5 0 1 1-10 0c0-3 1-5 3-6 0 1 1 2 2 2 .5-1 0-3 0-5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
+          </svg>
+        </span>
+        <h3 class="mt-4 text-base font-semibold text-ink">Swimming Calories</h3>
+        <p class="mt-1.5 text-sm text-ink-subtle">
+          Estimate calories burned by stroke, intensity, weight and swim time.
+        </p>
+        <span class="mt-3 block text-sm font-medium text-primary group-hover:underline">Open calculator →</span>
+      </a>
+
+      <a
+        href="/lengths-converter/"
+        class="group rounded-xl border border-hairline bg-surface-1 p-6 transition-colors hover:border-hairline-strong hover:bg-surface-2"
+      >
+        <span class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" class="h-5 w-5">
+            <path d="M5 4v16M19 4v16M5 4h14M5 20h14M5 8h5M5 12h9M5 16h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+          </svg>
+        </span>
+        <h3 class="mt-4 text-base font-semibold text-ink">Lengths &amp; Distance</h3>
+        <p class="mt-1.5 text-sm text-ink-subtle">
+          Convert swim distances to pool lengths and back for 25 yd, 25 m or 50 m pools.
+        </p>
+        <span class="mt-3 block text-sm font-medium text-primary group-hover:underline">Open calculator →</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Course converters -->
+  <section class="border-t border-hairline bg-surface-1 py-14" aria-label="Course time converters">
+    <div class="mx-auto w-full max-w-6xl px-4 sm:px-6">
+      <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+        <div>
+          <h2 class="text-xl font-semibold tracking-tight text-ink sm:text-2xl">Course Converters</h2>
+          <p class="mt-2 max-w-xl text-sm leading-relaxed text-ink-muted">
+            Jump straight to a specific pairing. Each converter covers every event and explains the factor and turn logic
+            behind it.
+          </p>
+        </div>
+        <a href="/guides/" class="shrink-0 text-sm font-medium text-primary hover:underline">
+          How course conversion works →
+        </a>
+      </div>
+      <div class="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          [
+            { href: '/scy-to-lcm/', label: 'SCY to LCM', desc: 'Short course yards → long course meters' },
+            { href: '/scy-to-scm/', label: 'SCY to SCM', desc: 'Short course yards → short course meters' },
+            { href: '/scm-to-lcm/', label: 'SCM to LCM', desc: 'Short course meters → long course meters' },
+            { href: '/lcm-to-scy/', label: 'LCM to SCY', desc: 'Long course meters → short course yards' },
+            { href: '/lcm-to-scm/', label: 'LCM to SCM', desc: 'Long course meters → short course meters' },
+            { href: '/scm-to-scy/', label: 'SCM to SCY', desc: 'Short course meters → short course yards' },
+          ].map((c) => (
+            <a
+              href={c.href}
+              class="group flex items-center justify-between gap-3 rounded-xl border border-hairline bg-surface-1 px-4 py-3.5 transition-colors hover:border-hairline-strong hover:bg-surface-2"
+            >
+              <span class="min-w-0">
+                <span class="block text-sm font-semibold text-ink group-hover:underline">{c.label}</span>
+                <span class="mt-0.5 block text-xs text-ink-subtle">{c.desc}</span>
+              </span>
+              <span class="shrink-0 text-ink-tertiary transition-transform group-hover:translate-x-0.5" aria-hidden="true">→</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Compare courses -->
+  <section class="border-y border-hairline bg-surface-1 py-16">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="mx-auto max-w-3xl">
+        <h2 class="text-center text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
+          SCY vs SCM vs LCM
+        </h2>
+        <p class="mt-3 text-center text-sm text-ink-subtle">
+          The course (pool length) you swim in changes how the race plays out. Here is how the three standard
+          competition courses compare.
+        </p>
+
+        <div class="mt-8 overflow-x-auto rounded-xl border border-hairline bg-canvas">
+          <table class="w-full min-w-[420px] text-sm">
+            <caption class="sr-only">Comparison of SCY, SCM and LCM swimming courses</caption>
+            <thead>
+              <tr class="border-b border-hairline text-left text-xs uppercase tracking-wide text-ink-muted">
+                <th scope="col" class="px-4 py-3 font-medium">Course</th>
+                <th scope="col" class="px-4 py-3 text-right font-medium">Length</th>
+                <th scope="col" class="px-4 py-3 font-medium">Common Usage</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-hairline">
+              <tr>
+                <th scope="row" class="px-4 py-3 font-medium text-ink">SCY</th>
+                <td class="px-4 py-3 text-right font-mono tabular-nums text-ink-muted">25 yards</td>
+                <td class="px-4 py-3 text-ink-subtle">U.S. high school, NCAA and club competition</td>
+              </tr>
+              <tr>
+                <th scope="row" class="px-4 py-3 font-medium text-ink">SCM</th>
+                <td class="px-4 py-3 text-right font-mono tabular-nums text-ink-muted">25 meters</td>
+                <td class="px-4 py-3 text-ink-subtle">International short-course season</td>
+              </tr>
+              <tr>
+                <th scope="row" class="px-4 py-3 font-medium text-ink">LCM</th>
+                <td class="px-4 py-3 text-right font-mono tabular-nums text-ink-muted">50 meters</td>
+                <td class="px-4 py-3 text-ink-subtle">Olympic Games, World Championships, majors</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="mx-auto w-full max-w-3xl px-4 py-16 sm:px-6">
+    <h2 class="text-2xl font-semibold tracking-tight text-ink sm:text-3xl">How Does a Swim Time Converter Work?</h2>
+    <div class="mt-6 space-y-4 text-[15px] leading-relaxed text-ink-muted">
+      <p>
+        <strong class="font-semibold text-ink">SCY</strong> (Short Course Yards), <strong class="font-semibold text-ink">SCM</strong>
+        (Short Course Meters) and <strong class="font-semibold text-ink">LCM</strong> (Long Course Meters) describe the
+        pool the race is swum in. A 50-meter pool (LCM) is twice as long as a 25-meter pool, and a 25-yard pool is
+        slightly shorter again — one yard is about 0.91 meters.
+      </p>
+      <p>
+        The reason a swimmer posts different times in each course is largely turns. In a 25-yard pool a 200 freestyle
+        has more wall pushes than the same race in a 50-meter pool, so short-course swimming is typically a little
+        faster. The difference grows with distance: a mile event has far more turns to gain from than a sprint.
+      </p>
+      <p>
+        A converter estimates an equivalent time by applying a course factor and a per-turn adjustment. This site uses
+        the widely adopted Colorado factor set used across U.S. Masters Swimming and age-group programs.
+      </p>
+      <p>
+        Because the exact advantage of each extra turn varies from swimmer to swimmer, <em>all</em> course conversions
+        are estimates. Different organizations publish different factor sets, so the numbers here may differ slightly
+        from other calculators — that is expected.
+      </p>
+    </div>
+  </section>
+
+  <!-- How to convert -->
+  <section class="mx-auto w-full max-w-3xl px-4 pb-16 sm:px-6">
+    <h2 class="text-2xl font-semibold tracking-tight text-ink sm:text-3xl">How to Use This Converter</h2>
+    <ol class="mt-6 space-y-3 text-sm text-ink-muted">
+      <li class="flex gap-3">
+        <span class="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-primary/10 text-xs font-semibold text-primary">1</span>
+        <span>Pick the course your time was swum in — <strong class="font-medium text-ink">SCY</strong>, <strong class="font-medium text-ink">SCM</strong> or <strong class="font-medium text-ink">LCM</strong>.</span>
+      </li>
+      <li class="flex gap-3">
+        <span class="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-primary/10 text-xs font-semibold text-primary">2</span>
+        <span>Choose your event (for example 100 Free) and enter your time as <code class="rounded bg-surface-2 px-1.5 py-0.5 font-mono text-xs">52.43</code> or <code class="rounded bg-surface-2 px-1.5 py-0.5 font-mono text-xs">1:52.37</code>.</span>
+      </li>
+      <li class="flex gap-3">
+        <span class="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-primary/10 text-xs font-semibold text-primary">3</span>
+        <span>Press <strong class="font-medium text-ink">Convert Time</strong> to see the equivalent time in every course, then copy or share the result.</span>
+      </li>
+    </ol>
+  </section>
+
+  <!-- FAQ -->
+  <section class="border-t border-hairline bg-surface-1 py-16">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <FAQ items={faqs} />
+    </div>
+  </section>
 </Layout>

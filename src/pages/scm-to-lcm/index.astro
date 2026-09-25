@@ -1,0 +1,37 @@
+---
+import ConversionPage from '../../components/ConversionPage.astro';
+import { buildExamples } from '../../lib/examples';
+---
+
+<ConversionPage
+  from="SCM"
+  to="LCM"
+  metaTitle="SCM to LCM Converter – Swim Time Converter"
+  metaDescription="Convert SCM swim times to LCM. Get an estimated long-course meters equivalent for any short-course meters time with this free swimming converter."
+  h1="SCM to LCM Converter"
+  lead="Convert swimming times from short-course meters (SCM) to long-course meters (LCM). Enter your event and time to estimate the same swim in a 50-meter pool."
+  paragraphs={[
+    `SCM and LCM are both swum on the metric scale, so distances line up exactly (100&nbsp;Free stays 100&nbsp;m). The only difference is the pool: a 25-meter pool has more than twice the turns of a 50-meter pool.`,
+    `More turns means more push-offs, so short-course meters times are faster than long-course meters times. This calculator estimates the difference by adding a per-turn adjustment — <strong class="text-ink">0.8 s</strong> per extra turn in freestyle, <strong class="text-ink">0.6 s</strong> in backstroke, <strong class="text-ink">1.0 s</strong> in breaststroke, <strong class="text-ink">0.7 s</strong> in butterfly and <strong class="text-ink">0.8 s</strong> in medley.`,
+    `For distance freestyle the same turn logic is applied: 400↔400, 800↔800 and 1500↔1500 all just gain the extra turns. Because the turn advantage differs from swimmer to swimmer, treat the result as an estimate.`,
+  ]}
+  examples={buildExamples('SCM', 'LCM')}
+  faqs={[
+    {
+      question: 'How do you convert SCM to LCM times?',
+      answer: 'Because the distances match exactly, the converter simply adds the estimated time lost from turns — the number of extra turns in the 25-meter swim multiplied by a stroke-specific seconds-per-turn value.',
+    },
+    {
+      question: 'How much faster is SCM than LCM?',
+      answer: 'Typically a few tenths for sprint events and a second or more for the 200s and up. A 100 Free might gain roughly 1.6 seconds of turns, while a 400 Free gains around 6.4 seconds.',
+    },
+    {
+      question: 'Do the 400, 800 and 1500 convert directly in SCM to LCM?',
+      answer: 'Yes — those distances are the same number in both short-course meters and long-course meters, so only the turn difference is applied.',
+    },
+    {
+      question: 'Why do swimmers prefer short course for fast times?',
+      answer: 'Every extra wall lets the swimmer push off and glide at speed. In short course you get that boost far more often, which makes times generally faster than in a 50-meter pool.',
+    },
+  ]}
+/>

@@ -1,0 +1,160 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SwimCalculator from '../components/calculator/SwimCalculator';
+import FAQ from '../components/FAQ.astro';
+import CalculatorLinks from './CalculatorLinks.astro';
+
+interface Props {
+  from: 'SCY' | 'SCM' | 'LCM';
+  to: 'SCY' | 'SCM' | 'LCM';
+  metaTitle: string;
+  metaDescription: string;
+  h1: string;
+  lead: string;
+  paragraphs: string[];
+  examples: { label: string; fromText: string; toText: string }[];
+  faqs: { question: string; answer: string }[];
+}
+
+const { from, to } = Astro.props;
+
+const courseMeta: Record<'SCY' | 'SCM' | 'LCM', { long: string; length: string }> = {
+  SCY: { long: 'Short Course Yards', length: '25-yard pool' },
+  SCM: { long: 'Short Course Meters', length: '25-meter pool' },
+  LCM: { long: 'Long Course Meters', length: '50-meter pool' },
+};
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: Astro.props.faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+  })),
+};
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://onlineswimtimeconverter.com/' },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: `${from} to ${to} Converter`,
+      item: `https://onlineswimtimeconverter.com/${from.toLowerCase()}-to-${to.toLowerCase()}/`,
+    },
+  ],
+};
+---
+
+<Layout
+  title={Astro.props.metaTitle}
+  description={Astro.props.metaDescription}
+  jsonLd={[breadcrumbLd, faqLd]}
+>
+  <section class="mx-auto w-full max-w-6xl px-4 pt-10 sm:px-6">
+    <nav class="text-sm text-ink-subtle" aria-label="Breadcrumb">
+      <ol class="flex flex-wrap items-center gap-1.5">
+        <li><a href="/" class="hover:text-ink">Home</a></li>
+        <li aria-hidden="true" class="text-ink-tertiary">/</li>
+        <li aria-current="page" class="text-ink-muted">{from} to {to} Converter</li>
+      </ol>
+    </nav>
+  </section>
+
+  <section class="mx-auto w-full max-w-3xl px-4 pb-10 pt-8 sm:px-6">
+    <h1 class="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">{Astro.props.h1}</h1>
+    <p class="mt-4 text-base leading-relaxed text-ink-muted">{Astro.props.lead}</p>
+  </section>
+
+  <section id="calculator" class="mx-auto w-full max-w-3xl scroll-mt-24 px-4 sm:px-6">
+    <SwimCalculator client:load from={from} to={to} />
+  </section>
+
+  <section class="mx-auto w-full max-w-3xl px-4 py-14 sm:px-6">
+    <h2 class="text-2xl font-semibold tracking-tight text-ink">
+      What is a {from} to {to} Conversion?
+    </h2>
+    <div class="mt-5 space-y-4 text-[15px] leading-relaxed text-ink-muted">
+      {
+        Astro.props.paragraphs.map((p) => (
+          <p set:html={p} />
+        ))
+      }
+    </div>
+
+    <div class="mt-8 grid gap-4 sm:grid-cols-3">
+      <div class="rounded-xl border border-hairline bg-surface-1 p-5">
+        <p class="text-sm font-semibold text-ink">{from}</p>
+        <p class="mt-1 text-xs text-ink-subtle">{courseMeta[from].long} · {courseMeta[from].length}</p>
+      </div>
+      <div class="flex items-center justify-center text-ink-tertiary" aria-hidden="true">
+        →
+      </div>
+      <div class="rounded-xl border border-hairline bg-surface-1 p-5">
+        <p class="text-sm font-semibold text-ink">{to}</p>
+        <p class="mt-1 text-xs text-ink-subtle">{courseMeta[to].long} · {courseMeta[to].length}</p>
+      </div>
+    </div>
+  <div class="mt-8 grid gap-3 sm:grid-cols-2">
+      <a
+        href="/pace-calculator/"
+        class="group block rounded-xl border border-hairline bg-surface-1 p-5 transition-colors hover:border-hairline-strong hover:bg-surface-2"
+      >
+        <p class="text-sm font-semibold text-ink group-hover:underline">Swim Pace Calculator</p>
+        <p class="mt-1 text-sm leading-relaxed text-ink-muted">
+          Turn the converted time into per-100 paces you can hold in training.
+        </p>
+      </a>
+      <a
+        href="/split-calculator/"
+        class="group block rounded-xl border border-hairline bg-surface-1 p-5 transition-colors hover:border-hairline-strong hover:bg-surface-2"
+      >
+        <p class="text-sm font-semibold text-ink group-hover:underline">Swim Split Calculator</p>
+        <p class="mt-1 text-sm leading-relaxed text-ink-muted">
+          Break the converted time into even cumulative splits for race planning.
+        </p>
+      </a>
+    </div>
+  </section>
+
+  <section class="border-y border-hairline bg-surface-1 py-14">
+    <div class="mx-auto w-full max-w-3xl px-4 sm:px-6">
+      <h2 class="text-2xl font-semibold tracking-tight text-ink">Example Conversions</h2>
+      <div class="mt-6 overflow-x-auto rounded-xl border border-hairline bg-canvas">
+        <table class="w-full min-w-[380px] text-sm">
+          <caption class="sr-only">Example {from} to {to} conversions</caption>
+          <thead>
+            <tr class="border-b border-hairline text-left text-xs uppercase tracking-wide text-ink-muted">
+              <th scope="col" class="px-4 py-3 font-medium">Event</th>
+              <th scope="col" class="px-4 py-3 text-right font-medium">{from} Time</th>
+              <th scope="col" class="px-4 py-3 text-right font-medium">Equivalent {to} Time</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-hairline">
+            {
+              Astro.props.examples.map((ex) => (
+                <tr>
+                  <th scope="row" class="px-4 py-3 font-medium text-ink">{ex.label}</th>
+                  <td class="px-4 py-3 text-right font-mono tabular-nums text-ink-muted">{ex.fromText}</td>
+                  <td class="px-4 py-3 text-right font-mono tabular-nums text-ink">{ex.toText}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+      <p class="mt-4 text-xs text-ink-tertiary">
+        Examples above use the conversion factors currently built into the calculator and are estimates only.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto w-full max-w-3xl px-4 py-14 sm:px-6">
+    <FAQ items={Astro.props.faqs} title="Frequently Asked Questions" />
+  </section>
+
+  <CalculatorLinks current={`/${from.toLowerCase()}-to-${to.toLowerCase()}/`} />
+</Layout>

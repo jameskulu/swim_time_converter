@@ -1,0 +1,87 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SplitCalculator from '../../components/SplitCalculator';
+import FAQ from '../../components/FAQ.astro';
+import CalculatorLinks from '../../components/CalculatorLinks.astro';
+
+const faqs = [
+  {
+    question: 'What are swim splits?',
+    answer: 'Splits are the times for each segment of a race. Below the 400, splits are usually taken every 50. For distance events, coaches plan efficient 50s or 100s and swimmers chase cumulative times from the wall clock.',
+  },
+  {
+    question: 'Should every split be exactly even?',
+    answer: 'Top distance swimmers often hold splits within a few tenths of each other. Plan even splits, then expect a small slide on the last 200 — a fast finish usually comes from training, not from a wildly uneven race plan.',
+  },
+  {
+    question: 'How do I use splits in training?',
+    answer: 'Pick your target race time, break it into even per-50 or per-100 splits, and practice each interval on send-off. Consistently hitting split paces in practice is the most reliable way to produce them in a race.',
+  },
+];
+
+const webAppLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Swim Split Calculator',
+  url: 'https://onlineswimtimeconverter.com/split-calculator/',
+  applicationCategory: 'SportsApplication',
+  operatingSystem: 'Web',
+};
+---
+
+<Layout
+  title="Swim Split Calculator – Swim Time Converter"
+  description="Generate even swim splits for any race distance and time. See cumulative split times for 25, 50 or 100 lengths of your event."
+  jsonLd={[webAppLd]}
+>
+  <section class="mx-auto w-full max-w-3xl px-4 pb-10 pt-10 sm:px-6">
+    <h1 class="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">Swim Split Calculator</h1>
+    <p class="mt-4 text-base leading-relaxed text-ink-muted">
+      Break any swim race into even target splits. Choose an event, enter your goal time, and read the cumulative split times for every 50 or 100.
+    </p>
+  </section>
+
+  <section id="calculator" class="mx-auto w-full max-w-3xl scroll-mt-24 px-4 sm:px-6">
+    <SplitCalculator client:load />
+  </section>
+
+  <section class="mx-auto w-full max-w-3xl px-4 py-14 sm:px-6">
+    <h2 class="text-2xl font-semibold tracking-tight text-ink">How to Use the Split Calculator</h2>
+    <ol class="mt-5 space-y-4">
+      <li class="flex gap-3">
+        <span class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md bg-primary/10 text-xs font-bold text-primary">1</span>
+        <p class="text-[15px] leading-relaxed text-ink-muted">Tap a <strong class="text-ink">common race distance</strong> or type your own, and choose yards or meters.</p>
+      </li>
+      <li class="flex gap-3">
+        <span class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md bg-primary/10 text-xs font-bold text-primary">2</span>
+        <p class="text-[15px] leading-relaxed text-ink-muted">Enter your <strong class="text-ink">goal race time</strong>, such as <span class="font-mono text-ink">5:30.00</span> for a 500.</p>
+      </li>
+      <li class="flex gap-3">
+        <span class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md bg-primary/10 text-xs font-bold text-primary">3</span>
+        <p class="text-[15px] leading-relaxed text-ink-muted">Pick a <strong class="text-ink">split length</strong> — 50 is standard for 100s and up, 25 for sprint work, 100 for long distance planning.</p>
+      </li>
+      <li class="flex gap-3">
+        <span class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md bg-primary/10 text-xs font-bold text-primary">4</span>
+        <p class="text-[15px] leading-relaxed text-ink-muted">Read your <strong class="text-ink">cumulative splits</strong> and sticky target time for every length, plus the per-100 pace behind them.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="border-y border-hairline bg-surface-1 py-14">
+    <div class="mx-auto w-full max-w-3xl px-4 sm:px-6">
+      <h2 class="text-2xl font-semibold tracking-tight text-ink">Race Pacing Guide</h2>
+      <div class="mt-6 space-y-3 text-[15px] leading-relaxed text-ink-muted">
+        <p><strong class="text-ink">100s and 200s:</strong> aim for a quick first 15&nbsp;m into the wall, then hold even speed. An aggressive but controlled first 50 with a strong last 25 usually beats a desperate finish.</p>
+        <p><strong class="text-ink">400/500:</strong> keep the first 100 calm — you should feel easy. Nail 3–4 even 100s, then finish the last 100 with whatever you have left.</p>
+        <p><strong class="text-ink">800/1000 and up:</strong> the first half should feel <em>slow</em>. Even 100s all race long, with just a few tenths of positive slide, is how records are set.</p>
+        <p>Generate your plan with the calculator above, then use the <a href="/pace-calculator/" class="font-medium text-primary hover:underline">Pace Calculator</a> to turn those splits into per-100 paces, the <a href="/interval-calculator/" class="font-medium text-primary hover:underline">Interval &amp; Send-off Calculator</a> to build a training set around them, and the <a href="/css-calculator/" class="font-medium text-primary hover:underline">CSS Calculator</a> to check your splits against your threshold pace.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto w-full max-w-3xl px-4 py-14 sm:px-6">
+    <FAQ items={faqs} title="Split Calculator FAQ" />
+  </section>
+
+  <CalculatorLinks current="/split-calculator/" />
+</Layout>

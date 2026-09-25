@@ -1,0 +1,99 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import LengthsConverter from '../../components/LengthsConverter';
+import FAQ from '../../components/FAQ.astro';
+import CalculatorLinks from '../../components/CalculatorLinks.astro';
+
+const faqs = [
+  {
+    question: 'What is the difference between a length and a lap?',
+    answer: 'A length is one crossing of the pool — 25 m in a short-course pool, 50 m in long course. A lap is usually two lengths, down and back. Counting your swim in laps (as many distance trackers do) simply doubles the length count.',
+  },
+  {
+    question: 'Why does a 25-yard pool matter for conversion?',
+    answer: '25 yards is 22.86 meters, so 1000 yards in a SCY pool is shorter than 1000 meters in an SCM pool. If you mix pools, convert yards to meters (~0.9144 and the turns correction from the course converter) before comparing distances like the 500 and 1500.',
+  },
+  {
+    question: 'How many lengths is the pool mile?',
+    answer: 'In a 25 m pool: 1500 m = 60 lengths. In a 25 yd pool: 1650 yd = 66 lengths. In a 50 m pool: 1500 m = 30 lengths; a long-course 1650 would be 33 lengths. The converter handles all three pools.',
+  },
+  {
+    question: 'How do I track lengths while I swim?',
+    answer: 'Count lengths with the flip-turn kick-outs or the flags, or use a wall counter. For repeats, odd lengths leave from the far end — that is two fewer turns missed. When in doubt, use the leave-times from the Interval Calculator to plan when to push off.',
+  },
+];
+
+const webAppLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Swim Pool Lengths Converter',
+  url: 'https://onlineswimtimeconverter.com/lengths-converter/',
+  applicationCategory: 'SportsApplication',
+  operatingSystem: 'Web',
+};
+---
+
+<Layout
+  title="Swim Lengths to Distance Converter – Swim Time Converter"
+  description="Convert swim distances to pool lengths and back for 25-yard, 25-meter and 50-meter pools. How many lengths is your set? How far did those lengths get you?"
+  jsonLd={[webAppLd]}
+>
+  <section class="mx-auto w-full max-w-3xl px-4 pb-10 pt-10 sm:px-6">
+    <h1 class="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">Swim Lengths &amp; Distance Converter</h1>
+    <p class="mt-4 text-base leading-relaxed text-ink-muted">
+      Work in any pool: 25 yards, 25 meters or 50 meters. Convert your swim distance into the number of lengths, or turn lengths into distance.
+    </p>
+  </section>
+
+  <section id="calculator" class="mx-auto w-full max-w-3xl scroll-mt-24 px-4 sm:px-6">
+    <LengthsConverter client:load />
+  </section>
+
+  <section class="mx-auto w-full max-w-3xl px-4 py-14 sm:px-6">
+    <h2 class="text-2xl font-semibold tracking-tight text-ink">How to Use It</h2>
+    <ol class="mt-5 space-y-4">
+      <li class="flex gap-3">
+        <span class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md bg-primary/10 text-xs font-bold text-primary">1</span>
+        <p class="text-[15px] leading-relaxed text-ink-muted">
+          Pick your <strong class="text-ink">pool length</strong> — 25 yd, 25 m or 50 m.
+        </p>
+      </li>
+      <li class="flex gap-3">
+        <span class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md bg-primary/10 text-xs font-bold text-primary">2</span>
+        <p class="text-[15px] leading-relaxed text-ink-muted">
+          Choose <strong class="text-ink">distance → lengths</strong> to see how many lengths your target set takes, or <strong class="text-ink">lengths → distance</strong> to total up what you just swam.
+        </p>
+      </li>
+      <li class="flex gap-3">
+        <span class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md bg-primary/10 text-xs font-bold text-primary">3</span>
+        <p class="text-[15px] leading-relaxed text-ink-muted">
+          Enter a distance (with quick picks like 200, 400, 1000, 1500) or the number of lengths you covered.
+        </p>
+      </li>
+      <li class="flex gap-3">
+        <span class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md bg-primary/10 text-xs font-bold text-primary">4</span>
+        <p class="text-[15px] leading-relaxed text-ink-muted">
+          Read the <strong class="text-ink">full lengths</strong> with any partial remainder, or the equivalent distance in the other unit.
+        </p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="border-y border-hairline bg-surface-1 py-14">
+    <div class="mx-auto w-full max-w-3xl px-4 sm:px-6">
+      <h2 class="text-2xl font-semibold tracking-tight text-ink">Quick Reference</h2>
+      <div class="mt-6 space-y-3 text-[15px] leading-relaxed text-ink-muted">
+        <p><strong class="text-ink">25 m pool:</strong> 100 m = 4 lengths · 200 m = 8 · 400 m = 16 · 1500 m = 60.</p>
+        <p><strong class="text-ink">50 m pool:</strong> 100 m = 2 lengths · 200 m = 4 · 400 m = 8 · 1500 m = 30.</p>
+        <p><strong class="text-ink">25 yd pool:</strong> 100 yd = 4 lengths · 200 yd = 8 · 500 yd = 20 · 1000 yd = 40 · 1650 yd = 66.</p>
+        <p>Roughly speaking, a 25 yd pool is about 9% shorter to a 25 m pool, so yardage adds up faster — compare like for like using the <a href="/scm-to-scy/" class="font-medium text-primary hover:underline">course converter</a> when mixing pools.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto w-full max-w-3xl px-4 py-14 sm:px-6">
+    <FAQ items={faqs} title="Lengths Converter FAQ" />
+  </section>
+
+  <CalculatorLinks current="/lengths-converter/" />
+</Layout>

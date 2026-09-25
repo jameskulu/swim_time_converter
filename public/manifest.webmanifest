@@ -1,0 +1,17 @@
+{
+  "name": "Swim Time Converter",
+  "short_name": "Swim Converter",
+  "description": "Convert swimming times between SCY, SCM, and LCM courses.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fafafb",
+  "theme_color": "#fafafb",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

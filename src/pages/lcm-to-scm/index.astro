@@ -1,0 +1,37 @@
+---
+import ConversionPage from '../../components/ConversionPage.astro';
+import { buildExamples } from '../../lib/examples';
+---
+
+<ConversionPage
+  from="LCM"
+  to="SCM"
+  metaTitle="LCM to SCM Converter – Swim Time Converter"
+  metaDescription="Convert LCM swim times to SCM. Estimate short-course meters equivalents for your long-course meters times in a 25-meter pool."
+  h1="LCM to SCM Converter"
+  lead="Convert swimming times from long-course meters (LCM) to short-course meters (SCM). Enter your event and time to estimate the same swim in a 25-meter pool."
+  paragraphs={[
+    `Distances match between LCM and SCM — a 100&nbsp;Free stays 100&nbsp;m in both — so the only real change is the pool. A 25-meter pool gives you far more turns than a 50-meter pool, and each turn is worth a small push-off advantage.`,
+    `This converter adds the short-course turn bonus by subtracting a stroke-specific seconds-per-turn value for every extra wall you would hit in the 25-meter swim (0.8&nbsp;s freestyle/medley, 0.6&nbsp;s backstroke, 1.0&nbsp;s breaststroke, 0.7&nbsp;s butterfly). The more distance, the more turns, and the bigger the difference.`,
+    `Because turns vary from swimmer to swimmer, the result is a close estimate rather than an official equivalent. When you need an official time, use the governing body's own conversion procedures.`,
+  ]}
+  examples={buildExamples('LCM', 'SCM')}
+  faqs={[
+    {
+      question: 'How do you convert LCM to SCM times?',
+      answer: 'Since the distances are identical, the converter removes the turn advantage of longer course — a stroke-specific seconds-per-turn value multiplied by the extra turns you save swimming in a 25-meter pool.',
+    },
+    {
+      question: 'Is a long course or short course time faster?',
+      answer: 'Short course. More walls in a 25-meter pool mean more push-offs, so the same swimmer posts faster SCM times than LCM times for the same event.',
+    },
+    {
+      question: 'How much faster is SCM than LCM for the 200?',
+      answer: 'Roughly a second for a 200 (4 extra turns in a 25m pool), a bit less for strokes with a smaller turn bonus. Sprint events gain less overall because they have only a couple of extra walls.',
+    },
+    {
+      question: 'Do LCM to SCM conversions work for distance events too?',
+      answer: 'Yes — 400, 800 and 1500 all match exactly between the two courses, and each gains the same per-turn estimate across the full distance.',
+    },
+  ]}
+/>

@@ -1,0 +1,37 @@
+---
+import ConversionPage from '../../components/ConversionPage.astro';
+import { buildExamples } from '../../lib/examples';
+---
+
+<ConversionPage
+  from="SCY"
+  to="SCM"
+  metaTitle="SCY to SCM Converter – Swim Time Converter"
+  metaDescription="Convert SCY swim times to SCM (short course meters). Calculate estimated equivalent swim times for a 25-yard to 25-meter pool."
+  h1="SCY to SCM Converter"
+  lead="Convert swimming times from short-course yards (SCY) to short-course meters (SCM). Enter your event and time to get an estimated equivalent time for a 25-meter pool."
+  paragraphs={[
+    `SCY and SCM are both swum in 25-length pools, so the turn count for any event is the same — what changes is the length itself. A 25-yard lane is about 91.44&nbsp;cm per yard, so a 100 Free in yards is 91.44 m while a 100 Free in meters is a full 100 m.`,
+    `Because the pools have the same number of turns, the conversion is almost purely a distance scale: the calculator multiplies short-course yard seconds by <strong class="text-ink">1.11</strong> to reach the short-course meter equivalent. Long distance freestyle uses its own pairing factors for <strong class="text-ink">500↔400</strong>, <strong class="text-ink">1000↔800</strong> and <strong class="text-ink">1650↔1500</strong>.`,
+    `This SCY&nbsp;→&nbsp;SCM conversion is the most commonly requested swimming conversion because U.S. meets (SCY) and international short-course meets (SCM) both happen through the winter season. Remember the result is an estimate, not an official time.`,
+  ]}
+  examples={buildExamples('SCY', 'SCM')}
+  faqs={[
+    {
+      question: 'What is the SCY to SCM conversion factor?',
+      answer: 'The standard factor is 1.11 for near-identical events, because a 25-yard lane is shorter than a 25-meter lane. Distance freestyle events use their own pairing factors (0.8925 and 1.02).',
+    },
+    {
+      question: 'Why are SCY and SCM times different if both pools are short course?',
+      answer: 'The pools have the same number of turns, but a meter is longer than a yard. A 100-yard race covers 91.44 m while a 100-meter race covers a full 100 m, so SCM times are naturally slower.',
+    },
+    {
+      question: 'Is a 500 yard freestyle the same as 400 meters or 500 meters?',
+      answer: 'A 500-yard freestyle converts to the 400-meter freestyle (SCM). International short-course competition swims the 400, 800 and 1500, not the 500, 1000 and 1650.',
+    },
+    {
+      question: 'Do U.S. swim times count in international short-course meets?',
+      answer: 'That depends on the meet. Many meets accept converted times, but organizers apply their own conversion rules — always check the entry information for the event you are targeting.',
+    },
+  ]}
+/>

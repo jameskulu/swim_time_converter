@@ -1,0 +1,74 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const sections = [
+  {
+    title: 'Privacy-first by design',
+    body: 'Privacy is at the core of this site. All calculators run entirely in your browser — JavaScript on this page — and none of the times or distances you enter are transmitted anywhere. There is no database, no account system, and no backend that receives your inputs.',
+  },
+  {
+    title: 'Local storage',
+    body: 'Your device keeps only the settings you choose on this site, such as your preferred course and gender, in your browser’s local storage so your tool preferences persist between visits. You can clear this at any time by clearing your browser data for this site. No personal information is stored server-side.',
+  },
+  {
+    title: 'Automated data we collect',
+    body: 'Like most websites, our hosting and analytics may capture routine technical information — such as your IP address, browser type, pages visited and timestamps — in aggregate, to keep the site working, secure and fast. If we place analytics cookies, they are used to understand which tools and guides are useful, never to sell or share personal data.',
+  },
+  {
+    title: 'Cookies',
+    body: 'This site aims to be cookie-light. Any cookies used are strictly for essential site function or first-party analytics. We do not run third-party advertising networks that profile you across the web.',
+  },
+  {
+    title: 'Third-party services',
+    body: 'We may use standard services for hosting, performance monitoring and email correspondence. These services process the minimal data needed to provide them, under their own privacy policies. We do not sell or rent personal information to anyone.',
+  },
+  {
+    title: 'Your rights',
+    body: 'Depending on where you live, you may have rights to access, correct, delete or restrict use of personal data we hold. Because this site collects almost nothing, exercising these rights is usually a matter of clearing your browser data. To request help or report a concern, contact us via the Contact page.',
+  },
+  {
+    title: 'Children',
+    body: 'This site is intended for general audiences and does not knowingly collect information from children. If you believe we have inadvertently received children’s data, contact us and we will delete it.',
+  },
+  {
+    title: 'Changes to this policy',
+    body: 'We may update this page as the site evolves. Material changes will be reflected here with a new effective date. Continued use of the site means you accept the current policy.',
+  },
+];
+---
+
+<Layout
+  title="Privacy Policy – Swim Time Converter"
+  description="The Swim Time Converter privacy policy: calculators run in your browser, we collect the minimum data needed to operate."
+>
+  <section class="mx-auto w-full max-w-3xl px-4 pb-10 pt-10 sm:px-6">
+    <h1 class="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">Privacy Policy</h1>
+    <p class="mt-4 text-base leading-relaxed text-ink-muted">
+      Effective: January 2026. Swim Time Converter ("we", "us") respects your privacy. This policy explains what we do and don't do with data.
+    </p>
+  </section>
+
+  <section class="mx-auto w-full max-w-3xl space-y-8 px-4 pb-16 sm:px-6">
+    {sections.map((s, i) => (
+      <div class="space-y-2">
+        <h2 class="flex items-center gap-3 text-lg font-semibold text-ink">
+          <span class="text-sm font-bold text-primary">{String(i + 1).padStart(2, '0')}</span>
+          {s.title}
+        </h2>
+        <p class="text-[15px] leading-relaxed text-ink-muted">{s.body}</p>
+      </div>
+    ))}
+    <p class="pt-2 text-sm text-ink-subtle">
+      Questions about this policy? Contact us at{' '}
+      <a href="mailto:hello@onlineswimtimeconverter.com" class="font-medium text-primary hover:underline">
+        hello@onlineswimtimeconverter.com
+      </a>.
+    </p>
+    <p class="border-t border-hairline pt-6 text-sm text-ink-subtle">
+      Explore the tools: <a href="/" class="font-medium text-primary hover:underline">Time Converter</a> ·
+      <a href="/pace-calculator/" class="font-medium text-primary hover:underline">Pace</a> ·
+      <a href="/css-calculator/" class="font-medium text-primary hover:underline">Critical Swim Speed</a> ·
+      <a href="/guides/" class="font-medium text-primary hover:underline">Guides</a>
+    </p>
+  </section>
+</Layout>

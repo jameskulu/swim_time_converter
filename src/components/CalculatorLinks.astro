@@ -1,0 +1,76 @@
+---
+import { converterLinks, otherCalculators, otherConverters, isNavActive } from '../lib/navigation';
+
+interface Props {
+  /** Href of the current page so it is excluded (or dimmed) in the lists. */
+  current?: string;
+}
+
+const { current = '' } = Astro.props;
+
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const toolLinks = otherCalculators(current || undefined);
+const convLinks = current.startsWith('/scy-to-') || current.startsWith('/scm-to-') || current.startsWith('/lcm-to-')
+  ? otherConverters(current)
+  : converterLinks;
+---
+
+<div class="border-t border-hairline bg-surface-1 py-14">
+  <div class="mx-auto w-full max-w-6xl px-4 sm:px-6">
+    <h2 class="text-lg font-semibold text-ink">More Swimming Tools</h2>
+    <div class="mt-5 grid gap-6 lg:grid-cols-2">
+      <div>
+        <p class="text-xs font-medium uppercase tracking-[0.08em] text-ink-tertiary">Calculators</p>
+        <ul class="mt-3 grid gap-2 sm:grid-cols-2">
+          {
+            toolLinks.map((link) => {
+              const active = isNavActive(path, link.href);
+              return (
+                <li>
+                  <a
+                    href={link.href}
+                    class:list={[
+                      'block rounded-lg border border-hairline bg-surface-1 px-3.5 py-2.5 text-sm transition-colors hover:border-hairline-strong hover:bg-surface-2',
+                      active ? 'font-medium text-primary' : 'text-ink-muted hover:text-ink',
+                    ]}
+                    aria-current={active ? 'page' : undefined}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              );
+            })
+          }
+        </ul>
+      </div>
+      <div>
+        <p class="text-xs font-medium uppercase tracking-[0.08em] text-ink-tertiary">Course Converters</p>
+        <ul class="mt-3 grid gap-2 sm:grid-cols-2">
+          {
+            convLinks.map((link) => {
+              const active = isNavActive(path, link.href);
+              return (
+                <li>
+                  <a
+                    href={link.href}
+                    class:list={[
+                      'block rounded-lg border border-hairline bg-surface-1 px-3.5 py-2.5 text-sm transition-colors hover:border-hairline-strong hover:bg-surface-2',
+                      active ? 'font-medium text-primary' : 'text-ink-muted hover:text-ink',
+                    ]}
+                    aria-current={active ? 'page' : undefined}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              );
+            })
+          }
+        </ul>
+      </div>
+    </div>
+    <p class="mt-6 text-sm text-ink-subtle">
+      New here? Start with the <a href="/pace-calculator/" class="font-medium text-primary hover:underline">Pace Calculator</a> for any race,
+      or read the <a href="/guides/" class="font-medium text-primary hover:underline">course conversion guide</a> before comparing times across pools.
+    </p>
+  </div>
+</div>

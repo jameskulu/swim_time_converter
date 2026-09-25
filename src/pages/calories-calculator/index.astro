@@ -1,0 +1,98 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CaloriesCalculator from '../../components/CaloriesCalculator';
+import FAQ from '../../components/FAQ.astro';
+import CalculatorLinks from '../../components/CalculatorLinks.astro';
+
+const faqs = [
+  {
+    question: 'How accurate are swimming calorie estimates?',
+    answer: 'These are estimates built on the Compendium of Physical Activities MET values, combined with your body weight and duration. Individual results vary with technique, pool temperature and muscle mass — treat the number as a useful scale (which stroke burns more), not a precise count.',
+  },
+  {
+    question: 'Why does butterfly burn so many more calories?',
+    answer: 'Butterfly recruits the whole body and demands a high stroke rate, so its MET value (13.8) is far above treading water (3.5) or easy freestyle (4.8). If you swim a mixed workout, choose "General laps" for a middle estimate.',
+  },
+  {
+    question: 'Does my stroke matter more than my weight?',
+    answer: 'Both drive the estimate, but weight acts as a multiplier on every stroke — a heavier swimmer burns more calories doing the exact same set. Duration and intensity are the levers you control mid-workout, and intensity is why vigorous freestyle beats slow backstroke.',
+  },
+  {
+    question: 'Should I eat back the calories I burn swimming?',
+    answer: 'For most swimmers the answer is no — the estimate is already optimistic for a mixed practice that includes drills and rest intervals. Fuel appropriately for long, hard sessions, but do not plan your nutrition around the bare MET number.',
+  },
+];
+
+const webAppLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Swimming Calories Calculator',
+  url: 'https://onlineswimtimeconverter.com/calories-calculator/',
+  applicationCategory: 'SportsApplication',
+  operatingSystem: 'Web',
+};
+---
+
+<Layout
+  title="Swimming Calories Calculator – Swim Time Converter"
+  description="Estimate calories burned swimming by stroke, intensity, body weight and duration — freestyle, backstroke, breaststroke, butterfly and more."
+  jsonLd={[webAppLd]}
+>
+  <section class="mx-auto w-full max-w-3xl px-4 pb-10 pt-10 sm:px-6">
+    <h1 class="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">Swimming Calories Calculator</h1>
+    <p class="mt-4 text-base leading-relaxed text-ink-muted">
+      Estimate how many calories a swim session burns from your weight, the stroke you swim, its intensity and how long you are in the water.
+    </p>
+  </section>
+
+  <section id="calculator" class="mx-auto w-full max-w-3xl scroll-mt-24 px-4 sm:px-6">
+    <CaloriesCalculator client:load />
+  </section>
+
+  <section class="mx-auto w-full max-w-3xl px-4 py-14 sm:px-6">
+    <h2 class="text-2xl font-semibold tracking-tight text-ink">How to Use It</h2>
+    <ol class="mt-5 space-y-4">
+      <li class="flex gap-3">
+        <span class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md bg-primary/10 text-xs font-bold text-primary">1</span>
+        <p class="text-[15px] leading-relaxed text-ink-muted">
+          Enter your <strong class="text-ink">body weight</strong> in kilograms or pounds.
+        </p>
+      </li>
+      <li class="flex gap-3">
+        <span class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md bg-primary/10 text-xs font-bold text-primary">2</span>
+        <p class="text-[15px] leading-relaxed text-ink-muted">
+          Pick the <strong class="text-ink">stroke</strong> you mostly swim. "Freestyle / front crawl" is the usual choice.
+        </p>
+      </li>
+      <li class="flex gap-3">
+        <span class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md bg-primary/10 text-xs font-bold text-primary">3</span>
+        <p class="text-[15px] leading-relaxed text-ink-muted">
+          Choose an <strong class="text-ink">intensity</strong> — light (easy laps), moderate (steady) or vigorous (competitive/hard).
+        </p>
+      </li>
+      <li class="flex gap-3">
+        <span class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md bg-primary/10 text-xs font-bold text-primary">4</span>
+        <p class="text-[15px] leading-relaxed text-ink-muted">
+          Set the <strong class="text-ink">duration in the water</strong> and read your estimated calories and per-hour burn.
+        </p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="border-y border-hairline bg-surface-1 py-14">
+    <div class="mx-auto w-full max-w-3xl px-4 sm:px-6">
+      <h2 class="text-2xl font-semibold tracking-tight text-ink">Why the Strokes Differ</h2>
+      <div class="mt-6 space-y-3 text-[15px] leading-relaxed text-ink-muted">
+        <p><strong class="text-ink">Butterfly</strong> is the most demanding — nearly twice the burn of easy freestyle at the same time. <strong class="text-ink">Breaststroke</strong> and <strong class="text-ink">backstroke</strong> sit in between, while <strong class="text-ink">treading water</strong> is the lowest-effort option.</p>
+        <p>Intensity tends to matter as much as the stroke itself. Vigorous freestyle can out-burn a relaxed breaststroke, so be honest about the effort level of the session you are estimating.</p>
+        <p>Want to plan the training that makes those calories count? Pair the estimate with the <a href="/css-calculator/" class="font-medium text-primary hover:underline">CSS Calculator</a> to structure the set behind the burn, and use the <a href="/lengths-converter/" class="font-medium text-primary hover:underline">Lengths Converter</a> to work out how far those laps add up to.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto w-full max-w-3xl px-4 py-14 sm:px-6">
+    <FAQ items={faqs} title="Calories Calculator FAQ" />
+  </section>
+
+  <CalculatorLinks current="/calories-calculator/" />
+</Layout>

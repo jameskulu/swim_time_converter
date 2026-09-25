@@ -1,0 +1,82 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  title="Contact – Swim Time Converter"
+  description="Get in touch with the Swim Time Converter team. Questions, feedback, or corrections about our swimming tools."
+>
+  <section class="mx-auto w-full max-w-3xl px-4 pb-10 pt-10 sm:px-6">
+    <h1 class="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">Contact</h1>
+    <p class="mt-4 text-base leading-relaxed text-ink-muted">
+      Found a problem, or want to suggest a feature? We read every message. Email us at{' '}
+      <a href="mailto:hello@onlineswimtimeconverter.com" class="font-medium text-primary hover:underline">
+        hello@onlineswimtimeconverter.com
+      </a>{' '}
+      or use the form below — it opens your email app with everything pre-filled.
+    </p>
+  </section>
+
+  <section class="mx-auto w-full max-w-3xl px-4 pb-16 sm:px-6">
+    <form
+      action="mailto:hello@onlineswimtimeconverter.com"
+      method="post"
+      enctype="text/plain"
+      class="space-y-5"
+    >
+      <div>
+        <label for="contact-subject" class="mb-1.5 block text-sm font-medium text-ink">
+          Subject
+        </label>
+        <select
+          id="contact-subject"
+          name="subject"
+          class="w-full rounded-lg border border-hairline bg-surface-1 px-3 py-2.5 text-sm text-ink shadow-sm focus:outline-2 focus:outline-primary"
+        >
+          <option>General question</option>
+          <option>Correction or bug report</option>
+          <option>Feature suggestion</option>
+          <option>Partnership</option>
+        </select>
+      </div>
+      <div>
+        <label for="contact-message" class="mb-1.5 block text-sm font-medium text-ink">
+          Message
+        </label>
+        <textarea
+          id="contact-message"
+          name="body"
+          rows="7"
+          required
+          placeholder="Tell us what you need…"
+          class="w-full resize-y rounded-lg border border-hairline bg-surface-1 px-3 py-2.5 text-sm text-ink shadow-sm placeholder:text-ink-tertiary focus:outline-2 focus:outline-primary"
+        ></textarea>
+      </div>
+      <button
+        type="submit"
+        class="rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-on-primary shadow-sm transition-colors hover:bg-primary-hover active:bg-primary-focus"
+      >
+        Send via Email
+      </button>
+      <p class="text-xs text-ink-subtle">
+        This site stores no data. Submitting the button opens your mail client — nothing is sent without your confirmation.
+      </p>
+    </form>
+
+    <div class="rounded-xl border border-hairline bg-surface-1 p-5">
+      <p class="text-sm font-semibold text-ink">Looking for a tool instead?</p>
+      <ul class="mt-3 grid gap-1.5 sm:grid-cols-2">
+        <li><a href="/" class="text-sm text-ink-muted transition-colors hover:text-ink hover:underline">Swim Time Converter</a></li>
+        <li><a href="/pace-calculator/" class="text-sm text-ink-muted transition-colors hover:text-ink hover:underline">Pace Calculator</a></li>
+        <li><a href="/split-calculator/" class="text-sm text-ink-muted transition-colors hover:text-ink hover:underline">Split Calculator</a></li>
+        <li><a href="/css-calculator/" class="text-sm text-ink-muted transition-colors hover:text-ink hover:underline">Critical Swim Speed</a></li>
+        <li><a href="/interval-calculator/" class="text-sm text-ink-muted transition-colors hover:text-ink hover:underline">Interval &amp; Send-off</a></li>
+        <li><a href="/lengths-converter/" class="text-sm text-ink-muted transition-colors hover:text-ink hover:underline">Lengths &amp; Distance</a></li>
+      </ul>
+      <p class="mt-4 text-sm text-ink-subtle">
+        Still stuck? The <a href="/guides/" class="font-medium text-primary hover:underline">Guides</a> explain conversion logic step by step —
+        and the <a href="/about/" class="font-medium text-primary hover:underline">About</a> page covers the method we use.
+      </p>
+    </div>
+  </section>
+</Layout>

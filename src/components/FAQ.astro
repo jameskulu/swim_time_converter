@@ -1,0 +1,40 @@
+---
+interface Props {
+  items: { question: string; answer: string }[];
+  title?: string;
+  id?: string;
+}
+
+const { items, title = 'Frequently Asked Questions', id } = Astro.props;
+---
+
+<section id={id} class="scroll-mt-24">
+  {
+    title && (
+      <h2 class="text-center text-2xl font-semibold tracking-tight text-ink sm:text-3xl">{title}</h2>
+    )
+  }
+  <div class="mx-auto mt-6 max-w-3xl space-y-2">
+    {
+      items.map((item) => (
+        <details class="group rounded-lg border border-hairline bg-surface-1">
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-4 py-3.5 text-sm font-medium text-ink [&::-webkit-details-marker]:hidden sm:text-base">
+            <span>{item.question}</span>
+            <svg
+              viewBox="0 0 20 20"
+              fill="none"
+              class="h-4 w-4 shrink-0 text-ink-subtle transition-transform group-open:rotate-180"
+              aria-hidden="true"
+            >
+              <path d="m5 8 5 5 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </summary>
+          <div
+            class="border-t border-hairline px-4 py-3.5 text-sm leading-relaxed text-ink-muted [&_a]:font-medium [&_a]:text-primary [&_a]:hover:underline"
+            set:html={item.answer}
+          />
+        </details>
+      ))
+    }
+  </div>
+</section>

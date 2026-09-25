@@ -1,0 +1,91 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PaceCalculator from '../../components/PaceCalculator';
+import FAQ from '../../components/FAQ.astro';
+import CalculatorLinks from '../../components/CalculatorLinks.astro';
+
+const faqs = [
+  {
+    question: 'How do you calculate a swim pace?',
+    answer: 'Divide your total time (in seconds) by the total distance to get seconds per unit, then multiply by the pace interval you care about. For example, 6:05 over 500 m is 365 s ÷ 500 m × 100 = 73 s per 100 m.',
+  },
+  {
+    question: 'What is a good 100-meter pace?',
+    answer: 'It depends entirely on the event and your level — a 400/500 swimmer targeting average splits might hold 1:10–1:20 per 100, while a distance swimmer aiming for a 1500 could pace at 1:05–1:15. Use this calculator to break your actual target time into even splits instead of guessing.',
+  },
+  {
+    question: 'Should I even-split my race?',
+    answer: 'Most of the world’s best distance swimmers swim nearly even splits. Very fast swimmers are often slightly positive (a touch slower at the end); very few can run negative splits in a swim race. Aim even, then adjust toward what your own races show.',
+  },
+];
+
+const webAppLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Swim Pace Calculator',
+  url: 'https://onlineswimtimeconverter.com/pace-calculator/',
+  applicationCategory: 'SportsApplication',
+  operatingSystem: 'Web',
+};
+---
+
+<Layout
+  title="Swim Pace Calculator – Swim Time Converter"
+  description="Calculate your swimming pace per 100, 200, 400 or any distance. Enter total time and distance to get even target paces."
+  jsonLd={[webAppLd]}
+>
+  <section class="mx-auto w-full max-w-3xl px-4 pb-10 pt-10 sm:px-6">
+    <h1 class="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">Swim Pace Calculator</h1>
+    <p class="mt-4 text-base leading-relaxed text-ink-muted">
+      Work out your swimming pace per 25, 50, 100, 200 or 400 — in yards or meters. Enter a total time and distance, and get target paces for your next set.
+    </p>
+  </section>
+
+  <section id="calculator" class="mx-auto w-full max-w-3xl scroll-mt-24 px-4 sm:px-6">
+    <PaceCalculator client:load />
+  </section>
+
+  <section class="mx-auto w-full max-w-3xl px-4 py-14 sm:px-6">
+    <h2 class="text-2xl font-semibold tracking-tight text-ink">How to Use the Pace Calculator</h2>
+    <ol class="mt-5 space-y-4">
+      <li class="flex gap-3">
+        <span class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md bg-primary/10 text-xs font-bold text-primary">1</span>
+        <p class="text-[15px] leading-relaxed text-ink-muted">Enter the <strong class="text-ink">total distance</strong> of your swim, and pick whether it is in yards or meters.</p>
+      </li>
+      <li class="flex gap-3">
+        <span class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md bg-primary/10 text-xs font-bold text-primary">2</span>
+        <p class="text-[15px] leading-relaxed text-ink-muted">Enter the <strong class="text-ink">total time</strong> for that distance, like <span class="font-mono text-ink">6:05.00</span>.</p>
+      </li>
+      <li class="flex gap-3">
+        <span class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md bg-primary/10 text-xs font-bold text-primary">3</span>
+        <p class="text-[15px] leading-relaxed text-ink-muted">Choose the <strong class="text-ink">pace interval</strong> — the per-100 is the standard, but you can use 200 or 400 for send-off planning and 25 for sprint sets.</p>
+      </li>
+      <li class="flex gap-3">
+        <span class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md bg-primary/10 text-xs font-bold text-primary">4</span>
+        <p class="text-[15px] leading-relaxed text-ink-muted">Press <strong class="text-ink">Calculate Pace</strong> and read your target pace per interval. Use it to build even-paced sets or check a race performance.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="border-y border-hairline bg-surface-1 py-14">
+    <div class="mx-auto w-full max-w-3xl px-4 sm:px-6">
+      <h2 class="text-2xl font-semibold tracking-tight text-ink">Common Pace Targets</h2>
+      <div class="mt-6 space-y-3 text-[15px] leading-relaxed text-ink-muted">
+        <p>Pace is how long it takes to cover one interval, normally <strong class="text-ink">100 in meters</strong> or <strong class="text-ink">100 yards</strong>. Coaches set sets around send-offs — for example a set of 10 × 100 on 1:30 holding 1:15 means you leave every 90 seconds and swim each 100 in 75.</p>
+        <ul class="grid gap-2 sm:grid-cols-2">
+          <li class="rounded-lg border border-hairline bg-canvas px-4 py-3 text-sm">400 m in 4:00 → 60 s per 100</li>
+          <li class="rounded-lg border border-hairline bg-canvas px-4 py-3 text-sm">500 yd in 5:30 → 66 s per 100</li>
+          <li class="rounded-lg border border-hairline bg-canvas px-4 py-3 text-sm">1500 m in 16:00 → 64 s per 100</li>
+          <li class="rounded-lg border border-hairline bg-canvas px-4 py-3 text-sm">200 m in 2:00 → 60 s per 100</li>
+        </ul>
+        <p>Use the pace calculator above to build these for your own times, then pair it with the <a href="/split-calculator/" class="font-medium text-primary hover:underline">Split Calculator</a> to see the cumulative clock times.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto w-full max-w-3xl px-4 py-14 sm:px-6">
+    <FAQ items={faqs} title="Pace Calculator FAQ" />
+  </section>
+
+  <CalculatorLinks current="/pace-calculator/" />
+</Layout>

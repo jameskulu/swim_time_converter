@@ -1,0 +1,232 @@
+---
+import { isNavActive, converterLinks, calculatorLinks } from '../lib/navigation';
+
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+const convertersActive = converterLinks.some((l) => isNavActive(path, l.href));
+const calculatorsActive = calculatorLinks.some((l) => isNavActive(path, l.href));
+---
+
+<header class="sticky top-0 z-50 border-b border-hairline bg-canvas/80 backdrop-blur-md supports-[backdrop-filter]:bg-canvas/70">
+  <div class="mx-auto flex h-14 w-full max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
+    <a href="/" class="flex min-w-0 items-center gap-2.5 text-sm font-semibold text-ink">
+      <span class="grid h-7 w-7 shrink-0 place-items-center rounded-md bg-primary text-on-primary" aria-hidden="true">
+        <svg viewBox="0 0 20 20" fill="none" class="h-4 w-4">
+          <path d="M4 6c2 0 2 1.5 4 1.5S10 6 12 6s2 1.5 4 1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+          <path d="M4 10c2 0 2 1.5 4 1.5S10 10 12 10s2 1.5 4 1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+          <path d="M4 14c2 0 2 1.5 4 1.5S10 14 12 14s2 1.5 4 1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+        </svg>
+      </span>
+      <span class="truncate">Swim Time Converter</span>
+    </a>
+
+    <nav class="hidden items-center gap-1 md:flex" aria-label="Primary">
+      <!-- Converters -->
+      <div class="group relative">
+        <button
+          type="button"
+          class:list={[
+            'flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm transition-colors',
+            convertersActive
+              ? 'bg-surface-2 font-medium text-ink'
+              : 'text-ink-subtle hover:bg-surface-2 hover:text-ink',
+          ]}
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          Converters
+          <svg viewBox="0 0 10 6" fill="none" class="h-1.5 w-2.5 shrink-0" aria-hidden="true">
+            <path d="m1 1 4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+        <div
+          class="invisible absolute left-0 top-full z-50 pt-2 opacity-0 transition-all duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100"
+        >
+          <div class="min-w-56 rounded-xl border border-hairline bg-surface-1 p-2 shadow-pop">
+            {
+              converterLinks.map((link) => (
+                <a
+                  href={link.href}
+                  class={[
+                    'block rounded-md px-3 py-2 text-sm',
+                    isNavActive(path, link.href)
+                      ? 'bg-surface-2 font-medium text-ink'
+                      : 'text-ink-muted hover:bg-surface-2 hover:text-ink',
+                  ].join(' ')}
+                >
+                  {link.label}
+                </a>
+              ))
+            }
+            <div class="my-2 border-t border-hairline" />
+            <a href="/guides/" class="block rounded-md px-3 py-2 text-sm text-ink-muted hover:bg-surface-2 hover:text-ink">
+              Course conversion guide
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Calculators -->
+      <div class="group relative">
+        <button
+          type="button"
+          class:list={[
+            'flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm transition-colors',
+            calculatorsActive
+              ? 'bg-surface-2 font-medium text-ink'
+              : 'text-ink-subtle hover:bg-surface-2 hover:text-ink',
+          ]}
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          Calculators
+          <svg viewBox="0 0 10 6" fill="none" class="h-1.5 w-2.5 shrink-0" aria-hidden="true">
+            <path d="m1 1 4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+        <div
+          class="invisible absolute right-0 top-full z-50 pt-2 opacity-0 transition-all duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100"
+        >
+          <div class="w-72 rounded-xl border border-hairline bg-surface-1 p-2 shadow-pop">
+            {
+              calculatorLinks.map((link) => (
+                <a
+                  href={link.href}
+                  class={[
+                    'block rounded-md px-3 py-2 text-sm',
+                    isNavActive(path, link.href)
+                      ? 'bg-surface-2 font-medium text-ink'
+                      : 'text-ink-muted hover:bg-surface-2 hover:text-ink',
+                  ].join(' ')}
+                >
+                  {link.label}
+                </a>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+
+      <a
+        href="/guides/"
+        class:list={[
+          'rounded-md px-3 py-1.5 text-sm transition-colors',
+          isNavActive(path, '/guides/')
+            ? 'bg-surface-2 font-medium text-ink'
+            : 'text-ink-subtle hover:bg-surface-2 hover:text-ink',
+        ]}
+        aria-current={isNavActive(path, '/guides/') ? 'page' : undefined}
+      >
+        Guides
+      </a>
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <button
+        id="theme-toggle"
+        type="button"
+        class="grid h-9 w-9 place-items-center rounded-md border border-hairline bg-surface-1 text-ink-muted transition-colors hover:text-ink"
+        aria-label="Toggle dark mode"
+      >
+        <svg viewBox="0 0 20 20" fill="none" class="h-4 w-4 block dark:hidden" aria-hidden="true">
+          <path d="M10 4.5a5.5 5.5 0 1 0 5.5 5.5 4.25 4.25 0 0 1-5.5-5.5Z" stroke="currentColor" stroke-width="1.5" />
+        </svg>
+        <svg viewBox="0 0 20 20" fill="none" class="hidden h-4 w-4 dark:block" aria-hidden="true">
+          <circle cx="10" cy="10" r="3.5" stroke="currentColor" stroke-width="1.5" />
+          <path d="M10 2.5v2M10 15.5v2M2.5 10h2M15.5 10h2M4.7 4.7l1.4 1.4M13.9 13.9l1.4 1.4M15.3 4.7l-1.4 1.4M6.1 13.9l-1.4 1.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+        </svg>
+      </button>
+
+      <button
+        id="menu-toggle"
+        type="button"
+        class="grid h-9 w-9 place-items-center rounded-md border border-hairline bg-surface-1 text-ink-muted transition-colors hover:text-ink md:hidden"
+        aria-label="Open menu"
+        aria-controls="mobile-menu"
+        aria-expanded="false"
+      >
+        <svg viewBox="0 0 20 20" fill="none" class="h-4 w-4" aria-hidden="true">
+          <path d="M3.5 5.5h13M3.5 10h13M3.5 14.5h13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-menu" class="hidden border-t border-hairline bg-canvas md:hidden">
+    <nav class="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-3" aria-label="Mobile">
+      <p class="px-3 pb-1 pt-3 text-xs font-medium uppercase tracking-[0.08em] text-ink-tertiary">Calculators</p>
+      {
+        calculatorLinks.map((item) => (
+          <a
+            href={item.href}
+            class:list={[
+              'rounded-md px-3 py-2.5 text-sm',
+              isNavActive(path, item.href) ? 'bg-surface-2 font-medium text-ink' : 'text-ink-muted hover:bg-surface-2 hover:text-ink',
+            ]}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+
+      <p class="px-3 pb-1 pt-4 text-xs font-medium uppercase tracking-[0.08em] text-ink-tertiary">Converters</p>
+      {
+        converterLinks.map((item) => (
+          <a
+            href={item.href}
+            class:list={[
+              'rounded-md px-3 py-2.5 text-sm',
+              isNavActive(path, item.href) ? 'bg-surface-2 font-medium text-ink' : 'text-ink-muted hover:bg-surface-2 hover:text-ink',
+            ]}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+
+      <a
+        href="/guides/"
+        class:list={[
+          'rounded-md px-3 py-2.5 text-sm',
+          isNavActive(path, '/guides/') ? 'bg-surface-2 font-medium text-ink' : 'text-ink-muted hover:bg-surface-2 hover:text-ink',
+        ]}
+      >
+        Guides
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('theme-toggle');
+  function setTheme() {
+    const isDark = document.documentElement.classList.contains('dark');
+    document.documentElement.classList.toggle('dark', !isDark);
+    try {
+      localStorage.setItem('theme', isDark ? 'light' : 'dark');
+    } catch (e) {
+      /* private mode — ignore */
+    }
+  }
+  toggle?.addEventListener('click', setTheme);
+
+  const menuButton = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  function syncMenu() {
+    const open = menu?.classList.contains('block') ?? false;
+    menuButton?.setAttribute('aria-expanded', String(open));
+    menuButton?.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  }
+  menuButton?.addEventListener('click', () => {
+    menu?.classList.toggle('hidden');
+    menu?.classList.toggle('block');
+    syncMenu();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      menu?.classList.add('hidden');
+      menu?.classList.remove('block');
+      syncMenu();
+    }
+  });
+</script>

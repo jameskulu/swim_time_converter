@@ -1,0 +1,99 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CssCalculator from '../../components/CssCalculator';
+import FAQ from '../../components/FAQ.astro';
+import CalculatorLinks from '../../components/CalculatorLinks.astro';
+
+const faqs = [
+  {
+    question: 'What is Critical Swim Speed (CSS)?',
+    answer: 'CSS is the fastest pace you can hold with minimal fatigue — your "aerobic maximum". It comes from a short two-test set: one long swim (400 m or yds) and one short swim (200), swum all out. The mathematical gap between them reveals your sustainable threshold pace, which age-group and open-water swimmers use to set training paces.',
+  },
+  {
+    question: 'Which test should I swim: 400 + 200, or 800 + 400?',
+    answer: 'The Wakayoshi 400 + 200 method is the classic test and fits in most practices. You need a long swim that is genuinely hard and a short swim that is very fast. Some coaches swap in a 500 + 200 in yards, or rely on an all-out 1000 when a sprint test is inconvenient — all of them feed the same formula.',
+  },
+  {
+    question: 'How do I use the training zones?',
+    answer: 'Swim your recovery and aerobic sets at Zone 1–2. Do tempo work at Zone 3 and threshold sets (like 8 x 100 on a set send-off) around Zone 4 — your CSS pace. Save Zone 5 for short, high-quality repeats on full rest. Retest every 4–6 weeks or after a training block to keep the numbers honest.',
+  },
+  {
+    question: 'Is my CSS the same as my race pace?',
+    answer: 'Not exactly. CSS is a training threshold, not a racing tactic. In a 400 you can hold slightly better than CSS; a 1500 or 1-mile open-water race usually settles very close to CSS. Use the projected times below as targets, then refine them against real race results.',
+  },
+];
+const webAppLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Critical Swim Speed (CSS) Calculator',
+  url: 'https://onlineswimtimeconverter.com/css-calculator/',
+  applicationCategory: 'SportsApplication',
+  operatingSystem: 'Web',
+};
+---
+
+<Layout
+  title="CSS Calculator – Critical Swim Speed – Swim Time Converter"
+  description="Find your Critical Swim Speed from a 400 + 200 test. Get your CSS pace per 100, five training zones and projected 50–1500 times."
+  jsonLd={[webAppLd]}
+>
+  <section class="mx-auto w-full max-w-3xl px-4 pb-10 pt-10 sm:px-6">
+    <h1 class="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">Critical Swim Speed (CSS) Calculator</h1>
+    <p class="mt-4 text-base leading-relaxed text-ink-muted">
+      Swim a hard 400 and a fast 200, enter both times, and get your threshold pace, five training zones and projected race times.
+    </p>
+  </section>
+
+  <section id="calculator" class="mx-auto w-full max-w-3xl scroll-mt-24 px-4 sm:px-6">
+    <CssCalculator client:load />
+  </section>
+
+  <section class="mx-auto w-full max-w-3xl px-4 py-14 sm:px-6">
+    <h2 class="text-2xl font-semibold tracking-tight text-ink">How to Run the Test</h2>
+    <ol class="mt-5 space-y-4">
+      <li class="flex gap-3">
+        <span class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md bg-primary/10 text-xs font-bold text-primary">1</span>
+        <p class="text-[15px] leading-relaxed text-ink-muted">
+          <strong class="text-ink">Warm up</strong> properly — 15–20 minutes easy swimming with drills, plus a few short efforts — so the starts are not a shock to your system.
+        </p>
+      </li>
+      <li class="flex gap-3">
+        <span class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md bg-primary/10 text-xs font-bold text-primary">2</span>
+        <p class="text-[15px] leading-relaxed text-ink-muted">
+          Swim the <strong class="text-ink">long test</strong> — a genuine all-out 400 m (or 400 yd). Hold back just enough that the last 50 is still fast.
+        </p>
+      </li>
+      <li class="flex gap-3">
+        <span class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md bg-primary/10 text-xs font-bold text-primary">3</span>
+        <p class="text-[15px] leading-relaxed text-ink-muted">
+          Recruit for <strong class="text-ink">3–5 minutes</strong>, then swim the <strong class="text-ink">short test</strong> — an all-out 200, attacking the last length.
+        </p>
+      </li>
+      <li class="flex gap-3">
+        <span class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md bg-primary/10 text-xs font-bold text-primary">4</span>
+        <p class="text-[15px] leading-relaxed text-ink-muted">
+          Enter both times and read your <strong class="text-ink">CSS pace</strong>, the training zone paces and the projected times below.
+        </p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="border-y border-hairline bg-surface-1 py-14">
+    <div class="mx-auto w-full max-w-3xl px-4 sm:px-6">
+      <h2 class="text-2xl font-semibold tracking-tight text-ink">Understanding Your Zones</h2>
+      <div class="mt-6 space-y-3 text-[15px] leading-relaxed text-ink-muted">
+        <p><strong class="text-ink">Zone 1–2 (Recovery / Aerobic):</strong> the bread and butter of base training. Swim these paces comfortably; you should be able to hold a conversation in short bursts.</p>
+        <p><strong class="text-ink">Zone 3 (Tempo):</strong> firm but controlled. Use it for pace work and longer threshold-style sets.</p>
+        <p><strong class="text-ink">Zone 4 (Threshold / CSS):</strong> your money pace. Around 80–85% of an all-out effort. Sets like 8 × 100 on a tight send-off belong here.</p>
+        <p><strong class="text-ink">Zone 5 (VO₂ / Speed):</strong> short repeats at or faster than CSS on generous rest — quality over quantity.</p>
+        <p>CSS is a tool, not a daily prescription. Retest every few weeks and recalculate when your other test times improve. For training-set planning, pair this with the <a href="/interval-calculator/" class="font-medium text-primary hover:underline">Interval &amp; Send-off Calculator</a>, and compare your projected race times against the <a href="/speed-calculator/" class="font-medium text-primary hover:underline">Speed &amp; Race Projection Calculator</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto w-full max-w-3xl px-4 py-14 sm:px-6">
+    <FAQ items={faqs} title="CSS Calculator FAQ" />
+  </section>
+
+  <CalculatorLinks current="/css-calculator/" />
+</Layout>

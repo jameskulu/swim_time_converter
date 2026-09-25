@@ -1,0 +1,37 @@
+---
+import ConversionPage from '../../components/ConversionPage.astro';
+import { buildExamples } from '../../lib/examples';
+---
+
+<ConversionPage
+  from="LCM"
+  to="SCY"
+  metaTitle="LCM to SCY Converter – Swim Time Converter"
+  metaDescription="Convert LCM swim times to SCY. Convert long-course meters times into estimated short-course yards equivalents for U.S. meets."
+  h1="LCM to SCY Converter"
+  lead="Convert swimming times from long-course meters (LCM) to short-course yards (SCY). Enter your event and time to estimate what your 50-meter race would look like in a 25-yard pool."
+  paragraphs={[
+    `Going the other direction, an LCM time turns into a faster SCY time. The 50-meter race has half the turns, so you remove the turn advantage and then scale meters back down to yards — the reverse of the <a href="/scy-to-lcm/" class="font-medium text-primary hover:underline">SCY to LCM</a> conversion.`,
+    `This calculator inverts the yard-to-meter factor (<strong class="text-ink">1.11</strong>), subtracting the per-turn adjustment for the extra walls a 25-yard swim gives you. Freestyle and medley gain roughly 0.8&nbsp;s per extra turn, backstroke 0.6&nbsp;s, breaststroke 1.0&nbsp;s and butterfly 0.7&nbsp;s.`,
+    `Metric distance events are paired to their yard equivalents: <strong class="text-ink">400 Free</strong> to <strong class="text-ink">500 Free</strong>, <strong class="text-ink">800 Free</strong> to <strong class="text-ink">1000 Free</strong> and <strong class="text-ink">1500 Free</strong> to <strong class="text-ink">1650 Free</strong>. All converted times are estimates.`,
+  ]}
+  examples={buildExamples('LCM', 'SCY')}
+  faqs={[
+    {
+      question: 'What is the LCM to SCY conversion factor?',
+      answer: 'The reverse of 1.11 (divide LCM seconds by 1.11) with the turn adjustment removed. Distance freestyle pairs — 400/500, 800/1000 and 1500/1650 — use their own factors.',
+    },
+    {
+      question: 'Why is my SCY time faster than my LCM time?',
+      answer: 'A 25-yard pool has many more turns, and every turn gives you a free push-off. The more walls you hit, the faster your overall race — which is why SCY times are typically the quickest.',
+    },
+    {
+      question: 'What does 400 Free convert to in SCY?',
+      answer: 'A 400-meter freestyle converts to the 500-yard freestyle, the standard short-course yards equivalent. Similar pairings apply for the 800 (to 1000) and 1500 (to 1650).',
+    },
+    {
+      question: 'Are LCM to SCY conversions accepted for NCAA qualifying?',
+      answer: 'NCAA programs use official administrative conversions for qualifying — not the same factors this public tool uses. Always confirm entries through the governing body that runs the meet.',
+    },
+  ]}
+/>

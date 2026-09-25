@@ -1,0 +1,100 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import IntervalCalculator from '../../components/IntervalCalculator';
+import FAQ from '../../components/FAQ.astro';
+import CalculatorLinks from '../../components/CalculatorLinks.astro';
+
+const faqs = [
+  {
+    question: 'What is a swim send-off?',
+    answer: 'The send-off is the fixed time interval at which you leave the wall for each repeat. Swim your repeat faster than the send-off, and the leftover time is your rest. For example, 10 × 100 on a 1:30 send-off means leaving every 90 seconds — if each 100 takes 1:20, you get 10 seconds rest per repeat.',
+  },
+  {
+    question: 'Should I build sets around a fixed send-off or a fixed rest?',
+    answer: 'Both appear in real training. Fixed send-offs (usually rounded to a convenient 1:15, 1:30, 2:00) teach consistent pacing and make a set fit a schedule. Fixed rest (swim + 15 seconds) keeps the work:rest ratio honest as you slow down with fatigue — your rest shrinks as your repeats slow, which is usually the brutal part you want.',
+  },
+  {
+    question: 'What send-off should I pick for a threshold (CSS) set?',
+    answer: 'A classic CSS set is 8–10 × 100 at your CSS pace with 10–15 seconds rest. Leave the wall every CSS-100 time plus that rest. The calculator rounds up to the nearest 5 or 10 seconds so you can use the pace clock without mental math.',
+  },
+  {
+    question: 'Why do some coaches say "on the :15 or :30"?',
+    answer: 'On a pace clock, send-offs usually land on a 5- or 15-second mark so swimmers can read them easily (40, 45, 50 on the clock, and so on). That is why the calculator shows your send-off rounded to both 5 and 10 seconds — use a rounding that lands on a mark you can actually follow.',
+  },
+];
+
+const webAppLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Swim Interval and Send-off Calculator',
+  url: 'https://onlineswimtimeconverter.com/interval-calculator/',
+  applicationCategory: 'SportsApplication',
+  operatingSystem: 'Web',
+};
+---
+
+<Layout
+  title="Swim Interval & Send-off Calculator – Swim Time Converter"
+  description="Build swim training sets: pick repeats, distance and pace, then get the repeat time, send-off, total set distance and wall-clock leave times."
+  jsonLd={[webAppLd]}
+>
+  <section class="mx-auto w-full max-w-3xl px-4 pb-10 pt-10 sm:px-6">
+    <h1 class="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">Swim Interval &amp; Send-off Calculator</h1>
+    <p class="mt-4 text-base leading-relaxed text-ink-muted">
+      Turn a target pace into a complete set. Enter repeats, distance and pacing, get the repeat time, send-off, total set distance and wall-clock leave times.
+    </p>
+  </section>
+
+  <section id="calculator" class="mx-auto w-full max-w-3xl scroll-mt-24 px-4 sm:px-6">
+    <IntervalCalculator client:load />
+  </section>
+
+  <section class="mx-auto w-full max-w-3xl px-4 py-14 sm:px-6">
+    <h2 class="text-2xl font-semibold tracking-tight text-ink">How to Use the Set Builder</h2>
+    <ol class="mt-5 space-y-4">
+      <li class="flex gap-3">
+        <span class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md bg-primary/10 text-xs font-bold text-primary">1</span>
+        <p class="text-[15px] leading-relaxed text-ink-muted">
+          Enter the <strong class="text-ink">repeats</strong> and <strong class="text-ink">distance per repeat</strong>, e.g. 8 × 100.
+        </p>
+      </li>
+      <li class="flex gap-3">
+        <span class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md bg-primary/10 text-xs font-bold text-primary">2</span>
+        <p class="text-[15px] leading-relaxed text-ink-muted">
+          Set your <strong class="text-ink">pace per 100</strong> — your CSS or target race pace works well.
+        </p>
+      </li>
+      <li class="flex gap-3">
+        <span class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md bg-primary/10 text-xs font-bold text-primary">3</span>
+        <p class="text-[15px] leading-relaxed text-ink-muted">
+          Either pick a <strong class="text-ink">rest per repeat</strong> (swim + 15s) or a fixed <strong class="text-ink">send-off</strong> (on the 1:30) — the calculator fills in the other.
+        </p>
+      </li>
+      <li class="flex gap-3">
+        <span class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md bg-primary/10 text-xs font-bold text-primary">4</span>
+        <p class="text-[15px] leading-relaxed text-ink-muted">
+          Read the <strong class="text-ink">repeat time, send-off, set totals</strong> and a chase-table of wall-clock leave times for the set.
+        </p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="border-y border-hairline bg-surface-1 py-14">
+    <div class="mx-auto w-full max-w-3xl px-4 sm:px-6">
+      <h2 class="text-2xl font-semibold tracking-tight text-ink">Classic Sets to Try</h2>
+      <div class="mt-6 space-y-3 text-[15px] leading-relaxed text-ink-muted">
+        <p><strong class="text-ink">CSS set:</strong> 8–10 × 100 at your <a href="/css-calculator/" class="font-medium text-primary hover:underline">CSS pace</a>, 10–15 seconds rest (≈ on a 1:30–1:45 send-off).</p>
+        <p><strong class="text-ink">Aerobic set:</strong> 20 × 50 on a :60 send-off, holding comfortably under :50.</p>
+        <p><strong class="text-ink">Mid-distance set:</strong> 6 × 200 at goal-400 pace on 3:00 send-offs — read around 2:30–2:45.</p>
+        <p><strong class="text-ink">Ladder/descend:</strong> pick a distance with the pace calculator, then run it with send-offs that get tighter as the set progresses.</p>
+        <p>Find the target pace for any race in the <a href="/pace-calculator/" class="font-medium text-primary hover:underline">Pace Calculator</a>, then slot it into the set builder above.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto w-full max-w-3xl px-4 py-14 sm:px-6">
+    <FAQ items={faqs} title="Interval Calculator FAQ" />
+  </section>
+
+  <CalculatorLinks current="/interval-calculator/" />
+</Layout>

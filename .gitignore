@@ -17,6 +17,11 @@ pnpm-debug.log*
 .env
 .env.production
 
+# local tool skill caches (not part of the site; keep Tailwind from scanning their docs)
+.agents/
+.claude/
+skills/
+
 # macOS-specific files
 .DS_Store
 

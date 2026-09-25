@@ -1,0 +1,37 @@
+---
+import ConversionPage from '../../components/ConversionPage.astro';
+import { buildExamples } from '../../lib/examples';
+---
+
+<ConversionPage
+  from="SCY"
+  to="LCM"
+  metaTitle="SCY to LCM Converter – Swim Time Converter"
+  metaDescription="Convert SCY swim times to LCM. Enter your swim time and get an estimated long-course meters equivalent using a documented swimming conversion method."
+  h1="SCY to LCM Converter"
+  lead="Convert swimming times from short-course yards (SCY) to long-course meters (LCM). Enter your event and time to calculate an estimated equivalent LCM swimming time."
+  paragraphs={[
+    `A <strong class="text-ink">25-yard pool</strong> and a <strong class="text-ink">50-meter pool</strong> change how a race is swum. In SCY you cover more walls and push off more often, so swimmers are typically a little faster than in a 50-meter pool. Because a meter is also longer than a yard (about 91.44&nbsp;cm), the same nominal event takes longer on the meter scale.`,
+    `This converter applies the widely used factor method: it scales short-course yard seconds to meters and then adds a per-turn adjustment (0.8 s per extra turn in freestyle, 0.6 s in backstroke, 1.0 s in breaststroke, 0.7 s in butterfly, 0.8 s in medley) that grows with distance.`,
+    `Distance events are paired to their usual equivalents: <strong class="text-ink">500 Free</strong> converts to <strong class="text-ink">400 Free</strong>, <strong class="text-ink">1000 Free</strong> to <strong class="text-ink">800 Free</strong>, and <strong class="text-ink">1650 Free</strong> to <strong class="text-ink">1500 Free</strong>. All results are estimates — different conversions can differ by a few tenths.`,
+  ]}
+  examples={buildExamples('SCY', 'LCM')}
+  faqs={[
+    {
+      question: 'How do you convert SCY to LCM times?',
+      answer: 'The converter multiplies the SCY seconds by a yard-to-meter factor of 1.11, then adds a stroke- and distance-based turn adjustment for the far smaller number of turns in a 50-meter pool.',
+    },
+    {
+      question: 'What is the SCY to LCM conversion factor?',
+      answer: 'The base factor is 1.11, with event-specific adjustments on top. Long distance freestyle uses its own factors — 0.8925 between 500y/400m and 1000y/800m, and 1.02 between 1650y/1500m.',
+    },
+    {
+      question: 'Do 500, 1000 and 1650 yard events convert to different events?',
+      answer: 'Yes — they are raced at different meter distances. A 500-yard freestyle converts to the 400-meter freestyle, the 1000-yard to the 800-meter, and the 1650-yard to the 1500-meter.',
+    },
+    {
+      question: 'Why are LCM times slower than SCY times?',
+      answer: 'A 50-meter pool has half as many turns as a 25-meter pool. Each turn in short-course swimming gives a small time advantage from the wall push-off, so the same swimmer is usually faster in yards.',
+    },
+  ]}
+/>

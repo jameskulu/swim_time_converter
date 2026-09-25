@@ -1,0 +1,99 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SpeedCalculator from '../../components/SpeedCalculator';
+import FAQ from '../../components/FAQ.astro';
+import CalculatorLinks from '../../components/CalculatorLinks.astro';
+
+const faqs = [
+  {
+    question: 'What can this calculator tell me?',
+    answer: 'Give it any swim you already know the time for, and it works out pace per 100 in meters and yards, speed in m/s, km/h and mph, plus projected times for common race distances up to the mile. It is the quickest way to compare your benchmark across different events.',
+  },
+  {
+    question: 'Why does pace per 100 yd differ from pace per 100 m?',
+    answer: 'A yard is shorter than a meter (0.9144 m), so 100 yd is covered faster than 100 m at the same speed. The per-100 pace shown here gives you both sides, so you can compare a yard-pool benchmark with a meter-pool race without doing the math by hand. For exact course conversions, use the SCY/SCM/LCM converter.',
+  },
+  {
+    question: 'How reliable are the projected race times?',
+    answer: 'They assume you swim at exactly your benchmark speed for the whole distance, so longer races usually come out optimistic and sprints slightly pessimistic. For distance races (400–1500) the estimate is close; use it as a starting target, then adjust for pacing, drafts and conditions.',
+  },
+  {
+    question: 'What is a "pool mile"?',
+    answer: 'Competitive swimmers call 1500 meters or 1650 yards a "mile" depending on the course. The true mile is 1760 yards (~1609 m). The calculator shows all three so you know what you are actually being asked to swim.',
+  },
+];
+
+const webAppLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Swim Speed and Race Projection Calculator',
+  url: 'https://onlineswimtimeconverter.com/speed-calculator/',
+  applicationCategory: 'SportsApplication',
+  operatingSystem: 'Web',
+};
+---
+
+<Layout
+  title="Swim Speed & Race Projection Calculator – Swim Time Converter"
+  description="Convert any swim time and distance into pace per 100m/100yd, speed (m/s, km/h, mph), and projected race times including the 1500, 1650 pool mile and the true mile."
+  jsonLd={[webAppLd]}
+>
+  <section class="mx-auto w-full max-w-3xl px-4 pb-10 pt-10 sm:px-6">
+    <h1 class="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">Swim Speed &amp; Race Projection Calculator</h1>
+    <p class="mt-4 text-base leading-relaxed text-ink-muted">
+      Enter one benchmark time and distance to see your pace per 100 in meters and yards, your speed, and projected times from 200 to the mile.
+    </p>
+  </section>
+
+  <section id="calculator" class="mx-auto w-full max-w-3xl scroll-mt-24 px-4 sm:px-6">
+    <SpeedCalculator client:load />
+  </section>
+
+  <section class="mx-auto w-full max-w-3xl px-4 py-14 sm:px-6">
+    <h2 class="text-2xl font-semibold tracking-tight text-ink">How to Use It</h2>
+    <ol class="mt-5 space-y-4">
+      <li class="flex gap-3">
+        <span class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md bg-primary/10 text-xs font-bold text-primary">1</span>
+        <p class="text-[15px] leading-relaxed text-ink-muted">
+          Pick a <strong class="text-ink">benchmark swim</strong> you trust — your best 400 or 1000 is ideal.
+        </p>
+      </li>
+      <li class="flex gap-3">
+        <span class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md bg-primary/10 text-xs font-bold text-primary">2</span>
+        <p class="text-[15px] leading-relaxed text-ink-muted">
+          Choose meters or yards to match the pool you swam it in, and enter the <strong class="text-ink">time</strong>.
+        </p>
+      </li>
+      <li class="flex gap-3">
+        <span class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md bg-primary/10 text-xs font-bold text-primary">3</span>
+        <p class="text-[15px] leading-relaxed text-ink-muted">
+          Read your <strong class="text-ink">per-100 pace, speed</strong> and the <strong class="text-ink">projected race times</strong>.
+        </p>
+      </li>
+      <li class="flex gap-3">
+        <span class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md bg-primary/10 text-xs font-bold text-primary">4</span>
+        <p class="text-[15px] leading-relaxed text-ink-muted">
+          Use the projected 1500/mile time to pick a training pace, then turn it into a set with the <a href="/interval-calculator/" class="font-medium text-primary hover:underline">Interval Calculator</a>.
+        </p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="border-y border-hairline bg-surface-1 py-14">
+    <div class="mx-auto w-full max-w-3xl px-4 sm:px-6">
+      <h2 class="text-2xl font-semibold tracking-tight text-ink">Benchmarks Worth Knowing</h2>
+      <div class="mt-6 space-y-3 text-[15px] leading-relaxed text-ink-muted">
+        <p><strong class="text-ink">400:</strong> the classic CSS test distance and a strong all-round benchmark — most swimmers race it just under their CSS pace.</p>
+        <p><strong class="text-ink">1000:</strong> a long-course-of-choice distance for threshold testing; pace here closely predicts open-water pace.</p>
+        <p><strong class="text-ink">1500 / 1650:</strong> the surveyed "mile" events. Compare your 1500 (meter pool) to the 1650 (yard pool) using the <a href="/scy-to-lcm/" class="font-medium text-primary hover:underline">course converter</a> for exact conversions.</p>
+        <p><strong class="text-ink">1760 yd (true mile):</strong> rarely raced in a pool but common for open-water yardage — nice to know where your speed sits against a foot-on-the-ground mile.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto w-full max-w-3xl px-4 py-14 sm:px-6">
+    <FAQ items={faqs} title="Speed Calculator FAQ" />
+  </section>
+
+  <CalculatorLinks current="/speed-calculator/" />
+</Layout>
