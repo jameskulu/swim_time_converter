@@ -12,7 +12,8 @@
     "astro": "astro",
     "test": "tsx scripts/convert-check.mts",
     "check": "astro check",
-    "gen:og": "node scripts/gen-og-image.mjs"
+    "gen:og": "node scripts/gen-og-image.mjs",
+    "deploy": "npm run build && npx wrangler pages deploy dist --project-name swimtimeconverter"
   },
   "dependencies": {
     "@astrojs/react": "^7.0.0",
