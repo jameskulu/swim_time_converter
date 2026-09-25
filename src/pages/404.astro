@@ -1,0 +1,45 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const navTargets = [
+  { href: '/', label: 'Home' },
+  { href: '/pace-calculator/', label: 'Pace Calculator' },
+  { href: '/split-calculator/', label: 'Split Calculator' },
+  { href: '/css-calculator/', label: 'Critical Swim Speed' },
+  { href: '/lengths-converter/', label: 'Yards to Meters' },
+  { href: '/scy-to-lcm/', label: 'SCY to LCM Converter' },
+  { href: '/guides/', label: 'Guides' },
+];
+---
+
+<Layout
+  title="404 – Page Not Found – Swim Time Converter"
+  description="This page could not be found. Head back to the Swim Time Converter to convert SCY, SCM and LCM swim times."
+  noindex
+>
+  <section class="mx-auto flex w-full max-w-3xl flex-col items-center px-4 pb-16 pt-16 text-center sm:px-6 sm:pt-24">
+    <p class="font-mono text-7xl font-semibold tracking-tight text-primary sm:text-8xl" aria-hidden="true">404</p>
+    <h1 class="mt-6 text-3xl font-semibold tracking-tight text-ink">This lane doesn&rsquo;t exist</h1>
+    <p class="mt-3 max-w-lg text-[15px] leading-relaxed text-ink-muted">
+      The page you&rsquo;re after isn&rsquo;t swimming here — it may have moved, been renamed, or never existed. Try the
+      links below to find your way back in.
+    </p>
+
+    <div class="mt-8 grid w-full max-w-xl grid-cols-1 gap-2 sm:grid-cols-2">
+      {
+        navTargets.map((link) => (
+          <a
+            href={link.href}
+            class="rounded-lg border border-hairline bg-surface-1 px-4 py-3 text-sm font-medium text-ink-muted transition-colors hover:border-hairline-strong hover:bg-surface-2 hover:text-ink"
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </div>
+
+    <p class="mt-8 text-sm text-ink-subtle">
+      Still stuck? <a href="/contact/" class="font-medium text-primary hover:underline">Contact us</a> and we&rsquo;ll point you to the right set.
+    </p>
+  </section>
+</Layout>

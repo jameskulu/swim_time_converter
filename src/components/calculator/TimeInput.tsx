@@ -112,7 +112,7 @@ function Segment({ ariaLabel, display, max, step = 1, wrap = false, onCommit }: 
         onChange={(e) => setDraft(e.target.value.replace(/[^\d]/g, '').slice(0, 2))}
         onBlur={(e) => commit(e.target.value)}
         onKeyDown={handleKey}
-        className="w-full rounded-lg border bg-surface-1 py-3 pl-2 pr-8 text-center font-mono text-lg text-ink shadow-sm outline-none transition-colors placeholder:font-sans placeholder:text-base placeholder:text-ink-tertiary hover:border-hairline-strong focus:border-primary"
+        className="w-full rounded-lg border border-hairline bg-surface-1 py-3 pl-2 pr-8 text-center font-mono text-lg text-ink shadow-sm outline-none transition-colors placeholder:font-sans placeholder:text-base placeholder:text-ink-tertiary hover:border-hairline-strong focus:border-primary"
       />
       <div className="pointer-events-auto absolute inset-y-0 right-0 flex w-7 flex-col border-l border-hairline">
         <button

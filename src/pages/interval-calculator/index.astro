@@ -21,7 +21,25 @@ const faqs = [
     question: 'Why do some coaches say "on the :15 or :30"?',
     answer: 'On a pace clock, send-offs usually land on a 5- or 15-second mark so swimmers can read them easily (40, 45, 50 on the clock, and so on). That is why the calculator shows your send-off rounded to both 5 and 10 seconds — use a rounding that lands on a mark you can actually follow.',
   },
+  {
+    question: 'How do I turn a set like 10 × 100 into a full workout plan?',
+    answer: 'Enter 10 repeats of 100 at your pace per 100, choose a send-off (or a rest such as swim + 15s), and the swim set calculator returns the repeat time, the wall-clock send-off, the total set distance and a chase table of leave times. Work from that table and every rep goes out on time.',
+  },
+  {
+    question: 'What rest should I take between repeats for a speed set?',
+    answer: 'Speed sets need near-full recovery: 20–30 seconds or more between short repeats. Threshold and CSS sets use tighter rest (10–15 seconds) so the set stays uncomfortable but sustainable. The calculator lets you test both and read the resulting send-off before you touch the water.',
+  },
 ];
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+  })),
+};
 
 const webAppLd = {
   '@context': 'https://schema.org',
@@ -36,7 +54,7 @@ const webAppLd = {
 <Layout
   title="Swim Interval & Send-off Calculator – Swim Time Converter"
   description="Build swim training sets: pick repeats, distance and pace, then get the repeat time, send-off, total set distance and wall-clock leave times."
-  jsonLd={[webAppLd]}
+  jsonLd={[webAppLd, faqLd]}
 >
   <section class="mx-auto w-full max-w-3xl px-4 pb-10 pt-10 sm:px-6">
     <h1 class="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">Swim Interval &amp; Send-off Calculator</h1>
@@ -88,6 +106,55 @@ const webAppLd = {
         <p><strong class="text-ink">Mid-distance set:</strong> 6 × 200 at goal-400 pace on 3:00 send-offs — read around 2:30–2:45.</p>
         <p><strong class="text-ink">Ladder/descend:</strong> pick a distance with the pace calculator, then run it with send-offs that get tighter as the set progresses.</p>
         <p>Find the target pace for any race in the <a href="/pace-calculator/" class="font-medium text-primary hover:underline">Pace Calculator</a>, then slot it into the set builder above.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why use it -->
+  <section class="border-t border-hairline bg-surface-1 py-16">
+    <div class="mx-auto w-full max-w-3xl px-4 sm:px-6">
+      <h2 class="text-2xl font-semibold tracking-tight text-ink sm:text-3xl">Why Use the Swim Interval &amp; Send-off Calculator?</h2>
+      <div class="mt-6 space-y-4 text-[15px] leading-relaxed text-ink-muted">
+        <p>
+          Coaches write sets like "8 × 100 on 1:30" and swimmers nod — then do the mental math at the wall. A <strong class="font-semibold text-ink">swim
+          interval calculator</strong> removes the arithmetic: give it repeats, distance and pace, and it produces the{" "}
+          <strong class="font-semibold text-ink">send-off</strong>, the rest per repeat, the total set distance and a
+          wall-clock table you can follow from the pace clock without thinking.
+        </p>
+        <p>
+          It is the set builder behind the whole site: take a pace from the{" "}
+          <a href="/pace-calculator/" class="font-medium text-primary hover:underline">Pace Calculator</a> or a CSS pace
+          from the <a href="/css-calculator/" class="font-medium text-primary hover:underline">CSS Calculator</a> and turn
+          it into a full training set in three fields.
+        </p>
+      </div>
+
+      <h3 class="mt-8 text-lg font-semibold tracking-tight text-ink">Send-off math, solved before you dive</h3>
+      <div class="mt-3 space-y-4 text-[15px] leading-relaxed text-ink-muted">
+        <p>
+          "On what send-off do I swim a 1:20 pace with 10 seconds rest?" Leave the wall every 1:30. This calculator does
+          that lookup in both directions — fixed rest or fixed send-off — and rounds to the <strong class="font-semibold text-ink">5-
+          and 10-second marks</strong> you can actually read on the pace clock. That rounding is the difference between a
+          set that runs itself and a set nobody can follow.
+        </p>
+      </div>
+
+      <h3 class="mt-8 text-lg font-semibold tracking-tight text-ink">Classic swim sets, calculated and repeated</h3>
+      <div class="mt-3 space-y-4 text-[15px] leading-relaxed text-ink-muted">
+        <p>
+          The popular sets — 10 × 100 on 1:30, 20 × 50 on :60, 6 × 200 on 3:00, CSS threshold sets — are all in the
+          quick-start examples. Swimmers asking "what is a good swim set?" get a complete answer: the pace, the send-off
+          and the total distance, so they can slot the set into any practice of any length.
+        </p>
+      </div>
+
+      <h3 class="mt-8 text-lg font-semibold tracking-tight text-ink">Plan the whole practice, not just one repeat</h3>
+      <div class="mt-3 space-y-4 text-[15px] leading-relaxed text-ink-muted">
+        <p>
+          Sets with chasing send-offs (getting tighter as the set progresses) need a full leave-time table — which is
+          exactly what this builder prints. Combine a couple of sets plus the warm-up in the Calories calculator if you
+          want the practice's total burn, and you have a complete session planned before you reach the deck.
+        </p>
       </div>
     </div>
   </section>

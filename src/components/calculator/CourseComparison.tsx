@@ -31,11 +31,8 @@ export default function CourseComparison({ results, sourceCourse }: CourseCompar
                 <th scope="row" className="px-4 py-3 text-left font-medium text-ink">
                   <span className="flex flex-wrap items-center gap-x-2 gap-y-1">
                     {course}
-                    <span className="hidden text-xs font-normal text-ink-subtle lg:inline">
+                    <span className="text-xs font-normal text-ink-subtle">
                       {COURSE_LONG_NAMES[course]} · {COURSE_POOL_LENGTH[course]}
-                    </span>
-                    <span className="sm:hidden text-xs font-normal text-ink-subtle">
-                      {COURSE_POOL_LENGTH[course]}
                     </span>
                     {isSource && (
                       <span className="rounded-full bg-primary/15 px-2 py-0.5 text-[11px] font-medium text-primary">

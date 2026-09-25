@@ -6,7 +6,12 @@ import { cssPacePer100, cssProjectedTimes, cssSpeed, cssZones } from '../src/lib
 import { planInterval, roundSendOff } from '../src/lib/swimming/interval';
 import { speedResult } from '../src/lib/swimming/speed';
 import { caloriesBurned } from '../src/lib/swimming/calories';
-import { distanceForLengths, lengthsForDistance } from '../src/lib/swimming/lengths';
+import {
+  distanceForLengths,
+  lengthsForDistance,
+  metersToYards,
+  yardsToMeters,
+} from '../src/lib/swimming/lengths';
 
 let failures = 0;
 function check(name: string, cond: boolean, detail = '') {
@@ -115,6 +120,15 @@ const lf2 = lengthsForDistance(1250, 25);
 check('lengths 1250m/25m = 50 full + remainder', lf2 !== null && lf2.fullLengths === 50 && lf2.remainder === 0);
 const df = distanceForLengths(66, 25);
 check('distance 66 lengths x 25m = 1650m', df !== null && Math.abs(df - 1650) < 1e-9, String(df));
+
+// --- yards <-> meters ---
+check('25 yd = 22.86 m', yardsToMeters(25) !== null && Math.abs((yardsToMeters(25) as number) - 22.86) < 1e-9);
+check('50 yd = 45.72 m', yardsToMeters(50) !== null && Math.abs((yardsToMeters(50) as number) - 45.72) < 1e-9);
+check('1650 yd = 1508.76 m', yardsToMeters(1650) !== null && Math.abs((yardsToMeters(1650) as number) - 1508.76) < 1e-9);
+check('100 m = 109.36 yd', metersToYards(100) !== null && Math.abs((metersToYards(100) as number) - 109.361) < 0.01);
+check('1500 m = 1640.42 yd', metersToYards(1500) !== null && Math.abs((metersToYards(1500) as number) - 1640.42) < 0.01);
+check('roundtrip 25yd via m', metersToYards(yardsToMeters(25) as number) !== null && Math.abs((metersToYards(yardsToMeters(25) as number) as number) - 25) < 1e-6);
+check('yardsToMeters rejects negative', yardsToMeters(-1) === null);
 
 console.log(failures === 0 ? '\nAll checks passed.' : `\n${failures} failures.`);
 process.exit(failures === 0 ? 0 : 1);

@@ -21,7 +21,25 @@ const faqs = [
     question: 'Should I eat back the calories I burn swimming?',
     answer: 'For most swimmers the answer is no — the estimate is already optimistic for a mixed practice that includes drills and rest intervals. Fuel appropriately for long, hard sessions, but do not plan your nutrition around the bare MET number.',
   },
+  {
+    question: 'How many calories does swimming burn in an hour?',
+    answer: 'A 70 kg swimmer burns roughly 400–700 calories per hour depending on the stroke and intensity: easy freestyle laps sit near 450, steady breaststroke around 550, and hard butterfly can push past 800. Enter your weight, stroke and duration here for a personalised per-hour rate instead of a generic guess.',
+  },
+  {
+    question: 'Is swimming a good exercise for weight loss?',
+    answer: 'Yes — swimming is one of the highest-burn full-body sports and is uniquely joint-friendly. It burns more per hour than steady walking and, for a given effort, generally more than running lightly. What often matters more is consistency: two 45-minute swims a week plus a sensible diet outperform one heroic session.',
+  },
 ];
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+  })),
+};
 
 const webAppLd = {
   '@context': 'https://schema.org',
@@ -36,7 +54,7 @@ const webAppLd = {
 <Layout
   title="Swimming Calories Calculator – Swim Time Converter"
   description="Estimate calories burned swimming by stroke, intensity, body weight and duration — freestyle, backstroke, breaststroke, butterfly and more."
-  jsonLd={[webAppLd]}
+  jsonLd={[webAppLd, faqLd]}
 >
   <section class="mx-auto w-full max-w-3xl px-4 pb-10 pt-10 sm:px-6">
     <h1 class="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">Swimming Calories Calculator</h1>
@@ -86,6 +104,51 @@ const webAppLd = {
         <p><strong class="text-ink">Butterfly</strong> is the most demanding — nearly twice the burn of easy freestyle at the same time. <strong class="text-ink">Breaststroke</strong> and <strong class="text-ink">backstroke</strong> sit in between, while <strong class="text-ink">treading water</strong> is the lowest-effort option.</p>
         <p>Intensity tends to matter as much as the stroke itself. Vigorous freestyle can out-burn a relaxed breaststroke, so be honest about the effort level of the session you are estimating.</p>
         <p>Want to plan the training that makes those calories count? Pair the estimate with the <a href="/css-calculator/" class="font-medium text-primary hover:underline">CSS Calculator</a> to structure the set behind the burn, and use the <a href="/lengths-converter/" class="font-medium text-primary hover:underline">Lengths Converter</a> to work out how far those laps add up to.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why use it -->
+  <section class="border-t border-hairline bg-surface-1 py-16">
+    <div class="mx-auto w-full max-w-3xl px-4 sm:px-6">
+      <h2 class="text-2xl font-semibold tracking-tight text-ink sm:text-3xl">Why Use the Swimming Calories Calculator?</h2>
+      <div class="mt-6 space-y-4 text-[15px] leading-relaxed text-ink-muted">
+        <p>
+          "How many calories does swimming burn?" is one of the most asked questions in the pool. The honest answer is:
+          it depends on your weight, the stroke, the intensity and how long you stay in. This <strong class="font-semibold text-ink">swimming
+          calories calculator</strong> combines all four into a personalised estimate built on the standard Compendium of
+          Physical Activities values, so you leave with a number that fits <em>you</em>, not a one-size-fits-all chart.
+        </p>
+      </div>
+
+      <h3 class="mt-8 text-lg font-semibold tracking-tight text-ink">Calories burned by stroke, at a glance</h3>
+      <div class="mt-3 space-y-4 text-[15px] leading-relaxed text-ink-muted">
+        <p>
+          Butterfly burns the most, front crawl next, then backstroke and breaststroke — and treading water sits at the
+          low end. Because the calculator is stroke-aware, you can see how swapping butterfly for freestyle, or a vigorous
+          set for a recovery swim, changes the burn of the same 45 minutes. That stroke-by-stroke comparison is exactly
+          what a generic fitness tracker cannot give you in the water.
+        </p>
+      </div>
+
+      <h3 class="mt-8 text-lg font-semibold tracking-tight text-ink">Weight matters — so it is built in</h3>
+      <div class="mt-3 space-y-4 text-[15px] leading-relaxed text-ink-muted">
+        <p>
+          Heavier swimmers burn more calories doing the identical set, which is why an "average" figure is almost always
+          wrong for you. Enter kilograms or pounds and the estimate scales honestly. Use the per-hour rate to plan
+          sessions: a 40-minute swim at 500 calories/hour is ~335 calories, and a 90-minute open-water session at the same
+          rate is ~750 — the tool makes those planning numbers immediate.
+        </p>
+      </div>
+
+      <h3 class="mt-8 text-lg font-semibold tracking-tight text-ink">Swimming vs other sports, made visible</h3>
+      <div class="mt-3 space-y-4 text-[15px] leading-relaxed text-ink-muted">
+        <p>
+          Swimmers often ask how the pool compares to the treadmill or the bike. This calculator's MET-based approach
+          lines those comparisons up: vigorous swimming outburns light running, and butterfly reaches the intensity of
+          hard taekwondo or cycling at pace — useful both for weight-loss planning and for swimmers tracking training
+          volume alongside their CSS and pace work elsewhere on this site.
+        </p>
       </div>
     </div>
   </section>

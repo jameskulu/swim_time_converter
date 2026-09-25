@@ -184,6 +184,9 @@ export default function SwimCalculator({ from, to }: SwimCalculatorProps) {
               value={course}
               onChange={(c) => setCourse(c)}
             />
+            <p className="mt-2 text-xs leading-relaxed text-ink-tertiary">
+              SCY = Short Course Yards · SCM = Short Course Meters · LCM = Long Course Meters
+            </p>
           </section>
 
           {from && to && (

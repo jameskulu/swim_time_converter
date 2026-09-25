@@ -76,7 +76,7 @@ export default function PaceCalculator() {
                 onChange={(e) => setDistance(e.target.value)}
                 className="w-full min-w-0 rounded-lg border border-hairline bg-surface-1 px-3 py-2.5 text-sm text-ink shadow-sm transition-colors hover:border-hairline-strong focus:outline-2 focus:outline-primary"
               />
-              <div className="shrink-0 basis-32">
+              <div className="shrink-0 basis-40">
                 <SegmentedControl
                   id="pace-unit"
                   label="Distance unit"

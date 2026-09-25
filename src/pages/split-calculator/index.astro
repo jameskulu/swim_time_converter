@@ -17,7 +17,25 @@ const faqs = [
     question: 'How do I use splits in training?',
     answer: 'Pick your target race time, break it into even per-50 or per-100 splits, and practice each interval on send-off. Consistently hitting split paces in practice is the most reliable way to produce them in a race.',
   },
+  {
+    question: 'What should my splits look like for a 500, 1000 or 1650?',
+    answer: 'Distance races reward even splits. A 500 at 5:00 is ten back-to-back 30-second 50s; a 1000 at 12:00 is ten 1:12 100s. Enter your goal time here and the swim split calculator prints the cumulative clock points for every 25, 50 or 100 so you can read them off the pace clock in the meet.',
+  },
+  {
+    question: 'How do I split an individual medley (100 IM or 200 IM)?',
+    answer: 'IM events are split by leg, not just by length: butterfly, backstroke, breaststroke and freestyle each get a quarter of the race. The equalizer splits here give a fair starting point per length, then adjust each leg to your personal strength order — most swimmers give a little back on backstroke to attack the freestyle leg.',
+  },
 ];
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+  })),
+};
 
 const webAppLd = {
   '@context': 'https://schema.org',
@@ -32,7 +50,7 @@ const webAppLd = {
 <Layout
   title="Swim Split Calculator – Swim Time Converter"
   description="Generate even swim splits for any race distance and time. See cumulative split times for 25, 50 or 100 lengths of your event."
-  jsonLd={[webAppLd]}
+  jsonLd={[webAppLd, faqLd]}
 >
   <section class="mx-auto w-full max-w-3xl px-4 pb-10 pt-10 sm:px-6">
     <h1 class="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">Swim Split Calculator</h1>
@@ -75,6 +93,56 @@ const webAppLd = {
         <p><strong class="text-ink">400/500:</strong> keep the first 100 calm — you should feel easy. Nail 3–4 even 100s, then finish the last 100 with whatever you have left.</p>
         <p><strong class="text-ink">800/1000 and up:</strong> the first half should feel <em>slow</em>. Even 100s all race long, with just a few tenths of positive slide, is how records are set.</p>
         <p>Generate your plan with the calculator above, then use the <a href="/pace-calculator/" class="font-medium text-primary hover:underline">Pace Calculator</a> to turn those splits into per-100 paces, the <a href="/interval-calculator/" class="font-medium text-primary hover:underline">Interval &amp; Send-off Calculator</a> to build a training set around them, and the <a href="/css-calculator/" class="font-medium text-primary hover:underline">CSS Calculator</a> to check your splits against your threshold pace.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why use it -->
+  <section class="border-t border-hairline bg-surface-1 py-16">
+    <div class="mx-auto w-full max-w-3xl px-4 sm:px-6">
+      <h2 class="text-2xl font-semibold tracking-tight text-ink sm:text-3xl">Why Use the Swim Split Calculator?</h2>
+      <div class="mt-6 space-y-4 text-[15px] leading-relaxed text-ink-muted">
+        <p>
+          A finish time tells you how fast you went; splits tell you <em>how</em>. Good swimmers plan their race as a
+          series of targets — "hit this 50, arrive at the 300 in this time" — and a <strong class="font-semibold text-ink">swim
+          split calculator</strong> turns one goal time into every checkpoint you need. Whether you race a 100, a 500, a
+          1000 or the 1500/1650 mile, the split plan is the difference between a steady race and a fade.
+        </p>
+        <p>
+          This version is built for the pool: pick yards or meters, choose your split distance — <strong class="font-semibold text-ink">25,
+          50 or 100</strong> — and read a cumulative clock-time table you can actually check between turns.
+        </p>
+      </div>
+
+      <h3 class="mt-8 text-lg font-semibold tracking-tight text-ink">Even splits are the fastest way to swim a distance race</h3>
+      <div class="mt-3 space-y-4 text-[15px] leading-relaxed text-ink-muted">
+        <p>
+          The <strong class="font-semibold text-ink">SCY, SCM and LCM experience</strong> agree on one pacing rule: the
+          best distance swimmers split almost perfectly even, whether they are closing a 500 or holding a 1650. Plan even,
+          then expect only a small positive slide on the last couple of 100s — the calculator's sticky target time keeps
+          every length honest against the plan.
+        </p>
+      </div>
+
+      <h3 class="mt-8 text-lg font-semibold tracking-tight text-ink">Turn a goal time into a set to practice</h3>
+      <div class="mt-3 space-y-4 text-[15px] leading-relaxed text-ink-muted">
+        <p>
+          The splits you race are built in training. Take the per-50 or per-100 pace behind your splits, feed it to the{" "}
+          <a href="/interval-calculator/" class="font-medium text-primary hover:underline">Interval &amp; Send-off
+          Calculator</a> as a set (8 × 100 at race pace, 10–15s rest), and teach your body the rhythm before race day.
+          Check the same average pace against your CSS threshold in the{" "}
+          <a href="/css-calculator/" class="font-medium text-primary hover:underline">CSS Calculator</a> to see how
+          ambitious — or how comfortable — the plan really is.
+        </p>
+      </div>
+
+      <h3 class="mt-8 text-lg font-semibold tracking-tight text-ink">From 100 to the mile, IM included</h3>
+      <div class="mt-3 space-y-4 text-[15px] leading-relaxed text-ink-muted">
+        <p>
+          Frustrated by swimmers asking "what splits should I swim?" with no data? Send them here. The calculator covers
+          every standard race distance and splits them into quarters, half-100s, all-100s or per-length plans — including
+          the 100 IM and 200 IM, where each leg deserves its own checkpoint. One tool, every event, no paperwork.
+        </p>
       </div>
     </div>
   </section>

@@ -9,6 +9,11 @@ export interface PoolOption {
 
 import type { DistanceUnit } from './speed';
 
+/** Exactly 1 yard in meters. */
+export const YARDS_TO_METERS = 0.9144;
+/** Exactly 1 meter in yards. */
+export const METERS_TO_YARDS = 1 / YARDS_TO_METERS;
+
 export const POOL_OPTIONS: PoolOption[] = [
   { id: 'scy-25', label: '25 yards (short course yards)', length: 25, unit: 'yd' },
   { id: 'scm-25', label: '25 meters (short course meters)', length: 25, unit: 'm' },
@@ -40,4 +45,16 @@ export function distanceForLengths(lengths: number, poolLength: number): number 
     return null;
   }
   return lengths * poolLength;
+}
+
+/** Convert a swim distance from yards to meters (1 yd = 0.9144 m). */
+export function yardsToMeters(yards: number): number | null {
+  if (!Number.isFinite(yards) || yards < 0) return null;
+  return yards * YARDS_TO_METERS;
+}
+
+/** Convert a swim distance from meters to yards (1 m = 1.09361 yd). */
+export function metersToYards(meters: number): number | null {
+  if (!Number.isFinite(meters) || meters < 0) return null;
+  return meters * METERS_TO_YARDS;
 }

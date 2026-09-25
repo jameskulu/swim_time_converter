@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { distanceForLengths, lengthsForDistance, POOL_OPTIONS } from '../lib/swimming/lengths';
+import { distanceForLengths, lengthsForDistance, POOL_OPTIONS, YARDS_TO_METERS } from '../lib/swimming/lengths';
 import { METERS_PER_YARD, YARDS_PER_METER, type DistanceUnit } from '../lib/swimming/speed';
 import { track } from '../lib/analytics';
 import SegmentedControl from './calculator/SegmentedControl';
 
 type PoolId = 'scy-25' | 'scm-25' | 'lcm-50';
-type Direction = 'distance' | 'lengths';
+type Direction = 'distance' | 'lengths' | 'yards-meters';
 
 interface LengthsOutput {
   fullLengths: number;
@@ -19,12 +19,25 @@ interface LengthsOutput {
   distanceLabel: string;
 }
 
+const YARD_METER_PRESETS = [
+  { label: '25 yd', yards: '25', meters: '22.86' },
+  { label: '50 yd', yards: '50', meters: '45.72' },
+  { label: '100 yd', yards: '100', meters: '91.44' },
+  { label: '500 yd', yards: '500', meters: '457.2' },
+  { label: '1000 yd', yards: '1000', meters: '914.4' },
+  { label: '1650 yd', yards: '1650', meters: '1508.76' },
+];
+
+const round2 = (n: number): string => String(Math.round(n * 100) / 100);
+
 export default function LengthsConverter() {
   const [pool, setPool] = useState<PoolId>('scm-25');
   const [direction, setDirection] = useState<Direction>('distance');
   const [unit, setUnit] = useState<DistanceUnit>('m');
   const [distance, setDistance] = useState('1500');
   const [lengths, setLengths] = useState('30');
+  const [yards, setYards] = useState('25');
+  const [meters, setMeters] = useState('22.86');
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<LengthsOutput | null>(null);
 
@@ -32,6 +45,25 @@ export default function LengthsConverter() {
 
   const toMeters = (value: number, valueUnit: DistanceUnit) => (valueUnit === 'yd' ? value * METERS_PER_YARD : value);
   const fromMeters = (value: number, target: DistanceUnit) => (target === 'yd' ? value * YARDS_PER_METER : value);
+
+  function onYardsChange(raw: string) {
+    setYards(raw);
+    const v = Number(raw);
+    setMeters(Number.isFinite(v) && v >= 0 ? round2(v * YARDS_TO_METERS) : '');
+  }
+
+  function onMetersChange(raw: string) {
+    setMeters(raw);
+    const v = Number(raw);
+    setYards(Number.isFinite(v) && v >= 0 ? round2(v * YARDS_PER_METER) : '');
+  }
+
+  function handleDirection(next: Direction) {
+    setDirection(next);
+    setResult(null);
+    setError(null);
+    if (next === 'yards-meters') track('lengths_calculator_used', { direction: 'yards-meters' });
+  }
 
   function handleConvert() {
     if (direction === 'lengths') {
@@ -102,38 +134,41 @@ export default function LengthsConverter() {
   return (
     <div className="overflow-hidden rounded-xl border border-hairline bg-surface-1 shadow-card">
       <div className="space-y-6 p-4 sm:p-6">
-        <div>
-          <p className="mb-1.5 text-sm font-medium text-ink-muted">Pool Length</p>
-          <SegmentedControl
-            id="lengths-pool"
-            label="Pool length"
-            columns={3}
-            options={POOL_OPTIONS.map((p) => ({
-              value: p.id as PoolId,
-              label: p.label.split('(')[0].trim(),
-              description: p.label.split('(')[1]?.replace(')', ''),
-            }))}
-            value={pool}
-            onChange={(p) => setPool(p)}
-          />
-        </div>
+        {direction !== 'yards-meters' && (
+          <div>
+            <p className="mb-1.5 text-sm font-medium text-ink-muted">Pool Length</p>
+            <SegmentedControl
+              id="lengths-pool"
+              label="Pool length"
+              columns={3}
+              options={POOL_OPTIONS.map((p) => ({
+                value: p.id as PoolId,
+                label: p.label.split('(')[0].trim(),
+                description: p.label.split('(')[1]?.replace(')', ''),
+              }))}
+              value={pool}
+              onChange={(p) => setPool(p)}
+            />
+          </div>
+        )}
 
         <div>
           <p className="mb-1.5 text-sm font-medium text-ink-muted">What do you want to know?</p>
           <SegmentedControl
             id="lengths-direction"
             label="Direction"
-            columns={2}
+            columns={3}
             options={[
               { value: 'distance', label: 'Distance → lengths' },
               { value: 'lengths', label: 'Lengths → distance' },
+              { value: 'yards-meters', label: 'Yards ↔ meters' },
             ]}
             value={direction}
-            onChange={(d) => setDirection(d)}
+            onChange={(d) => handleDirection(d)}
           />
         </div>
 
-        {direction === 'distance' ? (
+        {direction === 'distance' && (
           <div>
             <label htmlFor="lengths-distance" className="mb-1.5 block text-sm font-medium text-ink-muted">
               Swim Distance
@@ -181,7 +216,9 @@ export default function LengthsConverter() {
               ))}
             </div>
           </div>
-        ) : (
+        )}
+
+        {direction === 'lengths' && (
           <div>
             <label htmlFor="lengths-count" className="mb-1.5 block text-sm font-medium text-ink-muted">
               Number of Lengths
@@ -202,23 +239,105 @@ export default function LengthsConverter() {
           </div>
         )}
 
-        {error && (
+        {direction === 'yards-meters' && (
+          <div>
+            <div className="grid items-end gap-2 sm:grid-cols-[1fr_auto_1fr]">
+              <div>
+                <label htmlFor="lengths-yards" className="mb-1.5 block text-sm font-medium text-ink-muted">
+                  Yards
+                </label>
+                <input
+                  id="lengths-yards"
+                  type="number"
+                  min="0"
+                  step="any"
+                  inputMode="decimal"
+                  value={yards}
+                  onChange={(e) => onYardsChange(e.target.value)}
+                  className="w-full rounded-lg border border-hairline bg-surface-1 px-3 py-2.5 text-center font-mono text-base text-ink shadow-sm outline-none transition-colors hover:border-hairline-strong focus:border-primary"
+                />
+              </div>
+              <div className="grid h-10 place-items-center pb-1 text-ink-tertiary" aria-hidden="true">
+                <svg viewBox="0 0 20 20" fill="none" className="h-5 w-5">
+                  <path d="M3 6.5A2.5 2.5 0 0 1 5.5 4H17a2.5 2.5 0 0 1 0 5H5.5A2.5 2.5 0 0 1 3 6.5Z" />
+                  <path d="M3 6.5a2.5 2.5 0 0 0 2.5 2.5H17a2.5 2.5 0 0 0 0-5H5.5A2.5 2.5 0 0 0 3 6.5Z" />
+                  <path d="m6 4-1.5 2.5L6 9M14 4l1.5 2.5L14 9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+              <div>
+                <label htmlFor="lengths-meters" className="mb-1.5 block text-sm font-medium text-ink-muted">
+                  Meters
+                </label>
+                <input
+                  id="lengths-meters"
+                  type="number"
+                  min="0"
+                  step="any"
+                  inputMode="decimal"
+                  value={meters}
+                  onChange={(e) => onMetersChange(e.target.value)}
+                  className="w-full rounded-lg border border-hairline bg-surface-1 px-3 py-2.5 text-center font-mono text-base text-ink shadow-sm outline-none transition-colors hover:border-hairline-strong focus:border-primary"
+                />
+              </div>
+            </div>
+            <div className="mt-3 flex flex-wrap items-center gap-2">
+              {YARD_METER_PRESETS.map((p) => (
+                <button
+                  key={p.label}
+                  type="button"
+                  onClick={() => {
+                    setYards(p.yards);
+                    setMeters(p.meters);
+                    track('lengths_calculator_used', { direction: 'yards-meters', preset: p.yards });
+                  }}
+                  className={[
+                    'rounded-md border px-2.5 py-1 text-sm font-medium transition-colors',
+                    yards === p.yards
+                      ? 'border-primary/40 bg-primary/10 text-ink'
+                      : 'border-hairline bg-surface-1 text-ink-muted hover:text-ink',
+                  ].join(' ')}
+                >
+                  {p.label} = {p.meters} m
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {direction !== 'yards-meters' && error && (
           <p role="alert" className="text-sm text-danger">
             {error}
           </p>
         )}
 
-        <button
-          type="button"
-          onClick={handleConvert}
-          className="w-full rounded-lg bg-primary px-4 py-3 text-sm font-semibold text-on-primary shadow-sm transition-colors hover:bg-primary-hover active:bg-primary-focus"
-        >
-          Convert
-        </button>
+        {direction !== 'yards-meters' && (
+          <button
+            type="button"
+            onClick={handleConvert}
+            className="w-full rounded-lg bg-primary px-4 py-3 text-sm font-semibold text-on-primary shadow-sm transition-colors hover:bg-primary-hover active:bg-primary-focus"
+          >
+            Convert
+          </button>
+        )}
       </div>
 
       <div className="border-t border-hairline">
-        {result === null ? (
+        {direction === 'yards-meters' ? (
+          <div className="animate-rise p-4 sm:p-6" aria-live="polite">
+            <div className="rounded-lg border border-hairline bg-canvas p-4 text-center">
+              <p className="font-mono text-3xl font-semibold tabular-nums text-ink">
+                {yards} yd <span className="text-base font-normal text-ink-tertiary">=</span> {meters} m
+              </p>
+              <p className="mt-2 text-xs text-ink-subtle">
+                1 yard = 0.9144 m · 1 meter = 1.09361 yd
+              </p>
+              <p className="mt-2 text-sm text-ink-muted">
+                Comparing swim <em>times</em> between pools? Use the{' '}
+                <a href="/scy-to-scm/" className="font-medium text-primary hover:underline">SCY to SCM time converter</a>.
+              </p>
+            </div>
+          </div>
+        ) : result === null ? (
           <div className="flex min-h-28 items-center justify-center px-6 py-8 text-sm text-ink-subtle">
             {direction === 'distance'
               ? 'Enter a swim distance to see how many pool lengths that is.'

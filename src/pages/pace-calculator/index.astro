@@ -17,7 +17,25 @@ const faqs = [
     question: 'Should I even-split my race?',
     answer: 'Most of the world’s best distance swimmers swim nearly even splits. Very fast swimmers are often slightly positive (a touch slower at the end); very few can run negative splits in a swim race. Aim even, then adjust toward what your own races show.',
   },
+  {
+    question: 'What pace should I hold for a 500-yard or 1500-meter swim?',
+    answer: 'Break your target time into even per-100 paces: a 5:00 500-yard swim is 60 seconds per 100 yd, and a 15:00 1500-meter swim is 60 seconds per 100 m. Enter any goal time and distance here and the swim pace calculator returns the exact pace per 100, 200, 400 or 25 for you.',
+  },
+  {
+    question: 'How do I turn a swimming pace into a speed?',
+    answer: 'A pace per 100 in seconds and a speed in m/s or km/h describe the same effort. Use the Speed & Race Projection calculator to convert your pace into meters per second, kilometres per hour and miles per hour, and to project it across race distances.',
+  },
 ];
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+  })),
+};
 
 const webAppLd = {
   '@context': 'https://schema.org',
@@ -32,7 +50,7 @@ const webAppLd = {
 <Layout
   title="Swim Pace Calculator – Swim Time Converter"
   description="Calculate your swimming pace per 100, 200, 400 or any distance. Enter total time and distance to get even target paces."
-  jsonLd={[webAppLd]}
+  jsonLd={[webAppLd, faqLd]}
 >
   <section class="mx-auto w-full max-w-3xl px-4 pb-10 pt-10 sm:px-6">
     <h1 class="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">Swim Pace Calculator</h1>
@@ -79,6 +97,63 @@ const webAppLd = {
           <li class="rounded-lg border border-hairline bg-canvas px-4 py-3 text-sm">200 m in 2:00 → 60 s per 100</li>
         </ul>
         <p>Use the pace calculator above to build these for your own times, then pair it with the <a href="/split-calculator/" class="font-medium text-primary hover:underline">Split Calculator</a> to see the cumulative clock times.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why use it -->
+  <section class="border-t border-hairline bg-surface-1 py-16">
+    <div class="mx-auto w-full max-w-3xl px-4 sm:px-6">
+      <h2 class="text-2xl font-semibold tracking-tight text-ink sm:text-3xl">Why Use the Swim Pace Calculator?</h2>
+      <div class="mt-6 space-y-4 text-[15px] leading-relaxed text-ink-muted">
+        <p>
+          Every swimmer eventually asks the same questions: "What is a good pace per 100?", "How do I calculate my
+          swimming pace?", or "How fast should a 500 yard swim be?". A <strong class="font-semibold text-ink">swim pace
+          calculator</strong> converts whatever you can measure — a total time over a total distance — into the pace
+          coaches actually write on the whiteboard: seconds per 100.
+        </p>
+        <p>
+          This calculator works in the two units swimmers actually train in. Choose <strong class="font-semibold text-ink">meters</strong>
+          and you get pace per 100 m; choose <strong class="font-semibold text-ink">yards</strong> and you get pace per
+          100 yd, the standard for U.S. high school, NCAA and Masters sets. No memorising conversion charts — the numbers
+          are correct in whichever pool you swim.
+        </p>
+      </div>
+
+      <h3 class="mt-8 text-lg font-semibold tracking-tight text-ink">From race time to repeatable training pace</h3>
+      <div class="mt-3 space-y-4 text-[15px] leading-relaxed text-ink-muted">
+        <p>
+          The fastest way to improve a swim time is to practice the exact pace that produces it. Type in a goal — say a
+          5:00 500 or a 16:00 1500 — and read the per-100 pace you need to hold. That single number becomes the repeat
+          pace for your sets and the send-off target for the{" "}
+          <a href="/interval-calculator/" class="font-medium text-primary hover:underline">Interval Calculator</a>.
+        </p>
+        <p>
+          You can also check a performance you have already swum: log your best 400 or 1000 and see the average pace your
+          body actually held. That honest number is usually a better training guide than a guessed "goal" pace.
+        </p>
+      </div>
+
+      <h3 class="mt-8 text-lg font-semibold tracking-tight text-ink">Answering the "what is a good swimming pace" question</h3>
+      <div class="mt-3 space-y-4 text-[15px] leading-relaxed text-ink-muted">
+        <p>
+          There is no single good pace — it depends on stroke, distance and level. But the <strong class="font-semibold text-ink">pace
+          per 100 swimming</strong> benchmarks in the table above give you an instant frame of reference, and the tools
+          below it let you build your own chart for any event. Compare yourself against a 1500 m pace of 1:05–1:15 or a
+          500 yd pace of 1:05–1:15 and you know quickly where you stand.
+        </p>
+      </div>
+
+      <h3 class="mt-8 text-lg font-semibold tracking-tight text-ink">A free swimming pace planning tool in your pocket</h3>
+      <div class="mt-3 space-y-4 text-[15px] leading-relaxed text-ink-muted">
+        <p>
+          No accounts, no ads and no tap-tapping through tables. Enter a time, tap Calculate, and the swim pace chart
+          updates instantly for 25, 50, 100, 200 and 400. Then hand your paces to the{" "}
+          <a href="/split-calculator/" class="font-medium text-primary hover:underline">Split Calculator</a> for race
+          timing and the{" "}
+          <a href="/speed-calculator/" class="font-medium text-primary hover:underline">Speed &amp; Race Projection</a>{" "}
+          tool to see your m/s and km/h — one goal time, a whole session planned.
+        </p>
       </div>
     </div>
   </section>

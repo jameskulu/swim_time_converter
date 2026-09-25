@@ -11,14 +11,26 @@ interface Props {
   pageType?: string;
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
   pathname?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
+  noindex?: boolean;
+  robots?: string;
 }
+
+const siteUrl = 'https://onlineswimtimeconverter.com';
 
 const {
   title,
   description,
-  canonical = Astro.url.origin + Astro.url.pathname,
+  canonical = siteUrl + Astro.url.pathname,
   pageType = 'website',
   jsonLd,
+  ogTitle = title,
+  ogDescription = description,
+  ogImage = `${siteUrl}/og-image.png`,
+  noindex = false,
+  robots = noindex ? 'noindex, nofollow' : 'index, follow',
 } = Astro.props;
 
 const ldBlocks: Record<string, unknown>[] = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
@@ -31,8 +43,8 @@ const ldBlocks: Record<string, unknown>[] = Array.isArray(jsonLd) ? jsonLd : jso
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
-    <meta name="robots" content="index, follow" />
+    {noindex ? null : <link rel="canonical" href={canonical} />}
+    <meta name="robots" content={robots} />
     <meta name="generator" content={Astro.generator} />
 
     <meta name="theme-color" content="#fafafb" media="(prefers-color-scheme: light)" />
@@ -41,15 +53,22 @@ const ldBlocks: Record<string, unknown>[] = Array.isArray(jsonLd) ? jsonLd : jso
     <!-- Open Graph -->
     <meta property="og:type" content={pageType} />
     <meta property="og:site_name" content="Swim Time Converter" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <meta property="og:title" content={ogTitle} />
+    <meta property="og:description" content={ogDescription} />
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:alt" content="Swim Time Converter - convert swimming times between SCY, SCM and LCM courses" />
 
     <!-- Twitter / X -->
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={ogTitle} />
+    <meta name="twitter:description" content={ogDescription} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content="Swim Time Converter - convert swimming times between SCY, SCM and LCM courses" />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="manifest" href="/manifest.webmanifest" />

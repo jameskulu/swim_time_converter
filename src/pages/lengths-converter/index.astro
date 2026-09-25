@@ -6,6 +6,18 @@ import CalculatorLinks from '../../components/CalculatorLinks.astro';
 
 const faqs = [
   {
+    question: 'How do I convert 25 yards to meters?',
+    answer: 'Multiply yards by 0.9144: 25 yards × 0.9144 = 22.86 meters. That is the length of a short course yards (SCY) pool — a 25 yd pool is about 2.14 m shorter than a 25 m pool. Use the Yards ↔ meters mode above or the quick picks (25 yd, 50 yd, 1650 yd) to convert any swim distance.',
+  },
+  {
+    question: 'How do I convert meters to yards?',
+    answer: 'Multiply meters by 1.09361: 100 meters × 1.09361 = 109.36 yards, and the 1500 m pool mile is 1640.42 yards (just under the 1650-yard U.S. mile). The converter does this both ways instantly.',
+  },
+  {
+    question: 'What is 50 yards in meters?',
+    answer: '50 yards is 45.72 meters (50 × 0.9144). Common swim conversions: 100 yd = 91.44 m, 500 yd = 457.2 m, 1000 yd = 914.4 m and 1650 yd = 1508.76 m.',
+  },
+  {
     question: 'What is the difference between a length and a lap?',
     answer: 'A length is one crossing of the pool — 25 m in a short-course pool, 50 m in long course. A lap is usually two lengths, down and back. Counting your swim in laps (as many distance trackers do) simply doubles the length count.',
   },
@@ -18,15 +30,29 @@ const faqs = [
     answer: 'In a 25 m pool: 1500 m = 60 lengths. In a 25 yd pool: 1650 yd = 66 lengths. In a 50 m pool: 1500 m = 30 lengths; a long-course 1650 would be 33 lengths. The converter handles all three pools.',
   },
   {
-    question: 'How do I track lengths while I swim?',
-    answer: 'Count lengths with the flip-turn kick-outs or the flags, or use a wall counter. For repeats, odd lengths leave from the far end — that is two fewer turns missed. When in doubt, use the leave-times from the Interval Calculator to plan when to push off.',
+    question: 'How many lengths is a 500, 1000 or 1500 swim?',
+    answer: 'In a 25-yard pool: 500 yd = 20 lengths and 1000 yd = 40 lengths. In a 25-meter pool: 500 m = 20 lengths, 1000 m = 40 and 1500 m = 60 lengths. In a 50 m pool: 500 m = 10 lengths, 1000 m = 20 and 1500 m = 30. Enter your distance to get the exact count with any remainder.',
+  },
+  {
+    question: 'Can I convert a swim time along with the yards-to-meters distance?',
+    answer: 'Yes — a distance conversion answers "how far", but swim times move between courses with turns and factor adjustments. After you convert 25 yards to 22.86 meters or 50 yards to 45.72 meters, use the SCY to SCM or course converters to transfer your actual times, and the Speed calculator to project them across events.',
   },
 ];
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+  })),
+};
 
 const webAppLd = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
-  name: 'Swim Pool Lengths Converter',
+  name: 'Swim Distance & Lengths Converter',
   url: 'https://onlineswimtimeconverter.com/lengths-converter/',
   applicationCategory: 'SportsApplication',
   operatingSystem: 'Web',
@@ -34,14 +60,15 @@ const webAppLd = {
 ---
 
 <Layout
-  title="Swim Lengths to Distance Converter – Swim Time Converter"
-  description="Convert swim distances to pool lengths and back for 25-yard, 25-meter and 50-meter pools. How many lengths is your set? How far did those lengths get you?"
-  jsonLd={[webAppLd]}
+  title="Swim Distance Converter – Yards to Meters & Pool Lengths – Swim Time Converter"
+  description="Convert swim distances: yards to meters (25 yd = 22.86 m, 50 yd = 45.72 m), meters to yards, and distances to pool lengths for 25-yard, 25-meter and 50-meter pools."
+  jsonLd={[webAppLd, faqLd]}
 >
   <section class="mx-auto w-full max-w-3xl px-4 pb-10 pt-10 sm:px-6">
-    <h1 class="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">Swim Lengths &amp; Distance Converter</h1>
+    <h1 class="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">Swim Distance &amp; Lengths Converter</h1>
     <p class="mt-4 text-base leading-relaxed text-ink-muted">
-      Work in any pool: 25 yards, 25 meters or 50 meters. Convert your swim distance into the number of lengths, or turn lengths into distance.
+      Convert yards to meters or meters to yards for any swim distance, then see how many lengths that is in a 25-yard,
+      25-meter or 50-meter pool.
     </p>
   </section>
 
@@ -55,19 +82,22 @@ const webAppLd = {
       <li class="flex gap-3">
         <span class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md bg-primary/10 text-xs font-bold text-primary">1</span>
         <p class="text-[15px] leading-relaxed text-ink-muted">
-          Pick your <strong class="text-ink">pool length</strong> — 25 yd, 25 m or 50 m.
+          Choose <strong class="text-ink">Yards ↔ meters</strong> to convert a swim distance between units, or pick your
+          <strong class="text-ink"> pool length</strong> (25 yd, 25 m or 50 m) to work in lengths.
         </p>
       </li>
       <li class="flex gap-3">
         <span class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md bg-primary/10 text-xs font-bold text-primary">2</span>
         <p class="text-[15px] leading-relaxed text-ink-muted">
-          Choose <strong class="text-ink">distance → lengths</strong> to see how many lengths your target set takes, or <strong class="text-ink">lengths → distance</strong> to total up what you just swam.
+          Enter <strong class="text-ink">yards or meters</strong> — the other field updates instantly (25 yd → 22.86 m). Or choose
+          <strong class="text-ink">distance → lengths</strong> to see how many lengths your target set takes.
         </p>
       </li>
       <li class="flex gap-3">
         <span class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md bg-primary/10 text-xs font-bold text-primary">3</span>
         <p class="text-[15px] leading-relaxed text-ink-muted">
-          Enter a distance (with quick picks like 200, 400, 1000, 1500) or the number of lengths you covered.
+          Use the quick picks — 25 yd, 50 yd, 100 yd, 500 yd, 1000 yd, 1650 yd — or common distances like 200, 400, 1000
+          and 1500.
         </p>
       </li>
       <li class="flex gap-3">
@@ -81,12 +111,62 @@ const webAppLd = {
 
   <section class="border-y border-hairline bg-surface-1 py-14">
     <div class="mx-auto w-full max-w-3xl px-4 sm:px-6">
-      <h2 class="text-2xl font-semibold tracking-tight text-ink">Quick Reference</h2>
+      <h2 class="text-2xl font-semibold tracking-tight text-ink">Yards to Meters Quick Reference</h2>
       <div class="mt-6 space-y-3 text-[15px] leading-relaxed text-ink-muted">
+        <p><strong class="text-ink">Yards → meters</strong> (× 0.9144): 25 yd = <strong class="text-ink">22.86 m</strong> · 50 yd = <strong class="text-ink">45.72 m</strong> · 100 yd = 91.44 m · 500 yd = 457.2 m · 1000 yd = 914.4 m · 1650 yd = 1508.76 m.</p>
+        <p><strong class="text-ink">Meters → yards</strong> (× 1.09361): 25 m = 27.34 yd · 100 m = 109.36 yd · 400 m = 437.45 yd · 1500 m = <strong class="text-ink">1640.42 yd</strong>.</p>
         <p><strong class="text-ink">25 m pool:</strong> 100 m = 4 lengths · 200 m = 8 · 400 m = 16 · 1500 m = 60.</p>
         <p><strong class="text-ink">50 m pool:</strong> 100 m = 2 lengths · 200 m = 4 · 400 m = 8 · 1500 m = 30.</p>
         <p><strong class="text-ink">25 yd pool:</strong> 100 yd = 4 lengths · 200 yd = 8 · 500 yd = 20 · 1000 yd = 40 · 1650 yd = 66.</p>
-        <p>Roughly speaking, a 25 yd pool is about 9% shorter to a 25 m pool, so yardage adds up faster — compare like for like using the <a href="/scm-to-scy/" class="font-medium text-primary hover:underline">course converter</a> when mixing pools.</p>
+        <p>Roughly speaking, a 25 yd pool is about 9% shorter than a 25 m pool, so yardage adds up faster — compare like for like using the <a href="/scm-to-scy/" class="font-medium text-primary hover:underline">course converter</a> when mixing pools.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why use it -->
+  <section class="border-t border-hairline bg-surface-1 py-16">
+    <div class="mx-auto w-full max-w-3xl px-4 sm:px-6">
+      <h2 class="text-2xl font-semibold tracking-tight text-ink sm:text-3xl">Why Use the Swim Distances &amp; Lengths Converter?</h2>
+      <div class="mt-6 space-y-4 text-[15px] leading-relaxed text-ink-muted">
+        <p>
+          Pool distances are the quiet trap in every training plan. A "mile" can be <strong class="font-semibold text-ink">1500
+          meters, 1650 yards or an actual 1760 yards</strong> depending on the pool; and because 25 yards is 22.86 meters,
+          a yards-to-meters conversion changes the length of every set you swim. This converter settles the yards-to-meters
+          questions once and for all — instantly, both ways, with the exact numbers swimmers actually search for.
+        </p>
+      </div>
+
+      <h3 class="mt-8 text-lg font-semibold tracking-tight text-ink">The yards to meters conversions swimmers actually google</h3>
+      <div class="mt-3 space-y-4 text-[15px] leading-relaxed text-ink-muted">
+        <p>
+          <strong class="font-semibold text-ink">Swim time converter 25 yards to meters</strong> = 22.86 m,
+          <strong class="font-semibold text-ink">25 meters to yards</strong> = 27.34 yd,{" "}
+          <strong class="font-semibold text-ink">50 yards to meters</strong> = 45.72 m, and the 1650 to a 1500 is a common
+          train trip for U.S. swimmers heading to a meters meet. Whether you search the "usa" or "uk" phrasing, the answer
+          is the same, and it is on this page: type the number, read both sides.
+        </p>
+      </div>
+
+      <h3 class="mt-8 text-lg font-semibold tracking-tight text-ink">From meters and yards to a set you can coach</h3>
+      <div class="mt-3 space-y-4 text-[15px] leading-relaxed text-ink-muted">
+        <p>
+          Once you know how far, you need to know how many times you cross the pool. The distance-to-lengths mode answers
+          "how many lengths is 500, 1000 or 1500?" in any of the three pool lengths, and the lengths-to-distance mode
+          totals a set from a wall-counter count. Pair the result with the{" "}
+          <a href="/interval-calculator/" class="font-medium text-primary hover:underline">Interval Calculator</a> and you
+          can build and count a complete practice from one plan.
+        </p>
+      </div>
+
+      <h3 class="mt-8 text-lg font-semibold tracking-tight text-ink">One tool for U.S. yards and international meters</h3>
+      <div class="mt-3 space-y-4 text-[15px] leading-relaxed text-ink-muted">
+        <p>
+          The U.S. races in 25-yard pools; the rest of the swimming world uses 25- and 50-meter pools. Distance conversion
+          is where those worlds meet, so this converter handles all three pool lengths and both unit directions with no
+          setup. Then pass the result to the{" "}
+          <a href="/scy-to-scm/" class="font-medium text-primary hover:underline">course converter</a> when you need the
+          equivalent <em>times</em>, not just the distances.
+        </p>
       </div>
     </div>
   </section>
