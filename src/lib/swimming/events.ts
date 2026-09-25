@@ -1,3 +1,6 @@
+import type { Locale } from '../../i18n/config';
+import { getStrokeLabel } from '../../i18n/calculator';
+
 /** Swimming event catalog: which events exist on each course and their race distance. */
 
 export type Stroke = 'free' | 'back' | 'breast' | 'fly' | 'im';
@@ -116,11 +119,11 @@ export function eventsForCourse(_course: Course): EventDef[] {
 }
 
 /** Events grouped by stroke for the event picker UI. */
-export function eventsByStroke(course: Course): Array<{ stroke: Stroke; label: string; events: EventDef[] }> {
+export function eventsByStroke(course: Course, locale: Locale = 'en'): Array<{ stroke: Stroke; label: string; events: EventDef[] }> {
   const strokes: Stroke[] = ['free', 'back', 'breast', 'fly', 'im'];
   return strokes.map((stroke) => ({
     stroke,
-    label: strokeLabel(stroke),
+    label: getStrokeLabel(stroke, locale),
     events: eventsForCourse(course).filter((e) => e.stroke === stroke),
   }));
 }

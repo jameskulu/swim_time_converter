@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { formatCalculatorMessage, getCalculatorMessages, type Locale } from '../i18n/calculator';
 import { projectedTimes, speedResult, type DistanceUnit } from '../lib/swimming/speed';
 import { formatSwimTime, isPlausibleTime, parseSwimTime } from '../lib/swimming/time';
 import { track } from '../lib/analytics';
@@ -10,12 +11,14 @@ interface SpeedOutput {
   projected: { distance: number; seconds: number; wide: boolean }[];
 }
 
-export default function SpeedCalculator() {
+export default function SpeedCalculator({ locale = 'en' }: { locale?: Locale }) {
+  const messages = getCalculatorMessages(locale);
   const [unit, setUnit] = useState<DistanceUnit>('m');
   const [distance, setDistance] = useState('400');
   const [time, setTime] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<SpeedOutput | null>(null);
+  const unitLabel = messages.units.distanceShort[unit];
 
   function handleCalculate() {
     const dist = Number(distance);
@@ -23,24 +26,24 @@ export default function SpeedCalculator() {
 
     if (!Number.isFinite(dist) || dist <= 0) {
       setResult(null);
-      setError('Enter a benchmark distance greater than zero.');
+      setError(messages.speed.errors.distance);
       return;
     }
     if (seconds === null) {
       setResult(null);
-      setError('Enter a valid benchmark time, for example 4:20.00.');
+      setError(messages.speed.errors.time);
       return;
     }
     if (!isPlausibleTime(seconds, dist)) {
       setResult(null);
-      setError('That time is faster than any plausible record — double-check it.');
+      setError(messages.speed.errors.plausible);
       return;
     }
 
     const out = speedResult(seconds, dist, unit);
     if (!out) {
       setResult(null);
-      setError('Could not compute a speed from those inputs.');
+      setError(messages.speed.errors.compute);
       return;
     }
 
@@ -67,17 +70,17 @@ export default function SpeedCalculator() {
       <div className="space-y-6 p-4 sm:p-6">
         <div className="flex items-center justify-between gap-4">
           <div>
-            <p className="text-sm font-medium text-ink-muted">Benchmark</p>
-            <p className="mt-0.5 text-xs text-ink-tertiary">Any swim you already know the time for</p>
+             <p className="text-sm font-medium text-ink-muted">{messages.speed.benchmark}</p>
+             <p className="mt-0.5 text-xs text-ink-tertiary">{messages.speed.benchmarkDescription}</p>
           </div>
           <div className="w-40">
             <SegmentedControl
               id="speed-unit"
-              label="Distance unit"
+               label={messages.speed.distanceUnit}
               columns={2}
               options={[
-                { value: 'm', label: 'Meters' },
-                { value: 'yd', label: 'Yards' },
+                 { value: 'm', label: messages.units.meters },
+                 { value: 'yd', label: messages.units.yards },
               ]}
               value={unit}
               onChange={(u) => setUnit(u)}
@@ -88,7 +91,7 @@ export default function SpeedCalculator() {
         <div className="grid gap-6 sm:grid-cols-2">
           <div>
             <label htmlFor="speed-distance" className="mb-1.5 block text-sm font-medium text-ink-muted">
-              Distance ({unit})
+               {formatCalculatorMessage(messages.speed.distance, { unit: unitLabel })}
             </label>
             <div className="flex flex-wrap gap-2">
               <input
@@ -119,7 +122,7 @@ export default function SpeedCalculator() {
             </div>
           </div>
 
-          <TimeInput id="speed-time" value={time} onChange={setTime} placeholder="4:20.00" />
+           <TimeInput id="speed-time" value={time} onChange={setTime} placeholder="4:20.00" locale={locale} />
         </div>
 
         {error && (
@@ -133,43 +136,43 @@ export default function SpeedCalculator() {
           onClick={handleCalculate}
           className="w-full rounded-lg bg-primary px-4 py-3 text-sm font-semibold text-on-primary shadow-sm transition-colors hover:bg-primary-hover active:bg-primary-focus"
         >
-          Calculate Speed
+          {messages.speed.calculate}
         </button>
       </div>
 
       <div className="border-t border-hairline">
         {result === null ? (
           <div className="flex min-h-28 items-center justify-center px-6 py-8 text-sm text-ink-subtle">
-            Enter a benchmark time and distance to see pace, speed and projected race times.
+             {messages.speed.empty}
           </div>
         ) : (
           <div className="animate-rise space-y-8 p-4 sm:p-6" aria-live="polite">
             <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
               <div className="rounded-lg border border-hairline bg-canvas p-4">
-                <p className="text-xs uppercase tracking-wide text-ink-subtle">Pace per 100 m</p>
+                 <p className="text-xs uppercase tracking-wide text-ink-subtle">{messages.speed.paceM}</p>
                 <p className="mt-1 font-mono text-xl font-semibold tabular-nums text-ink">
                   {formatSwimTime(result.result.pacePer100M)}
                 </p>
               </div>
               <div className="rounded-lg border border-hairline bg-canvas p-4">
-                <p className="text-xs uppercase tracking-wide text-ink-subtle">Pace per 100 yd</p>
+                 <p className="text-xs uppercase tracking-wide text-ink-subtle">{messages.speed.paceYd}</p>
                 <p className="mt-1 font-mono text-xl font-semibold tabular-nums text-ink">
                   {formatSwimTime(result.result.pacePer100Yd)}
                 </p>
               </div>
               <div className="rounded-lg border border-hairline bg-canvas p-4">
-                <p className="text-xs uppercase tracking-wide text-ink-subtle">Speed</p>
+                 <p className="text-xs uppercase tracking-wide text-ink-subtle">{messages.speed.speed}</p>
                 <p className="mt-1 font-mono text-xl font-semibold tabular-nums text-ink">
-                  {result.result.speedMps.toFixed(2)} m/s
+                   {result.result.speedMps.toFixed(2)} {messages.units.mps}
                 </p>
                 <p className="mt-0.5 text-xs text-ink-subtle">
-                  {result.result.speedKmph.toFixed(1)} km/h · {result.result.speedMph.toFixed(1)} mph
+                   {result.result.speedKmph.toFixed(1)} {messages.units.kmh} · {result.result.speedMph.toFixed(1)} {messages.units.mph}
                 </p>
               </div>
             </div>
 
             <div>
-              <p className="mb-3 text-sm font-semibold text-ink">Projected Race Times</p>
+               <p className="mb-3 text-sm font-semibold text-ink">{messages.speed.projected}</p>
               <ul className="grid gap-1.5 sm:grid-cols-2 lg:grid-cols-3">
                 {result.projected.map((row) => (
                   <li
@@ -178,7 +181,9 @@ export default function SpeedCalculator() {
                   >
                     <span className="text-ink-muted">
                       {row.wide && <span className="mr-1 text-primary">★</span>}
-                      {row.distance} {row.distance >= 1650 ? 'yd (pool mile)' : unit}
+                       {row.distance >= 1650
+                         ? formatCalculatorMessage(messages.speed.poolMileRow, { distance: row.distance })
+                         : formatCalculatorMessage(messages.speed.projectedRow, { distance: row.distance, unit: unitLabel })}
                     </span>
                     <span className="font-mono tabular-nums text-ink">{formatSwimTime(row.seconds)}</span>
                   </li>
@@ -187,18 +192,18 @@ export default function SpeedCalculator() {
             </div>
 
             <div>
-              <p className="mb-3 text-sm font-semibold text-ink">Key Milestones</p>
+               <p className="mb-3 text-sm font-semibold text-ink">{messages.speed.keyMilestones}</p>
               <div className="grid gap-x-8 gap-y-4 sm:grid-cols-3">
                 <div className="flex items-center justify-between rounded-lg border border-hairline bg-canvas px-4 py-3 text-sm">
-                  <span className="text-ink-muted">1 km</span>
+                  <span className="text-ink-muted">{messages.speed.oneKm}</span>
                   <span className="font-mono tabular-nums text-ink">{formatSwimTime(result.result.oneKmSeconds)}</span>
                 </div>
                 <div className="flex items-center justify-between rounded-lg border border-hairline bg-canvas px-4 py-3 text-sm">
-                  <span className="text-ink-muted">Pool mile (1650 yd)</span>
+                  <span className="text-ink-muted">{messages.speed.poolMile}</span>
                   <span className="font-mono tabular-nums text-ink">{formatSwimTime(result.result.poolMileSeconds)}</span>
                 </div>
                 <div className="flex items-center justify-between rounded-lg border border-hairline bg-canvas px-4 py-3 text-sm">
-                  <span className="text-ink-muted">True mile (1760 yd)</span>
+                  <span className="text-ink-muted">{messages.speed.trueMile}</span>
                   <span className="font-mono tabular-nums text-ink">{formatSwimTime(result.result.mileSeconds)}</span>
                 </div>
               </div>

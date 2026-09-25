@@ -1,3 +1,4 @@
+import { getCalculatorMessages, getEventLabel, type Locale } from '../../i18n/calculator';
 import { eventsByStroke, type Course, type EventDef } from '../../lib/swimming/events';
 
 interface EventSelectorProps {
@@ -5,16 +6,17 @@ interface EventSelectorProps {
   course: Course;
   value: string;
   onChange: (event: EventDef) => void;
+  locale?: Locale;
 }
 
 /** Grouped <select> of swimming events for the selected course. */
-export default function EventSelector({ id, course, value, onChange }: EventSelectorProps) {
-  const groups = eventsByStroke(course);
+export default function EventSelector({ id, course, value, onChange, locale = 'en' }: EventSelectorProps) {
+  const groups = eventsByStroke(course, locale);
 
   return (
     <div>
       <label htmlFor={id} className="mb-1.5 block text-sm font-medium text-ink-muted">
-        Event / Distance
+        {getCalculatorMessages(locale).events.label}
       </label>
       <div className="relative">
         <select
@@ -30,7 +32,7 @@ export default function EventSelector({ id, course, value, onChange }: EventSele
             <optgroup key={group.stroke} label={group.label}>
               {group.events.map((event) => (
                 <option key={event.id} value={event.id}>
-                  {event.name[course]}
+                  {getEventLabel(event, course, locale)}
                 </option>
               ))}
             </optgroup>
@@ -42,7 +44,7 @@ export default function EventSelector({ id, course, value, onChange }: EventSele
           className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-subtle"
           aria-hidden="true"
         >
-          <path d="m6 8 4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="m6 8 4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </div>
     </div>

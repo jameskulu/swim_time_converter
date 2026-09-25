@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { formatCalculatorMessage, getCalculatorMessages, type Locale } from '../i18n/calculator';
 import { planInterval, roundSendOff } from '../lib/swimming/interval';
 import { formatSwimTime, formatSeconds, parseSwimTime } from '../lib/swimming/time';
 import { track } from '../lib/analytics';
@@ -19,7 +20,8 @@ interface IntervalOutput {
   sendOff10: number;
 }
 
-export default function IntervalCalculator() {
+export default function IntervalCalculator({ locale = 'en' }: { locale?: Locale }) {
+  const messages = getCalculatorMessages(locale);
   const [unit, setUnit] = useState<'m' | 'yd'>('m');
   const [reps, setReps] = useState('8');
   const [distance, setDistance] = useState('100');
@@ -29,6 +31,7 @@ export default function IntervalCalculator() {
   const [mode, setMode] = useState<Mode>('rest');
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<IntervalOutput | null>(null);
+  const unitLabel = messages.units.distanceShort[unit];
 
   function parseSecondsOrMiss(input: string): number {
     if (input.trim() === '') return NaN;
@@ -43,17 +46,17 @@ export default function IntervalCalculator() {
 
     if (!Number.isInteger(count) || count < 1 || count > 200) {
       setResult(null);
-      setError('Enter a repeat count between 1 and 200.');
+      setError(messages.interval.errors.repeats);
       return;
     }
     if (!Number.isFinite(distPerRep) || distPerRep <= 0) {
       setResult(null);
-      setError('Enter a distance per repeat greater than zero.');
+      setError(messages.interval.errors.distance);
       return;
     }
     if (paceSeconds === null) {
       setResult(null);
-      setError('Enter a valid pace per 100, for example 1:25.00.');
+      setError(messages.interval.errors.pace);
       return;
     }
 
@@ -62,21 +65,21 @@ export default function IntervalCalculator() {
       restSeconds = parseSecondsOrMiss(rest);
       if (Number.isNaN(restSeconds) || restSeconds < 0 || restSeconds > 3600) {
         setResult(null);
-        setError('Enter a rest time between 0 and 3600 seconds.');
+        setError(messages.interval.errors.rest);
         return;
       }
     } else {
       const sendOffInput = parseSecondsOrMiss(sendOff);
       if (Number.isNaN(sendOffInput) || sendOffInput <= 0 || sendOffInput > 3600) {
         setResult(null);
-        setError('Enter a send-off between 1 and 3600 seconds.');
+        setError(messages.interval.errors.sendOff);
         return;
       }
       const repeat = (distPerRep / 100) * paceSeconds;
       restSeconds = sendOffInput - repeat;
       if (restSeconds < 0) {
         setResult(null);
-        setError(`The send-off is shorter than your repeat time (${formatSwimTime(repeat)}). Increase it or swim faster.`);
+        setError(formatCalculatorMessage(messages.interval.errors.sendOffShorter, { time: formatSwimTime(repeat) }));
         return;
       }
     }
@@ -108,15 +111,15 @@ export default function IntervalCalculator() {
     <div className="overflow-hidden rounded-xl border border-hairline bg-surface-1 shadow-card">
       <div className="space-y-6 p-4 sm:p-6">
         <div className="flex flex-wrap items-center justify-between gap-4">
-          <p className="text-sm font-medium text-ink-muted">Set Builder</p>
+          <p className="text-sm font-medium text-ink-muted">{messages.interval.setBuilder}</p>
           <div className="w-full sm:w-auto sm:min-w-[20rem]">
             <SegmentedControl
               id="interval-mode"
-              label="What to calculate"
+              label={messages.interval.whatToCalculate}
               columns={2}
               options={[
-                { value: 'rest', label: 'Pick rest → send-off', description: 'Enter pace + rest' },
-                { value: 'sendoff', label: 'Pick send-off → rest', description: 'Enter pace + send-off' },
+                 { value: 'rest', label: messages.interval.restToSendOff, description: messages.interval.restToSendOffDescription },
+                 { value: 'sendoff', label: messages.interval.sendOffToRest, description: messages.interval.sendOffToRestDescription },
               ]}
               value={mode}
               onChange={(m) => setMode(m)}
@@ -127,7 +130,7 @@ export default function IntervalCalculator() {
         <div className="grid gap-4 sm:grid-cols-3">
           <div>
             <label htmlFor="interval-reps" className="mb-1.5 block text-sm font-medium text-ink-muted">
-              Repeats
+               {messages.interval.repeats}
             </label>
             <input
               id="interval-reps"
@@ -143,7 +146,7 @@ export default function IntervalCalculator() {
           </div>
           <div>
             <label htmlFor="interval-distance" className="mb-1.5 block text-sm font-medium text-ink-muted">
-              Distance per repeat ({unit})
+               {formatCalculatorMessage(messages.interval.distancePerRepeat, { unit: unitLabel })}
             </label>
             <div className="flex gap-2">
               <input
@@ -159,11 +162,11 @@ export default function IntervalCalculator() {
               <div className="shrink-0 basis-32">
                 <SegmentedControl
                   id="interval-unit"
-                  label="Distance unit"
+                  label={messages.interval.distanceUnit}
                   columns={2}
                   options={[
-                    { value: 'm', label: 'm' },
-                    { value: 'yd', label: 'yd' },
+                    { value: 'm', label: messages.units.distanceShort.m },
+                    { value: 'yd', label: messages.units.distanceShort.yd },
                   ]}
                   value={unit}
                   onChange={(u) => setUnit(u)}
@@ -174,7 +177,7 @@ export default function IntervalCalculator() {
           {mode === 'rest' ? (
             <div>
               <label htmlFor="interval-rest" className="mb-1.5 block text-sm font-medium text-ink-muted">
-                Rest per repeat <span className="font-normal text-ink-tertiary">(sec)</span>
+                 {formatCalculatorMessage(messages.interval.restPerRepeat, { seconds: messages.interval.seconds })}
               </label>
               <input
                 id="interval-rest"
@@ -188,11 +191,18 @@ export default function IntervalCalculator() {
               />
             </div>
           ) : (
-            <TimeInput id="interval-sendoff" label="Send-off" value={sendOff} onChange={setSendOff} placeholder="1:30.00" />
+             <TimeInput id="interval-sendoff" label={messages.interval.sendOff} value={sendOff} onChange={setSendOff} placeholder="1:30.00" locale={locale} />
           )}
         </div>
 
-        <TimeInput id="interval-pace" label={`Pace per 100 ${unit}`} value={pace} onChange={setPace} placeholder="1:25.00" />
+        <TimeInput
+          id="interval-pace"
+          label={formatCalculatorMessage(messages.interval.pacePer100, { unit: unitLabel })}
+          value={pace}
+          onChange={setPace}
+          placeholder="1:25.00"
+          locale={locale}
+        />
 
         {error && (
           <p role="alert" className="text-sm text-danger">
@@ -205,38 +215,38 @@ export default function IntervalCalculator() {
           onClick={handlePlan}
           className="w-full rounded-lg bg-primary px-4 py-3 text-sm font-semibold text-on-primary shadow-sm transition-colors hover:bg-primary-hover active:bg-primary-focus"
         >
-          Plan Set
+          {messages.interval.planSet}
         </button>
       </div>
 
       <div className="border-t border-hairline">
         {result === null ? (
           <div className="flex min-h-28 items-center justify-center px-6 py-8 text-sm text-ink-subtle">
-            Enter repeats, distance and pacing to build your set and find the send-off.
+            {messages.interval.empty}
           </div>
         ) : (
           <div className="animate-rise space-y-8 p-4 sm:p-6" aria-live="polite">
             <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
               <div className="rounded-lg border border-hairline bg-canvas p-4">
-                <p className="text-xs uppercase tracking-wide text-ink-subtle">Repeat time</p>
+                <p className="text-xs uppercase tracking-wide text-ink-subtle">{messages.interval.repeatTime}</p>
                 <p className="mt-1 font-mono text-xl font-semibold tabular-nums text-ink">
                   {formatSwimTime(result.repeatSeconds)}
                 </p>
               </div>
               <div className="rounded-lg border border-hairline bg-canvas p-4">
-                <p className="text-xs uppercase tracking-wide text-ink-subtle">Rest</p>
+                <p className="text-xs uppercase tracking-wide text-ink-subtle">{messages.interval.rest}</p>
                 <p className="mt-1 font-mono text-xl font-semibold tabular-nums text-ink">
-                  {formatSeconds(result.restSeconds)}s
+                  {formatSeconds(result.restSeconds)}{messages.interval.seconds}
                 </p>
               </div>
               <div className="rounded-lg border border-hairline bg-canvas p-4">
-                <p className="text-xs uppercase tracking-wide text-ink-subtle">Send-off</p>
+                <p className="text-xs uppercase tracking-wide text-ink-subtle">{messages.interval.sendOff}</p>
                 <p className="mt-1 font-mono text-xl font-semibold tabular-nums text-ink">
                   {formatSwimTime(result.sendOffSeconds)}
                 </p>
               </div>
               <div className="rounded-lg border border-hairline bg-canvas p-4">
-                <p className="text-xs uppercase tracking-wide text-ink-subtle">Use on the clock</p>
+                <p className="text-xs uppercase tracking-wide text-ink-subtle">{messages.interval.useOnClock}</p>
                 <p className="mt-1 font-mono text-xl font-semibold tabular-nums text-ink">
                   <span className="text-primary">{formatSwimTime(result.sendOff5)}</span>
                   <span className="mx-1 text-ink-tertiary">/</span>
@@ -247,27 +257,27 @@ export default function IntervalCalculator() {
 
             <div className="grid gap-x-8 gap-y-4 sm:grid-cols-2">
               <div className="flex items-center justify-between rounded-lg border border-hairline bg-canvas px-4 py-3 text-sm">
-                <span className="text-ink-muted">Total set distance</span>
+                 <span className="text-ink-muted">{messages.interval.totalSetDistance}</span>
                 <span className="font-mono tabular-nums text-ink">
-                  {Math.round(result.totalDistance)} {unit}
+                   {Math.round(result.totalDistance)} {unitLabel}
                 </span>
               </div>
               <div className="flex items-center justify-between rounded-lg border border-hairline bg-canvas px-4 py-3 text-sm">
-                <span className="text-ink-muted">Swim time</span>
+                 <span className="text-ink-muted">{messages.interval.swimTime}</span>
                 <span className="font-mono tabular-nums text-ink">{formatSwimTime(result.totalSwimSeconds)}</span>
               </div>
               <div className="flex items-center justify-between rounded-lg border border-hairline bg-canvas px-4 py-3 text-sm">
-                <span className="text-ink-muted">Elapsed (scheduled send-offs)</span>
+                 <span className="text-ink-muted">{messages.interval.elapsed}</span>
                 <span className="font-mono tabular-nums text-ink">{formatSwimTime(result.elapsedSeconds)}</span>
               </div>
               <div className="flex items-center justify-between rounded-lg border border-hairline bg-canvas px-4 py-3 text-sm">
-                <span className="text-ink-muted">Pace per 100</span>
+                 <span className="text-ink-muted">{messages.interval.paceResult}</span>
                 <span className="font-mono tabular-nums text-ink">{formatSwimTime(result.repeatSeconds / (Math.max(1, Number(distance)) / 100))}</span>
               </div>
             </div>
 
             <div>
-              <p className="mb-3 text-sm font-semibold text-ink">Wall-clock leave times</p>
+              <p className="mb-3 text-sm font-semibold text-ink">{messages.interval.leaveTimes}</p>
               <ul className="grid gap-1.5 sm:grid-cols-2 lg:grid-cols-4">
                 {result.leaveTimes.map((leave, i) => {
                   if (i >= 20) return null;
@@ -276,16 +286,16 @@ export default function IntervalCalculator() {
                       key={i}
                       className="flex items-center justify-between rounded-lg border border-hairline bg-canvas px-3.5 py-2.5 text-sm"
                     >
-                      <span className="text-ink-muted">Rep {i + 1}</span>
-                      <span className="font-mono tabular-nums text-ink">
-                        {i === 0 ? 'on the horn' : `+${formatSwimTime(leave)}`}
-                      </span>
+                       <span className="text-ink-muted">{formatCalculatorMessage(messages.interval.rep, { number: i + 1 })}</span>
+                       <span className="font-mono tabular-nums text-ink">
+                         {i === 0 ? messages.interval.onHorn : `+${formatSwimTime(leave)}`}
+                       </span>
                     </li>
                   );
                 })}
               </ul>
               {result.leaveTimes.length > 20 && (
-                <p className="mt-2 text-xs text-ink-tertiary">Showing the first 20 leave times of {result.leaveTimes.length} reps.</p>
+                <p className="mt-2 text-xs text-ink-tertiary">                 {formatCalculatorMessage(messages.interval.showing, { shown: 20, total: result.leaveTimes.length })}</p>
               )}
             </div>
           </div>

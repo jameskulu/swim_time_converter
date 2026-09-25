@@ -1,15 +1,49 @@
 ---
-import { isNavActive, converterLinks, calculatorLinks } from '../lib/navigation';
+import {
+  getUi,
+  localeFromPath,
+  localeLabels,
+  locales,
+  localizedPath,
+  routeKeyFromPath,
+  type Locale,
+  type RouteKey,
+} from '../i18n';
+import {
+  getCalculatorLinks,
+  getConverterLinks,
+  isNavActive,
+  type NavLink,
+} from '../lib/navigation';
 
+interface Props {
+  locale?: Locale;
+  route?: RouteKey;
+}
+
+const { locale: requestedLocale, route: requestedRoute } = Astro.props;
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
-
-const convertersActive = converterLinks.some((l) => isNavActive(path, l.href));
-const calculatorsActive = calculatorLinks.some((l) => isNavActive(path, l.href));
+const locale = requestedLocale ?? localeFromPath(path);
+const route = requestedRoute ?? routeKeyFromPath(path);
+const currentRoute = route ?? 'home';
+const ui = getUi(locale);
+const converterLinks = getConverterLinks(locale);
+const calculatorLinks = getCalculatorLinks(locale);
+const homeHref = localizedPath(locale, 'home');
+const guidesHref = localizedPath(locale, 'guides');
+const isActive = (link: NavLink) => route === link.route || isNavActive(path, link.href, locale);
+const convertersActive = converterLinks.some(isActive);
+const calculatorsActive = calculatorLinks.some(isActive);
+const guidesActive = route === 'guides' || isNavActive(path, guidesHref, locale);
 ---
 
 <header class="sticky top-0 z-50 border-b border-hairline bg-canvas/80 backdrop-blur-md supports-[backdrop-filter]:bg-canvas/70">
   <div class="mx-auto flex h-14 w-full max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
-    <a href="/" class="flex min-w-0 items-center gap-2.5 text-sm font-semibold text-ink">
+    <a
+      href={homeHref}
+      class="flex min-w-0 items-center gap-2.5 text-sm font-semibold text-ink"
+      aria-current={route === 'home' ? 'page' : undefined}
+    >
       <span class="grid h-7 w-7 shrink-0 place-items-center rounded-md bg-primary text-on-primary" aria-hidden="true">
         <svg viewBox="0 0 20 20" fill="none" class="h-4 w-4">
           <path d="M4 6c2 0 2 1.5 4 1.5S10 6 12 6s2 1.5 4 1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
@@ -17,11 +51,10 @@ const calculatorsActive = calculatorLinks.some((l) => isNavActive(path, l.href))
           <path d="M4 14c2 0 2 1.5 4 1.5S10 14 12 14s2 1.5 4 1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
         </svg>
       </span>
-      <span class="truncate">Swim Time Converter</span>
+      <span class="truncate">{ui.calculatorLinks.home}</span>
     </a>
 
-    <nav class="hidden items-center gap-1 md:flex" aria-label="Primary">
-      <!-- Converters -->
+    <nav class="hidden items-center gap-1 md:flex" aria-label={ui.primaryNavLabel}>
       <div class="group relative">
         <button
           type="button"
@@ -34,7 +67,7 @@ const calculatorsActive = calculatorLinks.some((l) => isNavActive(path, l.href))
           aria-haspopup="true"
           aria-expanded="false"
         >
-          Converters
+          {ui.converters}
           <svg viewBox="0 0 10 6" fill="none" class="h-1.5 w-2.5 shrink-0" aria-hidden="true">
             <path d="m1 1 4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
@@ -47,26 +80,30 @@ const calculatorsActive = calculatorLinks.some((l) => isNavActive(path, l.href))
               converterLinks.map((link) => (
                 <a
                   href={link.href}
-                  class={[
+                  class:list={[
                     'block rounded-md px-3 py-2 text-sm',
-                    isNavActive(path, link.href)
+                    isActive(link)
                       ? 'bg-surface-2 font-medium text-ink'
                       : 'text-ink-muted hover:bg-surface-2 hover:text-ink',
-                  ].join(' ')}
+                  ]}
+                  aria-current={isActive(link) ? 'page' : undefined}
                 >
                   {link.label}
                 </a>
               ))
             }
             <div class="my-2 border-t border-hairline" />
-            <a href="/guides/" class="block rounded-md px-3 py-2 text-sm text-ink-muted hover:bg-surface-2 hover:text-ink">
-              Course conversion guide
+            <a
+              href={guidesHref}
+              class="block rounded-md px-3 py-2 text-sm text-ink-muted hover:bg-surface-2 hover:text-ink"
+              aria-current={guidesActive ? 'page' : undefined}
+            >
+              {ui.courseConversionGuide}
             </a>
           </div>
         </div>
       </div>
 
-      <!-- Calculators -->
       <div class="group relative">
         <button
           type="button"
@@ -79,7 +116,7 @@ const calculatorsActive = calculatorLinks.some((l) => isNavActive(path, l.href))
           aria-haspopup="true"
           aria-expanded="false"
         >
-          Calculators
+          {ui.calculators}
           <svg viewBox="0 0 10 6" fill="none" class="h-1.5 w-2.5 shrink-0" aria-hidden="true">
             <path d="m1 1 4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
@@ -92,12 +129,13 @@ const calculatorsActive = calculatorLinks.some((l) => isNavActive(path, l.href))
               calculatorLinks.map((link) => (
                 <a
                   href={link.href}
-                  class={[
+                  class:list={[
                     'block rounded-md px-3 py-2 text-sm',
-                    isNavActive(path, link.href)
+                    isActive(link)
                       ? 'bg-surface-2 font-medium text-ink'
                       : 'text-ink-muted hover:bg-surface-2 hover:text-ink',
-                  ].join(' ')}
+                  ]}
+                  aria-current={isActive(link) ? 'page' : undefined}
                 >
                   {link.label}
                 </a>
@@ -108,25 +146,77 @@ const calculatorsActive = calculatorLinks.some((l) => isNavActive(path, l.href))
       </div>
 
       <a
-        href="/guides/"
+        href={guidesHref}
         class:list={[
           'rounded-md px-3 py-1.5 text-sm transition-colors',
-          isNavActive(path, '/guides/')
+          guidesActive
             ? 'bg-surface-2 font-medium text-ink'
             : 'text-ink-subtle hover:bg-surface-2 hover:text-ink',
         ]}
-        aria-current={isNavActive(path, '/guides/') ? 'page' : undefined}
+        aria-current={guidesActive ? 'page' : undefined}
       >
-        Guides
+        {ui.guides}
       </a>
     </nav>
 
     <div class="flex items-center gap-2">
+      <details class="group relative">
+        <summary
+          class="flex h-9 cursor-pointer list-none items-center gap-1.5 rounded-md border border-hairline bg-surface-1 px-2.5 text-ink-muted transition-colors hover:text-ink [&::-webkit-details-marker]:hidden"
+          aria-label={ui.languageSelectorAriaLabel}
+          aria-haspopup="true"
+        >
+          <svg viewBox="0 0 20 20" fill="none" class="h-4 w-4" aria-hidden="true">
+            <circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="1.5" />
+            <path d="M3.5 10h13M10 3c2 2 3 4.3 3 7s-1 5-3 7c-2-2-3-4.3-3-7s1-5 3-7Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+          </svg>
+          <span class="text-xs font-semibold uppercase">{locale}</span>
+        </summary>
+        <div
+          class="invisible absolute right-0 top-full z-50 pt-2 opacity-0 transition-all duration-150 group-open:visible group-open:opacity-100 group-focus-within:visible group-focus-within:opacity-100"
+        >
+          <nav
+            class="w-44 rounded-xl border border-hairline bg-surface-1 p-2 shadow-pop"
+            aria-label={ui.languageSelectorAriaLabel}
+          >
+            <p class="px-3 pb-1.5 pt-1 text-xs font-medium uppercase tracking-[0.08em] text-ink-tertiary">
+              {ui.languageSelector}
+            </p>
+            <ul class="space-y-0.5">
+              {
+                locales.map((targetLocale) => (
+                  <li>
+                    <a
+                      href={localizedPath(targetLocale, currentRoute)}
+                      hreflang={targetLocale}
+                      lang={targetLocale}
+                      class:list={[
+                        'flex items-center gap-2 rounded-md px-3 py-2 text-sm transition-colors',
+                        targetLocale === locale
+                          ? 'bg-surface-2 font-medium text-ink'
+                          : 'text-ink-muted hover:bg-surface-2 hover:text-ink',
+                      ]}
+                      aria-current={targetLocale === locale ? 'true' : undefined}
+                    >
+                      <span>{localeLabels[targetLocale]}</span>
+                      <span class="ml-auto text-[10px] font-semibold uppercase text-ink-tertiary">
+                        {targetLocale}
+                      </span>
+                      {targetLocale === locale && <span aria-hidden="true">✓</span>}
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </nav>
+        </div>
+      </details>
+
       <button
         id="theme-toggle"
         type="button"
         class="grid h-9 w-9 place-items-center rounded-md border border-hairline bg-surface-1 text-ink-muted transition-colors hover:text-ink"
-        aria-label="Toggle dark mode"
+        aria-label={ui.toggleDarkMode}
       >
         <svg viewBox="0 0 20 20" fill="none" class="h-4 w-4 block dark:hidden" aria-hidden="true">
           <path d="M10 4.5a5.5 5.5 0 1 0 5.5 5.5 4.25 4.25 0 0 1-5.5-5.5Z" stroke="currentColor" stroke-width="1.5" />
@@ -141,9 +231,11 @@ const calculatorsActive = calculatorLinks.some((l) => isNavActive(path, l.href))
         id="menu-toggle"
         type="button"
         class="grid h-9 w-9 place-items-center rounded-md border border-hairline bg-surface-1 text-ink-muted transition-colors hover:text-ink md:hidden"
-        aria-label="Open menu"
+        aria-label={ui.openMenu}
         aria-controls="mobile-menu"
         aria-expanded="false"
+        data-open-label={ui.openMenu}
+        data-close-label={ui.closeMenu}
       >
         <svg viewBox="0 0 20 20" fill="none" class="h-4 w-4" aria-hidden="true">
           <path d="M3.5 5.5h13M3.5 10h13M3.5 14.5h13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
@@ -153,31 +245,33 @@ const calculatorsActive = calculatorLinks.some((l) => isNavActive(path, l.href))
   </div>
 
   <div id="mobile-menu" class="hidden border-t border-hairline bg-canvas md:hidden">
-    <nav class="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-3" aria-label="Mobile">
-      <p class="px-3 pb-1 pt-3 text-xs font-medium uppercase tracking-[0.08em] text-ink-tertiary">Calculators</p>
+    <nav class="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-3" aria-label={ui.mobileNavLabel}>
+      <p class="px-3 pb-1 pt-3 text-xs font-medium uppercase tracking-[0.08em] text-ink-tertiary">{ui.calculators}</p>
       {
         calculatorLinks.map((item) => (
           <a
             href={item.href}
             class:list={[
               'rounded-md px-3 py-2.5 text-sm',
-              isNavActive(path, item.href) ? 'bg-surface-2 font-medium text-ink' : 'text-ink-muted hover:bg-surface-2 hover:text-ink',
+              isActive(item) ? 'bg-surface-2 font-medium text-ink' : 'text-ink-muted hover:bg-surface-2 hover:text-ink',
             ]}
+            aria-current={isActive(item) ? 'page' : undefined}
           >
             {item.label}
           </a>
         ))
       }
 
-      <p class="px-3 pb-1 pt-4 text-xs font-medium uppercase tracking-[0.08em] text-ink-tertiary">Converters</p>
+      <p class="px-3 pb-1 pt-4 text-xs font-medium uppercase tracking-[0.08em] text-ink-tertiary">{ui.converters}</p>
       {
         converterLinks.map((item) => (
           <a
             href={item.href}
             class:list={[
               'rounded-md px-3 py-2.5 text-sm',
-              isNavActive(path, item.href) ? 'bg-surface-2 font-medium text-ink' : 'text-ink-muted hover:bg-surface-2 hover:text-ink',
+              isActive(item) ? 'bg-surface-2 font-medium text-ink' : 'text-ink-muted hover:bg-surface-2 hover:text-ink',
             ]}
+            aria-current={isActive(item) ? 'page' : undefined}
           >
             {item.label}
           </a>
@@ -185,13 +279,14 @@ const calculatorsActive = calculatorLinks.some((l) => isNavActive(path, l.href))
       }
 
       <a
-        href="/guides/"
+        href={guidesHref}
         class:list={[
           'rounded-md px-3 py-2.5 text-sm',
-          isNavActive(path, '/guides/') ? 'bg-surface-2 font-medium text-ink' : 'text-ink-muted hover:bg-surface-2 hover:text-ink',
+          guidesActive ? 'bg-surface-2 font-medium text-ink' : 'text-ink-muted hover:bg-surface-2 hover:text-ink',
         ]}
+        aria-current={guidesActive ? 'page' : undefined}
       >
-        Guides
+        {ui.guides}
       </a>
     </nav>
   </div>
@@ -204,18 +299,20 @@ const calculatorsActive = calculatorLinks.some((l) => isNavActive(path, l.href))
     document.documentElement.classList.toggle('dark', !isDark);
     try {
       localStorage.setItem('theme', isDark ? 'light' : 'dark');
-    } catch (e) {
-      /* private mode — ignore */
-    }
+    } catch {}
   }
   toggle?.addEventListener('click', setTheme);
 
   const menuButton = document.getElementById('menu-toggle');
   const menu = document.getElementById('mobile-menu');
+  const openLabel = menuButton?.getAttribute('data-open-label');
+  const closeLabel = menuButton?.getAttribute('data-close-label');
   function syncMenu() {
     const open = menu?.classList.contains('block') ?? false;
     menuButton?.setAttribute('aria-expanded', String(open));
-    menuButton?.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    if (openLabel && closeLabel) {
+      menuButton?.setAttribute('aria-label', open ? closeLabel : openLabel);
+    }
   }
   menuButton?.addEventListener('click', () => {
     menu?.classList.toggle('hidden');

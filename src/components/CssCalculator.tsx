@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { formatCalculatorMessage, getCalculatorMessages, type Locale } from '../i18n/calculator';
 import { cssPacePer100, cssProjectedTimes, cssSpeed, cssZones, type CssZone } from '../lib/swimming/css';
 import { parseSwimTime, isPlausibleTime, formatSwimTime } from '../lib/swimming/time';
 import { track } from '../lib/analytics';
@@ -15,7 +16,8 @@ interface CssOutput {
   projected: { distance: number; seconds: number }[];
 }
 
-export default function CssCalculator() {
+export default function CssCalculator({ locale = 'en' }: { locale?: Locale }) {
+  const messages = getCalculatorMessages(locale);
   const [unit, setUnit] = useState<'m' | 'yd'>('m');
   const [timeLong, setTimeLong] = useState('');
   const [timeShort, setTimeShort] = useState('');
@@ -23,7 +25,8 @@ export default function CssCalculator() {
   const [ran, setRan] = useState(false);
   const [result, setResult] = useState<CssOutput | null>(null);
 
-  const paceUnit = unit === 'yd' ? '100 yd' : '100 m';
+  const paceUnit = messages.units.pace100[unit];
+  const unitLabel = messages.units.distanceShort[unit];
 
   function handleCalculate() {
     const long = parseSwimTime(timeLong);
@@ -31,22 +34,26 @@ export default function CssCalculator() {
 
     if (long === null) {
       setResult(null);
-      setError(`Enter a valid ${DIST_LONG} ${unit} time.`);
+      setError(formatCalculatorMessage(messages.css.errors.longTime, { distance: DIST_LONG, unit: unitLabel }));
       return;
     }
     if (short === null) {
       setResult(null);
-      setError(`Enter a valid ${DIST_SHORT} ${unit} time.`);
+      setError(formatCalculatorMessage(messages.css.errors.shortTime, { distance: DIST_SHORT, unit: unitLabel }));
       return;
     }
     if (!isPlausibleTime(short, DIST_SHORT) || !isPlausibleTime(long, DIST_LONG)) {
       setResult(null);
-      setError('That time is faster than any plausible record — double-check it.');
+      setError(messages.css.errors.plausible);
       return;
     }
     if (long <= short) {
       setResult(null);
-      setError(`The ${DIST_LONG} ${unit} time must be slower than the ${DIST_SHORT} ${unit} time for CSS to work.`);
+      setError(formatCalculatorMessage(messages.css.errors.relationship, {
+        long: DIST_LONG,
+        short: DIST_SHORT,
+        unit: unitLabel,
+      }));
       return;
     }
 
@@ -56,7 +63,7 @@ export default function CssCalculator() {
     setResult({
       speed,
       pace,
-      zones: cssZones(pace),
+      zones: cssZones(pace, locale),
       projected: cssProjectedTimes(pace, unit === 'yd' ? [50, 100, 200, 300, 400, 500, 800, 1000, 1500, 1650] : [50, 100, 200, 300, 400, 500, 800, 1000, 1500]),
     });
     setRan(true);
@@ -68,17 +75,20 @@ export default function CssCalculator() {
       <div className="space-y-6 p-4 sm:p-6">
         <div className="flex items-center justify-between gap-4">
           <div>
-            <p className="text-sm font-medium text-ink-muted">Test</p>
-            <p className="mt-0.5 text-xs text-ink-tertiary">Wakayoshi two-test method: {DIST_LONG} + {DIST_SHORT}</p>
+            <p className="text-sm font-medium text-ink-muted">{messages.css.test}</p>
+            <p className="mt-0.5 text-xs text-ink-tertiary">{formatCalculatorMessage(messages.css.testMethod, {
+              long: DIST_LONG,
+              short: DIST_SHORT,
+            })}</p>
           </div>
           <div className="w-40">
             <SegmentedControl
               id="css-unit"
-              label="Distance unit"
+               label={messages.css.distanceUnit}
               columns={2}
               options={[
-                { value: 'm', label: 'Meters' },
-                { value: 'yd', label: 'Yards' },
+                 { value: 'm', label: messages.units.meters },
+                 { value: 'yd', label: messages.units.yards },
               ]}
               value={unit}
               onChange={(u) => setUnit(u)}
@@ -87,8 +97,22 @@ export default function CssCalculator() {
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2">
-          <TimeInput id="css-long" label={`${DIST_LONG} ${unit} time`} value={timeLong} onChange={setTimeLong} placeholder="4:30.00" />
-          <TimeInput id="css-short" label={`${DIST_SHORT} ${unit} time`} value={timeShort} onChange={setTimeShort} placeholder="2:10.00" />
+          <TimeInput
+            id="css-long"
+            label={formatCalculatorMessage(messages.css.testTime, { distance: DIST_LONG, unit: unitLabel })}
+            value={timeLong}
+            onChange={setTimeLong}
+            placeholder="4:30.00"
+            locale={locale}
+          />
+          <TimeInput
+            id="css-short"
+            label={formatCalculatorMessage(messages.css.testTime, { distance: DIST_SHORT, unit: unitLabel })}
+            value={timeShort}
+            onChange={setTimeShort}
+            placeholder="2:10.00"
+            locale={locale}
+          />
         </div>
 
         {error && (
@@ -102,7 +126,7 @@ export default function CssCalculator() {
           onClick={handleCalculate}
           className="w-full rounded-lg bg-primary px-4 py-3 text-sm font-semibold text-on-primary shadow-sm transition-colors hover:bg-primary-hover active:bg-primary-focus"
         >
-          Calculate CSS
+          {messages.css.calculate}
         </button>
       </div>
 
@@ -111,31 +135,31 @@ export default function CssCalculator() {
           <div className="animate-rise space-y-8 p-4 sm:p-6" aria-live="polite">
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="rounded-lg border border-hairline bg-canvas p-4">
-                <p className="text-xs uppercase tracking-wide text-ink-subtle">CSS pace ({paceUnit})</p>
+                <p className="text-xs uppercase tracking-wide text-ink-subtle">{formatCalculatorMessage(messages.css.cssPace, { unit: paceUnit })}</p>
                 <p className="mt-1 font-mono text-2xl font-semibold tabular-nums text-ink">
                   {formatSwimTime(result.pace)}
                 </p>
               </div>
               <div className="rounded-lg border border-hairline bg-canvas p-4">
-                <p className="text-xs uppercase tracking-wide text-ink-subtle">CSS speed</p>
+                <p className="text-xs uppercase tracking-wide text-ink-subtle">{messages.css.cssSpeed}</p>
                 <p className="mt-1 font-mono text-2xl font-semibold tabular-nums text-ink">
                   {result.speed.toFixed(2)}
-                  <span className="ml-1 text-sm font-normal text-ink-subtle">{unit}/s</span>
+                  <span className="ml-1 text-sm font-normal text-ink-subtle">{formatCalculatorMessage(messages.css.speedUnit, { unit: unitLabel })}</span>
                 </p>
               </div>
             </div>
 
             <div>
-              <p className="mb-3 text-sm font-semibold text-ink">Training Zones</p>
+              <p className="mb-3 text-sm font-semibold text-ink">{messages.css.trainingZones}</p>
               <div className="overflow-x-auto rounded-lg border border-hairline bg-canvas">
                 <table className="w-full min-w-[420px] text-sm">
-                  <caption className="sr-only">Swim training zones and paces from your CSS</caption>
+                  <caption className="sr-only">{messages.css.tableCaption}</caption>
                   <thead>
                     <tr className="border-b border-hairline text-left text-xs uppercase tracking-wide text-ink-muted">
-                      <th scope="col" className="px-3.5 py-2.5 font-medium">Zone</th>
-                      <th scope="col" className="px-3.5 py-2.5 font-medium">Pace ({paceUnit})</th>
-                      <th scope="col" className="px-3.5 py-2.5 font-medium">Perception</th>
-                      <th scope="col" className="px-3.5 py-2.5 font-medium">Pacing</th>
+                       <th scope="col" className="px-3.5 py-2.5 font-medium">{messages.css.zone}</th>
+                       <th scope="col" className="px-3.5 py-2.5 font-medium">{formatCalculatorMessage(messages.css.pace, { unit: paceUnit })}</th>
+                       <th scope="col" className="px-3.5 py-2.5 font-medium">{messages.css.perception}</th>
+                       <th scope="col" className="px-3.5 py-2.5 font-medium">{messages.css.pacing}</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-hairline">
@@ -155,14 +179,14 @@ export default function CssCalculator() {
             </div>
 
             <div>
-              <p className="mb-3 text-sm font-semibold text-ink">Projected Times at CSS</p>
+              <p className="mb-3 text-sm font-semibold text-ink">{messages.css.projected}</p>
               <ul className="grid gap-1.5 sm:grid-cols-2 lg:grid-cols-3">
                 {result.projected.map((row) => (
                   <li
                     key={row.distance}
                     className="flex items-center justify-between rounded-lg border border-hairline bg-canvas px-3.5 py-2.5 text-sm"
                   >
-                    <span className="text-ink-muted">{row.distance} {unit}</span>
+                     <span className="text-ink-muted">{row.distance} {unitLabel}</span>
                     <span className="font-mono tabular-nums text-ink">{formatSwimTime(row.seconds)}</span>
                   </li>
                 ))}
@@ -171,7 +195,7 @@ export default function CssCalculator() {
           </div>
         ) : (
           <div className="flex min-h-28 items-center justify-center px-6 py-8 text-sm text-ink-subtle">
-            Enter your {DIST_LONG} and {DIST_SHORT} {unit} test times to find your Critical Swim Speed.
+            {formatCalculatorMessage(messages.css.empty, { long: DIST_LONG, short: DIST_SHORT, unit: unitLabel })}
           </div>
         )}
       </div>

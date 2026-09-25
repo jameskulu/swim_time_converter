@@ -1,16 +1,17 @@
 import { useState } from 'react';
+import { formatCalculatorMessage, getCalculatorMessages, type Locale } from '../i18n/calculator';
 import { formatSwimTime, parseSwimTime } from '../lib/swimming/time';
 import { track } from '../lib/analytics';
 import SegmentedControl from './calculator/SegmentedControl';
 import TimeInput from './calculator/TimeInput';
 
 const PHASES = [
-  { value: '25', label: '25' },
-  { value: '50', label: '50' },
-  { value: '100', label: '100' },
-  { value: '200', label: '200' },
-  { value: '400', label: '400' },
-  { value: 'custom', label: 'Custom' },
+  { value: '25' },
+  { value: '50' },
+  { value: '100' },
+  { value: '200' },
+  { value: '400' },
+  { value: 'custom' },
 ];
 
 interface PaceResult {
@@ -18,7 +19,12 @@ interface PaceResult {
   seconds: number;
 }
 
-export default function PaceCalculator() {
+export default function PaceCalculator({ locale = 'en' }: { locale?: Locale }) {
+  const messages = getCalculatorMessages(locale);
+  const phases = PHASES.map((phase) => ({
+    value: phase.value,
+    label: phase.value === 'custom' ? messages.pace.customPhase : phase.value,
+  }));
   const [unit, setUnit] = useState<'yd' | 'm'>('m');
   const [distance, setDistance] = useState('500');
   const [phase, setPhase] = useState('100');
@@ -31,13 +37,13 @@ export default function PaceCalculator() {
     const total = Number(distance);
     if (!Number.isFinite(total) || total <= 0) {
       setResults(null);
-      setError('Enter a total distance greater than zero.');
+      setError(messages.pace.errors.distance);
       return;
     }
     const seconds = parseSwimTime(time);
     if (seconds === null) {
       setResults(null);
-      setError('Enter a valid total time, for example 6:05.00.');
+      setError(messages.pace.errors.time);
       return;
     }
     track('pace_calculator_used', { unit, distance: total });
@@ -45,7 +51,7 @@ export default function PaceCalculator() {
     const phaseValue = phase === 'custom' ? Number(customPhase) : Number(phase);
     if (!Number.isFinite(phaseValue) || phaseValue <= 0) {
       setResults(null);
-      setError('Enter a valid pace distance.');
+      setError(messages.pace.errors.phase);
       return;
     }
 
@@ -55,7 +61,7 @@ export default function PaceCalculator() {
     setError(null);
   }
 
-  const unitLabel = unit === 'yd' ? 'yd' : 'm';
+  const unitLabel = messages.units.distanceShort[unit];
 
   return (
     <div className="overflow-hidden rounded-xl border border-hairline bg-surface-1 shadow-card">
@@ -63,7 +69,7 @@ export default function PaceCalculator() {
         <div className="grid gap-6 sm:grid-cols-2">
           <div>
             <label htmlFor="pace-distance" className="mb-1.5 block text-sm font-medium text-ink-muted">
-              Total Distance
+              {messages.pace.totalDistance}
             </label>
             <div className="flex gap-2">
               <input
@@ -79,11 +85,11 @@ export default function PaceCalculator() {
               <div className="shrink-0 basis-40">
                 <SegmentedControl
                   id="pace-unit"
-                  label="Distance unit"
+                  label={messages.pace.distanceUnit}
                   columns={2}
                   options={[
-                    { value: 'm', label: 'Meters' },
-                    { value: 'yd', label: 'Yards' },
+                    { value: 'm', label: messages.units.meters },
+                    { value: 'yd', label: messages.units.yards },
                   ]}
                   value={unit}
                   onChange={(u) => setUnit(u)}
@@ -92,23 +98,23 @@ export default function PaceCalculator() {
             </div>
           </div>
 
-          <TimeInput id="pace-time" value={time} onChange={setTime} placeholder="6:05.00" />
+          <TimeInput id="pace-time" value={time} onChange={setTime} placeholder="6:05.00" locale={locale} />
         </div>
 
         <div>
-          <p className="mb-1.5 text-sm font-medium text-ink-muted">Pace per</p>
+          <p className="mb-1.5 text-sm font-medium text-ink-muted">{messages.pace.pacePer}</p>
           <SegmentedControl
             id="pace-phase"
-            label="Pace interval"
+            label={messages.pace.paceInterval}
             columns={6}
-            options={PHASES}
+            options={phases}
             value={phase}
             onChange={(p) => setPhase(p)}
           />
           {phase === 'custom' && (
             <div className="mt-3 flex max-w-xs items-center gap-2">
               <label htmlFor="pace-custom" className="sr-only">
-                Custom pace distance
+                {messages.pace.customPaceDistance}
               </label>
               <input
                 id="pace-custom"
@@ -136,24 +142,24 @@ export default function PaceCalculator() {
           onClick={handleConvert}
           className="w-full rounded-lg bg-primary px-4 py-3 text-sm font-semibold text-on-primary shadow-sm transition-colors hover:bg-primary-hover active:bg-primary-focus"
         >
-          Calculate Pace
+          {messages.pace.calculate}
         </button>
       </div>
 
       <div className="border-t border-hairline">
         {results === null ? (
           <div className="flex min-h-28 items-center justify-center px-6 py-8 text-sm text-ink-subtle">
-            Enter a distance and time, then press calculate to see your pace.
+            {messages.pace.empty}
           </div>
         ) : (
           <div className="animate-rise space-y-4 p-4 sm:p-6" aria-live="polite">
-            <p className="text-sm font-medium uppercase tracking-wide text-ink-subtle">Pace Results</p>
+            <p className="text-sm font-medium uppercase tracking-wide text-ink-subtle">{messages.pace.results}</p>
             <ul className="divide-y divide-hairline overflow-hidden rounded-lg border border-hairline">
               {results.map((r) => (
                 <li key={r.phase} className="flex items-center justify-between bg-surface-1 px-4 py-3 text-sm">
                   <span className="text-ink-muted">
-                    per {r.phase} {unitLabel}
-                    {r.phase === 100 && <span className="text-ink-tertiary"> (the pace standard)</span>}
+                    {formatCalculatorMessage(messages.pace.per, { distance: r.phase, unit: unitLabel })}
+                    {r.phase === 100 && <span className="text-ink-tertiary">{messages.pace.standard}</span>}
                   </span>
                   <span className="font-mono tabular-nums text-ink">{formatSwimTime(r.seconds)}</span>
                 </li>

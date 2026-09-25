@@ -1,0 +1,22 @@
+---
+import LocalizedPage from '../../components/LocalizedPage.astro';
+import { locales, routeKeys, type Locale, type RouteKey } from '../../i18n/config';
+
+interface Props {
+  locale: Locale;
+  route: RouteKey;
+}
+
+export function getStaticPaths() {
+  return locales
+    .filter((locale) => locale !== 'en')
+    .flatMap((locale) => routeKeys.filter((route) => route !== 'home').map((route) => ({
+      params: { lang: locale, slug: route },
+      props: { locale, route },
+    })));
+}
+
+const { locale, route } = Astro.props as Props;
+---
+
+<LocalizedPage locale={locale} route={route} />

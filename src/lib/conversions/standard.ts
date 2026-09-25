@@ -1,4 +1,5 @@
 import type { Course } from '../swimming/events';
+import { getConversionErrorMessage } from '../../i18n/calculator';
 import { isPlausibleTime } from '../swimming/time';
 import type { ConversionEquation, ConversionMethodTable, CoursePair } from './types';
 import { ConversionError } from './types';
@@ -120,16 +121,17 @@ export function standardConvert(
     courseTo: Course;
     seconds: number;
     event: EventLike;
+    locale?: import('../../i18n/config').Locale;
   },
 ): { seconds: number } {
-  const { courseFrom, courseTo, seconds, event } = arg;
+  const { courseFrom, courseTo, seconds, event, locale = 'en' } = arg;
 
   if (!Number.isFinite(seconds) || seconds <= 0) {
-    throw new ConversionError('INVALID_INPUT', 'Enter a time greater than zero.');
+    throw new ConversionError('INVALID_INPUT', getConversionErrorMessage('INVALID_INPUT', locale));
   }
 
   if (!isPlausibleTime(seconds, event.distance[courseFrom])) {
-    throw new ConversionError('UNREASONABLE_TIME', 'That time is faster than any known swimming record for this event.');
+    throw new ConversionError('UNREASONABLE_TIME', getConversionErrorMessage('UNREASONABLE_TIME', locale));
   }
 
   return { seconds: convertSeconds(courseFrom, courseTo, seconds, event) };

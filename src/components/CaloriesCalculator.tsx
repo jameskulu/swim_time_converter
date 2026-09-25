@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { formatCalculatorMessage, getCalorieStrokeLabel, getCalculatorMessages, getIntensityLabel, type Locale } from '../i18n/calculator';
 import { caloriesBurned, INTENSITIES, SWIM_STROKES, type IntensityKey, type StrokeKey } from '../lib/swimming/calories';
 import { track } from '../lib/analytics';
 import SegmentedControl from './calculator/SegmentedControl';
@@ -7,7 +8,8 @@ type WeightUnit = 'kg' | 'lb';
 
 const KG_PER_LB = 0.453592;
 
-export default function CaloriesCalculator() {
+export default function CaloriesCalculator({ locale = 'en' }: { locale?: Locale }) {
+  const messages = getCalculatorMessages(locale);
   const [weight, setWeight] = useState('68');
   const [weightUnit, setWeightUnit] = useState<WeightUnit>('kg');
   const [minutes, setMinutes] = useState('45');
@@ -22,19 +24,19 @@ export default function CaloriesCalculator() {
 
     if (!Number.isFinite(w) || w <= 0) {
       setKcal(null);
-      setError('Enter your body weight.');
+      setError(messages.calories.errors.weight);
       return;
     }
     if (!Number.isFinite(mins) || mins <= 0 || mins > 720) {
       setKcal(null);
-      setError('Enter a duration between 1 and 720 minutes.');
+      setError(messages.calories.errors.duration);
       return;
     }
 
     const weightKg = weightUnit === 'lb' ? w * KG_PER_LB : w;
     const found = caloriesBurned(weightKg, mins, stroke, intensity);
     if (found === null) {
-      setError('Could not estimate calories for those inputs.');
+      setError(messages.calories.errors.compute);
       return;
     }
     setError(null);
@@ -48,7 +50,7 @@ export default function CaloriesCalculator() {
         <div className="grid gap-6 sm:grid-cols-2">
           <div>
             <label htmlFor="cal-weight" className="mb-1.5 block text-sm font-medium text-ink-muted">
-              Body Weight
+               {messages.calories.bodyWeight}
             </label>
             <div className="flex gap-2">
               <input
@@ -64,7 +66,7 @@ export default function CaloriesCalculator() {
               <div className="shrink-0 basis-32">
                 <SegmentedControl
                   id="cal-weight-unit"
-                  label="Weight unit"
+                   label={messages.calories.weightUnit}
                   columns={2}
                   options={[
                     { value: 'kg', label: 'kg' },
@@ -79,7 +81,7 @@ export default function CaloriesCalculator() {
 
           <div>
             <label htmlFor="cal-minutes" className="mb-1.5 block text-sm font-medium text-ink-muted">
-              Swim Time <span className="font-normal text-ink-tertiary">(minutes)</span>
+               {messages.calories.swimTime} <span className="font-normal text-ink-tertiary">({messages.calories.minutes})</span>
             </label>
             <input
               id="cal-minutes"
@@ -96,14 +98,14 @@ export default function CaloriesCalculator() {
         </div>
 
         <div>
-          <p className="mb-1.5 text-sm font-medium text-ink-muted">Stroke</p>
+           <p className="mb-1.5 text-sm font-medium text-ink-muted">{messages.calories.stroke}</p>
           <SegmentedControl
             id="cal-stroke"
-            label="Stroke"
+             label={messages.calories.stroke}
             columns={3}
             options={SWIM_STROKES.map((strokeOption) => ({
-              value: strokeOption.id,
-              label: strokeOption.label,
+               value: strokeOption.id,
+               label: getCalorieStrokeLabel(strokeOption.id, locale),
             }))}
             value={stroke}
             onChange={(s) => setStroke(s)}
@@ -111,14 +113,14 @@ export default function CaloriesCalculator() {
         </div>
 
         <div>
-          <p className="mb-1.5 text-sm font-medium text-ink-muted">Intensity</p>
+           <p className="mb-1.5 text-sm font-medium text-ink-muted">{messages.calories.intensity}</p>
           <SegmentedControl
             id="cal-intensity"
-            label="Intensity"
+             label={messages.calories.intensity}
             columns={3}
             options={INTENSITIES.map((intensityOption) => ({
-              value: intensityOption.id,
-              label: intensityOption.label,
+               value: intensityOption.id,
+               label: getIntensityLabel(intensityOption.id, locale),
             }))}
             value={intensity}
             onChange={(i) => setIntensity(i)}
@@ -136,25 +138,25 @@ export default function CaloriesCalculator() {
           onClick={handleCalculate}
           className="w-full rounded-lg bg-primary px-4 py-3 text-sm font-semibold text-on-primary shadow-sm transition-colors hover:bg-primary-hover active:bg-primary-focus"
         >
-          Estimate Calories
+           {messages.calories.estimate}
         </button>
       </div>
 
       <div className="border-t border-hairline">
         {kcal === null ? (
           <div className="flex min-h-28 items-center justify-center px-6 py-8 text-sm text-ink-subtle">
-            Enter your weight and a swim time to estimate calories burned.
+             {messages.calories.empty}
           </div>
         ) : (
           <div className="animate-rise p-4 sm:p-6" aria-live="polite">
             <div className="rounded-lg border border-hairline bg-canvas p-4 text-center">
-              <p className="text-xs uppercase tracking-wide text-ink-subtle">Estimated calories burned</p>
+               <p className="text-xs uppercase tracking-wide text-ink-subtle">{messages.calories.estimatedCalories}</p>
               <p className="mt-1 font-mono text-3xl font-semibold tabular-nums text-ink">
                 {Math.round(kcal)}
-                <span className="ml-1 text-base font-normal text-ink-subtle">kcal</span>
+                 <span className="ml-1 text-base font-normal text-ink-subtle">{messages.units.kcal}</span>
               </p>
               <p className="mt-2 text-xs text-ink-tertiary">
-                ≈ {Math.round((kcal / Math.max(1, Number(minutes))) * 60)} kcal/hour · estimate only
+                 {formatCalculatorMessage(messages.calories.perHour, { value: Math.round((kcal / Math.max(1, Number(minutes))) * 60) })}
               </p>
             </div>
           </div>

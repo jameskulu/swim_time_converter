@@ -1,0 +1,47 @@
+---
+import type { Locale, RouteKey } from '../i18n/config';
+import { conversionRouteKeys } from '../i18n/config';
+import SwimCalculator from './calculator/SwimCalculator';
+import PaceCalculator from './PaceCalculator';
+import SplitCalculator from './SplitCalculator';
+import CssCalculator from './CssCalculator';
+import IntervalCalculator from './IntervalCalculator';
+import SpeedCalculator from './SpeedCalculator';
+import CaloriesCalculator from './CaloriesCalculator';
+import LengthsConverter from './LengthsConverter';
+
+interface Props {
+  locale: Locale;
+  route: RouteKey;
+}
+
+const { locale, route } = Astro.props;
+const from = conversionRouteKeys.includes(route) ? route.split('-to-')[0].toUpperCase() as 'SCY' | 'SCM' | 'LCM' : undefined;
+const to = conversionRouteKeys.includes(route) ? route.split('-to-')[1].toUpperCase() as 'SCY' | 'SCM' | 'LCM' : undefined;
+---
+
+{
+  route === 'home' && <SwimCalculator client:load locale={locale} />
+}
+{
+  route === 'pace-calculator' && <PaceCalculator client:load locale={locale} />
+}
+{
+  route === 'split-calculator' && <SplitCalculator client:load locale={locale} />
+}
+{
+  route === 'css-calculator' && <CssCalculator client:load locale={locale} />
+}
+{
+  route === 'interval-calculator' && <IntervalCalculator client:load locale={locale} />
+}
+{
+  route === 'speed-calculator' && <SpeedCalculator client:load locale={locale} />
+}
+{
+  route === 'calories-calculator' && <CaloriesCalculator client:load locale={locale} />
+}
+{
+  route === 'lengths-converter' && <LengthsConverter client:load locale={locale} />
+}
+{from && to && <SwimCalculator client:load locale={locale} from={from} to={to} />}

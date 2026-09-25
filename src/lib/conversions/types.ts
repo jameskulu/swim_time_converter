@@ -1,3 +1,4 @@
+import type { Locale } from '../../i18n/config';
 import type { Course, EventDef } from '../swimming/events';
 
 /** Conversion models. Only "standard" ships in v1; the type is extensible. */
@@ -14,6 +15,7 @@ export interface ConvertRequest {
   /** Reserved for methodology models that are gender-dependent (e.g. NCAA). */
   gender: Gender;
   method: Method;
+  locale?: Locale;
 }
 
 export interface ConvertResult {

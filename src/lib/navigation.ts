@@ -1,42 +1,109 @@
-/** Shared site navigation data used by the header, footer and cross-link sections. */
+import {
+  calculatorRouteKeys,
+  conversionRouteKeys,
+  getUi,
+  localizedPath,
+  routeKeyFromPath,
+  routePaths,
+  type Locale,
+  type RouteKey,
+  type UiMessages,
+} from '../i18n';
 
 export interface NavLink {
   href: string;
   label: string;
+  route?: RouteKey;
 }
 
-export const converterLinks: NavLink[] = [
-  { href: '/scy-to-lcm/', label: 'SCY to LCM' },
-  { href: '/scy-to-scm/', label: 'SCY to SCM' },
-  { href: '/scm-to-lcm/', label: 'SCM to LCM' },
-  { href: '/lcm-to-scy/', label: 'LCM to SCY' },
-  { href: '/lcm-to-scm/', label: 'LCM to SCM' },
-  { href: '/scm-to-scy/', label: 'SCM to SCY' },
-];
+const converterLabels: Record<string, string> = {
+  'scy-to-lcm': 'SCY to LCM',
+  'scy-to-scm': 'SCY to SCM',
+  'scm-to-lcm': 'SCM to LCM',
+  'lcm-to-scy': 'LCM to SCY',
+  'lcm-to-scm': 'LCM to SCM',
+  'scm-to-scy': 'SCM to SCY',
+};
 
-export const calculatorLinks: NavLink[] = [
-  { href: '/', label: 'Swim Time Converter' },
-  { href: '/pace-calculator/', label: 'Pace Calculator' },
-  { href: '/split-calculator/', label: 'Split Calculator' },
-  { href: '/css-calculator/', label: 'Critical Swim Speed (CSS)' },
-  { href: '/interval-calculator/', label: 'Interval & Send-off' },
-  { href: '/speed-calculator/', label: 'Speed & Race Projection' },
-  { href: '/calories-calculator/', label: 'Calories Calculator' },
-  { href: '/lengths-converter/', label: 'Lengths & Distance' },
-];
+const calculatorLabelKeys: Record<string, keyof UiMessages['calculatorLinks']> = {
+  home: 'home',
+  'pace-calculator': 'pace',
+  'split-calculator': 'split',
+  'css-calculator': 'css',
+  'interval-calculator': 'interval',
+  'speed-calculator': 'speed',
+  'calories-calculator': 'calories',
+  'lengths-converter': 'lengths',
+};
 
-/** True when the given path is on the page (or shares the page's path prefix). */
-export function isNavActive(path: string, href: string): boolean {
-  if (href === '/') return path === '/';
-  return path.startsWith(href);
+const companyEntries = [
+  { route: 'about', label: 'about' },
+  { route: 'contact', label: 'contact' },
+  { route: 'privacy-policy', label: 'privacyPolicy' },
+  { route: 'terms', label: 'terms' },
+] as const;
+
+function navHref(locale: Locale, route: RouteKey): string {
+  return locale === 'en' ? routePaths[route] : localizedPath(locale, route);
 }
 
-/** List of calculators excluding the current page (for "more tools" sections). */
-export function otherCalculators(currentHref?: string): NavLink[] {
-  return calculatorLinks.filter((l) => l.href !== currentHref);
+function normalizePath(path: string): string {
+  const withLeadingSlash = path.startsWith('/') ? path : `/${path}`;
+  return withLeadingSlash === '/' ? '/' : `${withLeadingSlash.replace(/\/+$/, '')}/`;
 }
 
-/** List of converters excluding the current page (for "more conversions" sections). */
-export function otherConverters(currentHref: string): NavLink[] {
-  return converterLinks.filter((l) => l.href !== currentHref);
+export function getConverterLinks(locale: Locale = 'en'): NavLink[] {
+  return conversionRouteKeys.map((route) => ({
+    href: navHref(locale, route),
+    label: converterLabels[route],
+    route,
+  }));
+}
+
+export function getCalculatorLinks(locale: Locale = 'en'): NavLink[] {
+  const labels = getUi(locale).calculatorLinks;
+  return calculatorRouteKeys.map((route) => ({
+    href: navHref(locale, route),
+    label: labels[calculatorLabelKeys[route]],
+    route,
+  }));
+}
+
+export function getCompanyLinks(locale: Locale = 'en'): NavLink[] {
+  const labels = getUi(locale);
+  return companyEntries.map(({ route, label }) => ({
+    href: navHref(locale, route),
+    label: labels[label],
+    route,
+  }));
+}
+
+export const converterLinks: NavLink[] = getConverterLinks().map(({ href, label }) => ({ href, label }));
+export const calculatorLinks: NavLink[] = getCalculatorLinks().map(({ href, label }) => ({ href, label }));
+export const companyLinks: NavLink[] = getCompanyLinks().map(({ href, label }) => ({ href, label }));
+
+export function isNavActive(path: string, href: string, locale: Locale = 'en'): boolean {
+  const normalizedPath = normalizePath(path);
+  const candidates = new Set([normalizePath(href), normalizePath(localizedPath(locale, href))]);
+  const localizedHome = normalizePath(localizedPath(locale, 'home'));
+
+  if (candidates.has(localizedHome) || normalizePath(href) === '/') {
+    return normalizedPath === localizedHome;
+  }
+
+  return [...candidates].some((candidate) => normalizedPath.startsWith(candidate));
+}
+
+function isCurrentLink(link: NavLink, currentHref: string, locale: Locale): boolean {
+  const currentRoute = routeKeyFromPath(currentHref);
+  if (currentRoute) return link.route === currentRoute;
+  return isNavActive(currentHref, link.href, locale);
+}
+
+export function otherCalculators(currentHref?: string, locale: Locale = 'en'): NavLink[] {
+  return getCalculatorLinks(locale).filter((link) => !currentHref || !isCurrentLink(link, currentHref, locale));
+}
+
+export function otherConverters(currentHref: string, locale: Locale = 'en'): NavLink[] {
+  return getConverterLinks(locale).filter((link) => !isCurrentLink(link, currentHref, locale));
 }

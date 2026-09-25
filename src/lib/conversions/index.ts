@@ -1,3 +1,5 @@
+import type { Locale } from '../../i18n/config';
+import { getCalculatorMessages, localizeConversionError } from '../../i18n/calculator';
 import type { Course } from '../swimming/events';
 import { standardConvert } from './standard';
 import type { ConvertRequest, ConvertResult } from './types';
@@ -32,11 +34,11 @@ export function convertToAllCourses(request: Omit<ConvertRequest, 'courseTo'>): 
 }
 
 /** Convenience wrapper that returns null instead of throwing for the UI. */
-export function tryConvertTime(request: ConvertRequest): ConvertResult | { error: string; code: ConversionError['code'] } {
+export function tryConvertTime(request: ConvertRequest, locale: Locale = request.locale ?? 'en'): ConvertResult | { error: string; code: ConversionError['code'] } {
   try {
-    return convertTime(request);
+    return convertTime({ ...request, locale });
   } catch (error) {
-    if (error instanceof ConversionError) return { error: error.message, code: error.code };
-    return { error: 'Something went wrong with this conversion.', code: 'INVALID_INPUT' };
+    if (error instanceof ConversionError) return { error: localizeConversionError(error, locale), code: error.code };
+    return { error: getCalculatorMessages(locale).conversion.genericError, code: 'INVALID_INPUT' };
   }
 }

@@ -1,3 +1,6 @@
+import type { Locale } from '../../i18n/config';
+import { getCssZoneLabel, getCssZonePurpose } from '../../i18n/calculator';
+
 /** Critical Swim Speed (CSS) helpers — the Wakayoshi 400 + 200 test model. */
 
 export interface CssInput {
@@ -37,18 +40,20 @@ export function cssPacePer100(speed: number): number {
 }
 
 /** Practical training zones derived from a CSS per-100 pace (seconds). */
-export function cssZones(cssPace: number): CssZone[] {
-  const zones: Omit<CssZone, 'fromPace' | 'toPace'>[] = [
-    { key: 'recovery', label: 'Zone 1 · Recovery', rpe: '3–4 / 10', purpose: 'Warm-up, cool-down and technique work' },
-    { key: 'aerobic', label: 'Zone 2 · Aerobic Endurance', rpe: '5–6 / 10', purpose: 'Base volume at a controlled effort' },
-    { key: 'tempo', label: 'Zone 3 · Tempo', rpe: '6–7 / 10', purpose: 'Comfortable but firm aerobic hold' },
-    { key: 'threshold', label: 'Zone 4 · Threshold (CSS)', rpe: '7–8 / 10', purpose: 'Repeatable threshold sets on short rest' },
-    { key: 'vo2', label: 'Zone 5 · VO₂ / Speed', rpe: '8–10 / 10', purpose: 'Short reps faster than CSS with real recovery' },
+export function cssZones(cssPace: number, locale: Locale = 'en'): CssZone[] {
+  const zones: Omit<CssZone, 'fromPace' | 'toPace' | 'label' | 'purpose'>[] = [
+    { key: 'recovery', rpe: '3–4 / 10' },
+    { key: 'aerobic', rpe: '5–6 / 10' },
+    { key: 'tempo', rpe: '6–7 / 10' },
+    { key: 'threshold', rpe: '7–8 / 10' },
+    { key: 'vo2', rpe: '8–10 / 10' },
   ];
   // Anchor the threshold zone on CSS itself.
   const anchors = [cssPace + 15, cssPace + 10, cssPace + 4, cssPace, cssPace - 8];
   return zones.map((zone, i) => ({
     ...zone,
+    label: getCssZoneLabel(zone.key as Parameters<typeof getCssZoneLabel>[0], locale),
+    purpose: getCssZonePurpose(zone.key as Parameters<typeof getCssZonePurpose>[0], locale),
     toPace: anchors[i],
     fromPace: i < anchors.length - 1 ? anchors[i + 1] : Math.max(0, anchors[i] - 7),
   }));

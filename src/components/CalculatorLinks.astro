@@ -1,30 +1,53 @@
 ---
-import { converterLinks, otherCalculators, otherConverters, isNavActive } from '../lib/navigation';
+import {
+  conversionRouteKeys,
+  getUi,
+  localeFromPath,
+  localizedPath,
+  routeKeyFromPath,
+  type Locale,
+  type RouteKey,
+} from '../i18n';
+import {
+  getConverterLinks,
+  isNavActive,
+  otherCalculators,
+  otherConverters,
+} from '../lib/navigation';
 
 interface Props {
-  /** Href of the current page so it is excluded (or dimmed) in the lists. */
+  locale?: Locale;
+  route?: RouteKey;
   current?: string;
 }
 
-const { current = '' } = Astro.props;
-
+const { locale: requestedLocale, route: requestedRoute, current } = Astro.props;
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
-const toolLinks = otherCalculators(current || undefined);
-const convLinks = current.startsWith('/scy-to-') || current.startsWith('/scm-to-') || current.startsWith('/lcm-to-')
-  ? otherConverters(current)
-  : converterLinks;
+const locale = requestedLocale ?? localeFromPath(path);
+const currentPath = current || path;
+const route = requestedRoute ?? routeKeyFromPath(currentPath);
+const currentIdentifier = route ?? currentPath;
+const ui = getUi(locale);
+const toolLinks = otherCalculators(currentIdentifier, locale);
+const convLinks = route && conversionRouteKeys.includes(route)
+  ? otherConverters(currentIdentifier, locale)
+  : getConverterLinks(locale);
+const paceCalculatorHref = localizedPath(locale, 'pace-calculator');
+const guidesHref = localizedPath(locale, 'guides');
+const isActive = (href: string, linkRoute?: RouteKey) =>
+  (linkRoute !== undefined && route === linkRoute) || isNavActive(path, href, locale);
 ---
 
 <div class="border-t border-hairline bg-surface-1 py-14">
   <div class="mx-auto w-full max-w-6xl px-4 sm:px-6">
-    <h2 class="text-lg font-semibold text-ink">More Swimming Tools</h2>
+    <h2 class="text-lg font-semibold text-ink">{ui.moreSwimmingTools}</h2>
     <div class="mt-5 grid gap-6 lg:grid-cols-2">
       <div>
-        <p class="text-xs font-medium uppercase tracking-[0.08em] text-ink-tertiary">Calculators</p>
+        <p class="text-xs font-medium uppercase tracking-[0.08em] text-ink-tertiary">{ui.calculators}</p>
         <ul class="mt-3 grid gap-2 sm:grid-cols-2">
           {
             toolLinks.map((link) => {
-              const active = isNavActive(path, link.href);
+              const active = isActive(link.href, link.route);
               return (
                 <li>
                   <a
@@ -44,11 +67,11 @@ const convLinks = current.startsWith('/scy-to-') || current.startsWith('/scm-to-
         </ul>
       </div>
       <div>
-        <p class="text-xs font-medium uppercase tracking-[0.08em] text-ink-tertiary">Course Converters</p>
+        <p class="text-xs font-medium uppercase tracking-[0.08em] text-ink-tertiary">{ui.courseConverters}</p>
         <ul class="mt-3 grid gap-2 sm:grid-cols-2">
           {
             convLinks.map((link) => {
-              const active = isNavActive(path, link.href);
+              const active = isActive(link.href, link.route);
               return (
                 <li>
                   <a
@@ -69,8 +92,7 @@ const convLinks = current.startsWith('/scy-to-') || current.startsWith('/scm-to-
       </div>
     </div>
     <p class="mt-6 text-sm text-ink-subtle">
-      New here? Start with the <a href="/pace-calculator/" class="font-medium text-primary hover:underline">Pace Calculator</a> for any race,
-      or read the <a href="/guides/" class="font-medium text-primary hover:underline">course conversion guide</a> before comparing times across pools.
+      {ui.newHere.before}<a href={paceCalculatorHref} class="font-medium text-primary hover:underline">{ui.newHere.paceCalculator}</a>{ui.newHere.betweenLinks}<a href={guidesHref} class="font-medium text-primary hover:underline">{ui.newHere.courseConversionGuide}</a>{ui.newHere.after}
     </p>
   </div>
 </div>

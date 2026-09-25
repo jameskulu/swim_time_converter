@@ -2,6 +2,8 @@
 import '@fontsource-variable/inter';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { alternateUrls, localeFromPath, localeOg, routeKeyFromPath, type Locale, type RouteKey } from '../i18n/config';
+import { getUi } from '../i18n/ui';
 import '../styles/global.css';
 
 interface Props {
@@ -16,6 +18,8 @@ interface Props {
   ogImage?: string;
   noindex?: boolean;
   robots?: string;
+  locale?: Locale;
+  route?: RouteKey;
 }
 
 const siteUrl = 'https://onlineswimtimeconverter.com';
@@ -31,19 +35,30 @@ const {
   ogImage = `${siteUrl}/og-image.png`,
   noindex = false,
   robots = noindex ? 'noindex, nofollow' : 'index, follow',
+  locale: requestedLocale,
+  route: requestedRoute,
 } = Astro.props;
 
+const resolvedLocale = requestedLocale ?? localeFromPath(Astro.url.pathname);
+const resolvedRoute = requestedRoute ?? routeKeyFromPath(Astro.url.pathname);
+const alternates = resolvedRoute ? alternateUrls(resolvedRoute) : undefined;
 const ldBlocks: Record<string, unknown>[] = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={resolvedLocale}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{title}</title>
     <meta name="description" content={description} />
     {noindex ? null : <link rel="canonical" href={canonical} />}
+    {
+      !noindex && alternates && Object.entries(alternates).map(([lang, href]) => (
+        <link rel="alternate" hreflang={lang} href={href} />
+      ))
+    }
+    {!noindex && alternates && <link rel="alternate" hreflang="x-default" href={alternates.en} />}
     <meta name="robots" content={robots} />
     <meta name="generator" content={Astro.generator} />
 
@@ -56,12 +71,15 @@ const ldBlocks: Record<string, unknown>[] = Array.isArray(jsonLd) ? jsonLd : jso
     <meta property="og:title" content={ogTitle} />
     <meta property="og:description" content={ogDescription} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale" content={localeOg[resolvedLocale]} />
+    {Object.entries(alternates ?? {}).filter(([lang]) => lang !== resolvedLocale).map(([lang]) => (
+      <meta property="og:locale:alternate" content={localeOg[lang as Locale]} />
+    ))}
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:alt" content="Swim Time Converter - convert swimming times between SCY, SCM and LCM courses" />
+    <meta property="og:image:alt" content={ogTitle} />
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -98,12 +116,12 @@ const ldBlocks: Record<string, unknown>[] = Array.isArray(jsonLd) ? jsonLd : jso
       href="#main"
       class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-on-primary"
     >
-      Skip to content
+      {getUi(resolvedLocale).skipToContent}
     </a>
-    <Header />
+    <Header locale={resolvedLocale} route={resolvedRoute} />
     <main id="main" class="flex-1">
       <slot />
     </main>
-    <Footer />
+    <Footer locale={resolvedLocale} route={resolvedRoute} />
   </body>
 </html>

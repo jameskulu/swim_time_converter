@@ -1,3 +1,5 @@
+import type { Locale } from '../i18n/config';
+import { getEventLabel } from '../i18n/calculator';
 import type { Course } from './swimming/events';
 import { EVENTS } from './swimming/events';
 import { convertTime } from './conversions';
@@ -10,7 +12,7 @@ export interface Example {
 }
 
 /** Worked examples for a from->to pair, computed with the standard methodology. */
-export function buildExamples(from: Course, to: Course): Example[] {
+export function buildExamples(from: Course, to: Course, locale: Locale = 'en'): Example[] {
   const samples = [
     { eventId: '100-free', seconds: 52.43, label: '100 Free' },
     { eventId: '200-free', seconds: 112.37, label: '200 Free' },
@@ -26,14 +28,20 @@ export function buildExamples(from: Course, to: Course): Example[] {
       seconds: sample.seconds,
       gender: 'Men',
       method: 'standard',
+      locale,
     });
     const needsPairNote = event.pairing !== 'standard';
-    const label =
-      sample.label ?? `${event.name[from]} → ${event.name[to]}`;
+    const fromName = getEventLabel(event, from, locale);
+    const toName = getEventLabel(event, to, locale);
+    const label = locale === 'en' && sample.label
+      ? sample.label
+      : sample.label
+        ? fromName
+        : `${fromName} → ${toName}`;
     return {
       label: needsPairNote && !sample.label ? `${label}` : label,
-      fromText: `${formatSwimTime(sample.seconds)} ${event.name[from]}`,
-      toText: `${formatSwimTime(result.seconds)} ${event.name[to]}`,
+      fromText: `${formatSwimTime(sample.seconds)} ${fromName}`,
+      toText: `${formatSwimTime(result.seconds)} ${toName}`,
     };
   });
 }
