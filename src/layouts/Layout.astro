@@ -65,6 +65,15 @@ const ldBlocks: Record<string, unknown>[] = Array.isArray(jsonLd) ? jsonLd : jso
     <meta name="theme-color" content="#fafafb" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#010102" media="(prefers-color-scheme: dark)" />
 
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-F6SECCQCDG"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { window.dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-F6SECCQCDG');
+    </script>
+
     <!-- Open Graph -->
     <meta property="og:type" content={pageType} />
     <meta property="og:site_name" content="Swim Time Converter" />
