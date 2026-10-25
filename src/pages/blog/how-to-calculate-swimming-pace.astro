@@ -1,0 +1,252 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const siteUrl = 'https://onlineswimtimeconverter.com';
+const canonical = `${siteUrl}/blog/how-to-calculate-swimming-pace/`;
+const title = 'How to Calculate Swimming Pace: Per 100m, 100yd, and Race Splits';
+const description =
+  'Learn how to calculate swim pace per 100 meters or yards with a simple formula, worked examples, race split tips, and a free pace calculator.';
+const publishedDate = '2026-10-25';
+
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  mainEntityOfPage: canonical,
+  datePublished: publishedDate,
+  author: {
+    '@type': 'Organization',
+    name: 'Swim Time Converter',
+    url: siteUrl,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Swim Time Converter',
+    logo: {
+      '@type': 'ImageObject',
+      url: `${siteUrl}/og-image.png`,
+    },
+  },
+  articleSection: 'Swimming Training',
+  keywords: [
+    'swimming pace calculator',
+    'how to calculate swim pace',
+    'swim pace per 100',
+    'swimming pace per 100m',
+    'swimming pace per 100 yards',
+    'swim race splits',
+  ],
+};
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: `${siteUrl}/blog/` },
+    { '@type': 'ListItem', position: 3, name: title, item: canonical },
+  ],
+};
+---
+
+<Layout
+  title={`${title} | Swim Time Converter`}
+  description={description}
+  canonical={canonical}
+  pageType="article"
+  ogTitle={title}
+  ogDescription={description}
+  jsonLd={[articleLd, breadcrumbLd]}
+>
+  <article class="mx-auto w-full max-w-3xl px-4 pb-16 pt-8 sm:px-6 sm:pt-12">
+    <nav aria-label="Breadcrumb" class="text-sm text-ink-subtle">
+      <ol class="flex flex-wrap items-center gap-2">
+        <li><a class="hover:text-ink hover:underline" href="/">Home</a></li>
+        <li aria-hidden="true">/</li>
+        <li><a class="hover:text-ink hover:underline" href="/blog/">Blog</a></li>
+        <li aria-hidden="true">/</li>
+        <li aria-current="page" class="text-ink">Swimming pace guide</li>
+      </ol>
+    </nav>
+
+    <header class="mt-8 border-b border-hairline pb-8">
+      <p class="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Swimming training · Pace &amp; splits</p>
+      <h1 class="mt-3 text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+        How to Calculate Swimming Pace: Per 100m, 100yd, and Race Splits
+      </h1>
+      <p class="mt-5 text-lg leading-relaxed text-ink-muted">
+        Whether you are planning a 400-meter swim, a 500-yard race, or your next interval set, knowing your swim pace turns a finish time into a useful training target. The calculation is simple once you know the distance and time.
+      </p>
+      <div class="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-sm text-ink-subtle">
+        <span>By Swim Time Converter</span>
+        <span aria-hidden="true">·</span>
+        <time datetime={publishedDate}>October 25, 2026</time>
+        <span aria-hidden="true">·</span>
+        <span>8 min read</span>
+      </div>
+    </header>
+
+    <nav aria-label="Article contents" class="mt-8 rounded-xl border border-hairline bg-surface-1 p-5 sm:p-6">
+      <h2 class="font-semibold text-ink">In this guide</h2>
+      <ol class="mt-3 grid gap-2 text-sm sm:grid-cols-2">
+        <li><a class="text-primary hover:underline" href="#pace-formula">The swim pace formula</a></li>
+        <li><a class="text-primary hover:underline" href="#worked-examples">Worked pace examples</a></li>
+        <li><a class="text-primary hover:underline" href="#race-splits">Pace versus race splits</a></li>
+        <li><a class="text-primary hover:underline" href="#yards-vs-meters">Yards versus meters</a></li>
+        <li><a class="text-primary hover:underline" href="#training-pace">Use pace in swim training</a></li>
+        <li><a class="text-primary hover:underline" href="#common-questions">Common questions</a></li>
+      </ol>
+    </nav>
+
+    <div class="mt-10 space-y-10 text-[15px] leading-7 text-ink-muted sm:text-base">
+      <section>
+        <h2 id="pace-formula" class="text-2xl font-semibold tracking-tight text-ink">The swim pace formula</h2>
+        <p class="mt-4">
+          Swimming pace is the time it takes to cover a standard distance. Many swimmers use pace per 100 meters in a metric pool or per 100 yards in a yard pool. To calculate it, divide your total swim time by the distance you swam, then multiply by the pace distance:
+        </p>
+        <div class="my-5 rounded-xl border border-primary/20 bg-primary/5 p-5 text-center">
+          <p class="font-mono text-base font-semibold text-ink sm:text-lg">
+            Pace = total time in seconds ÷ total distance × 100
+          </p>
+          <p class="mt-2 text-sm text-ink-subtle">Use meters for both distances or yards for both distances.</p>
+        </div>
+        <p>
+          For a per-100 pace, the formula returns seconds per 100 meters or seconds per 100 yards. To find pace per 50, 200, or another interval, replace 100 with that interval. Keep the units consistent: a time recorded over 400 meters should not be divided by a distance measured in yards.
+        </p>
+        <p class="mt-4">
+          If your result is in seconds, convert it back to minutes and seconds for readability. For example, 96 seconds is 1 minute and 36 seconds, written as <strong class="text-ink">1:36 per 100</strong>.
+        </p>
+      </section>
+
+      <section>
+        <h2 id="worked-examples" class="text-2xl font-semibold tracking-tight text-ink">Worked swim pace examples</h2>
+        <p class="mt-4">Here are four examples of common swim pace calculations. Each pace stays in the same unit as its original distance.</p>
+        <div class="mt-5 overflow-x-auto rounded-xl border border-hairline bg-surface-1">
+          <table class="w-full min-w-[32rem] text-left text-sm">
+            <caption class="sr-only">Examples of swimming pace per 100 meters or yards</caption>
+            <thead class="bg-surface-2 text-xs uppercase tracking-wide text-ink-subtle">
+              <tr>
+                <th scope="col" class="px-4 py-3 font-semibold">Swim</th>
+                <th scope="col" class="px-4 py-3 font-semibold">Calculation</th>
+                <th scope="col" class="px-4 py-3 font-semibold">Pace</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-hairline text-ink">
+              <tr>
+                <th scope="row" class="px-4 py-3 font-medium">400 m in 6:24</th>
+                <td class="px-4 py-3">384 ÷ 400 × 100</td>
+                <td class="px-4 py-3 font-semibold">1:36 / 100 m</td>
+              </tr>
+              <tr>
+                <th scope="row" class="px-4 py-3 font-medium">500 yd in 5:30</th>
+                <td class="px-4 py-3">330 ÷ 500 × 100</td>
+                <td class="px-4 py-3 font-semibold">1:06 / 100 yd</td>
+              </tr>
+              <tr>
+                <th scope="row" class="px-4 py-3 font-medium">1,500 m in 25:00</th>
+                <td class="px-4 py-3">1,500 ÷ 1,500 × 100</td>
+                <td class="px-4 py-3 font-semibold">1:40 / 100 m</td>
+              </tr>
+              <tr>
+                <th scope="row" class="px-4 py-3 font-medium">1,650 yd in 20:37</th>
+                <td class="px-4 py-3">1,237 ÷ 1,650 × 100</td>
+                <td class="px-4 py-3 font-semibold">about 1:15 / 100 yd</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4">
+          In the final example, the exact average is just under 75 seconds per 100 yards. Rounding to the nearest second gives about 1:15. Keep extra precision while calculating and round only the final pace.
+        </p>
+      </section>
+
+      <section>
+        <h2 id="race-splits" class="text-2xl font-semibold tracking-tight text-ink">Pace versus race splits: what is the difference?</h2>
+        <p class="mt-4">
+          <strong class="text-ink">Pace</strong> is a rate: the time for a standard distance, such as 100 meters. A <strong class="text-ink">split</strong> is the time for a specific part of a swim or the cumulative race clock at a checkpoint. A 400-meter race might have 100-meter splits of 1:30, 1:32, 1:33, and 1:31. Those are segment times; the cumulative split at 300 meters is 4:35.
+        </p>
+        <p class="mt-4">
+          For an even-pace target, multiply your pace per 100 by each 100-meter segment. A goal of 6:24 for 400 meters works out to 1:36 per 100, with cumulative checkpoints of 1:36, 3:12, 4:48, and 6:24. A real race may vary from this plan, but the even split is a clear starting point.
+        </p>
+        <p class="mt-4">
+          Use the <a class="font-medium text-primary hover:underline" href="/pace-calculator/">swim pace calculator</a> to convert a total time into target paces, then use the <a class="font-medium text-primary hover:underline" href="/split-calculator/">swim split calculator</a> to see cumulative checkpoints for a race.
+        </p>
+      </section>
+
+      <section>
+        <h2 id="yards-vs-meters" class="text-2xl font-semibold tracking-tight text-ink">Swimming pace in yards versus meters</h2>
+        <p class="mt-4">
+          Always label pace with its course: 1:10 per 100 yards and 1:10 per 100 meters are not equivalent. A 100-meter length is about 9.36% longer than 100 yards, and short-course yards, short-course meters, and long-course meters also have different numbers of turns across a race. More turns can affect a swimmer’s time because each wall provides a push-off and glide.
+        </p>
+        <p class="mt-4">
+          That is why a pace calculation is most useful when compared with swims in the same course and unit. If you are moving between yards and meters, use a course-aware estimate rather than assuming the same numeric pace represents the same performance. Our <a class="font-medium text-primary hover:underline" href="/">swim time converter</a> compares equivalent times between SCY, SCM, and LCM, while the <a class="font-medium text-primary hover:underline" href="/lengths-converter/">lengths converter</a> handles pool distances.
+        </p>
+      </section>
+
+      <section>
+        <h2 id="training-pace" class="text-2xl font-semibold tracking-tight text-ink">How to use swimming pace in training</h2>
+        <p class="mt-4">
+          Pace gives a set a measurable purpose. Instead of swimming “comfortably hard,” a coach can prescribe a target such as 8 × 100 meters at 1:35 pace. The send-off adds rest: on a 1:45 send-off, a swimmer who finishes in 1:35 has 10 seconds before the next repeat.
+        </p>
+        <ul class="mt-4 list-disc space-y-2 pl-6">
+          <li><strong class="text-ink">Choose a relevant reference swim.</strong> A recent, accurately timed effort gives a more useful target than an old personal best.</li>
+          <li><strong class="text-ink">Match the distance and course.</strong> Use a 100-yard pace for yard-pool training and a 100-meter pace for metric-pool training.</li>
+          <li><strong class="text-ink">Set a realistic repeat pace.</strong> A sprint pace will not usually hold across a long aerobic set. Adjust pace to match the goal and repeat distance.</li>
+          <li><strong class="text-ink">Track consistency, not only averages.</strong> Two swims can have the same average pace but very different pacing. Record repeat times to see where your effort changes.</li>
+        </ul>
+        <p class="mt-4">
+          For threshold-focused sessions, a <a class="font-medium text-primary hover:underline" href="/css-calculator/">Critical Swim Speed calculator</a> can estimate a sustainable training pace from timed swims. Treat every pace zone or projection as a guide and adjust it to your technique, recovery, and coaching plan.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-semibold tracking-tight text-ink">Common swim pace calculation mistakes</h2>
+        <ul class="mt-4 list-disc space-y-2 pl-6">
+          <li><strong class="text-ink">Mixing units:</strong> calculate meters per meter or yards per yard, never one of each.</li>
+          <li><strong class="text-ink">Using minutes as decimal time:</strong> 1:30 is 90 seconds, not 1.30 minutes. Convert minutes to seconds before dividing.</li>
+          <li><strong class="text-ink">Confusing a split with a pace:</strong> a 50-meter split is not automatically a per-100 pace; scale the time to the distance you want to compare.</li>
+          <li><strong class="text-ink">Comparing different courses directly:</strong> account for distance and turn differences before comparing yard and meter performances.</li>
+          <li><strong class="text-ink">Rounding too early:</strong> keep decimal seconds through the calculation, then round the displayed result.</li>
+        </ul>
+      </section>
+
+      <section id="common-questions" class="space-y-6">
+        <h2 class="text-2xl font-semibold tracking-tight text-ink">Swimming pace questions</h2>
+        <div>
+          <h3 class="text-lg font-semibold text-ink">How do I calculate pace per 100 in swimming?</h3>
+          <p class="mt-2">Convert your total time to seconds, divide by the distance you swam, and multiply by 100. For 500 meters in 8:20, that is 500 ÷ 500 × 100 = 100 seconds, or 1:40 per 100 meters.</p>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold text-ink">What is a good swimming pace per 100?</h3>
+          <p class="mt-2">There is no single “good” pace for every swimmer. A useful target depends on your event, experience, stroke, distance, and pool course. Compare your pace with your own recent swims and set a goal that fits your training.</p>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold text-ink">Should I calculate swim pace in seconds or minutes?</h3>
+          <p class="mt-2">Do the arithmetic in seconds to avoid errors, then convert the result back to minutes and seconds. For example, 105 seconds per 100 is 1:45 per 100.</p>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold text-ink">Can I compare 100-yard pace with 100-meter pace?</h3>
+          <p class="mt-2">Not directly. The distances differ, and pool length changes the number of turns. Keep yard and meter pace separate, or use a swimming time converter to estimate an equivalent performance between courses.</p>
+        </div>
+      </section>
+    </div>
+
+    <aside class="mt-12 rounded-2xl border border-primary/20 bg-primary/5 p-6 sm:p-8">
+      <h2 class="text-xl font-semibold tracking-tight text-ink">Calculate your swim pace</h2>
+      <p class="mt-2 leading-relaxed text-ink-muted">
+        Enter a distance and finish time to get pace per 25, 50, 100, 200, or 400 in yards or meters.
+      </p>
+      <a
+        href="/pace-calculator/"
+        class="mt-5 inline-flex rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-on-primary transition-colors hover:bg-primary-hover"
+      >
+        Open the free swim pace calculator
+      </a>
+    </aside>
+
+    <p class="mt-8 text-sm leading-relaxed text-ink-subtle">
+      Swimming pace calculations are useful estimates for training and race planning. They are not a substitute for a coach’s guidance or official meet results.
+    </p>
+  </article>
+</Layout>

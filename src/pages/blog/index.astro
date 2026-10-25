@@ -1,0 +1,65 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const siteUrl = 'https://onlineswimtimeconverter.com';
+const articleUrl = `${siteUrl}/blog/how-to-calculate-swimming-pace/`;
+
+const blogLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  name: 'Swim Time Converter Blog',
+  url: `${siteUrl}/blog/`,
+  description: 'Practical swimming guides for pace, race splits, pool courses, and smarter training.',
+  blogPost: {
+    '@type': 'BlogPosting',
+    headline: 'How to Calculate Swimming Pace: Per 100m, 100yd, and Race Splits',
+    url: articleUrl,
+  },
+};
+---
+
+<Layout
+  title="Swimming Blog: Pace, Splits & Training Guides | Swim Time Converter"
+  description="Read practical swimming guides on calculating pace per 100, planning race splits, and understanding swim times in yards and meters."
+  canonical={`${siteUrl}/blog/`}
+  jsonLd={blogLd}
+>
+  <section class="mx-auto w-full max-w-4xl px-4 pb-10 pt-10 sm:px-6 sm:pt-14">
+    <p class="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Swim Time Converter Blog</p>
+    <h1 class="mt-3 max-w-3xl text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+      Swimming guides for smarter training and faster racing
+    </h1>
+    <p class="mt-4 max-w-2xl text-base leading-relaxed text-ink-muted">
+      Clear, practical advice for swimmers who want to understand their pace, plan better splits, and make sense of times across pool courses.
+    </p>
+  </section>
+
+  <section class="mx-auto w-full max-w-4xl px-4 pb-16 sm:px-6">
+    <h2 class="sr-only">Latest swimming articles</h2>
+    <article class="overflow-hidden rounded-2xl border border-hairline bg-surface-1 shadow-sm">
+      <div class="border-b border-hairline bg-primary/5 px-6 py-5 sm:px-8">
+        <p class="text-xs font-semibold uppercase tracking-wide text-primary">Training fundamentals · 8 min read</p>
+        <p class="mt-2 text-sm text-ink-subtle">
+          <time datetime="2026-10-25">October 25, 2026</time>
+        </p>
+      </div>
+      <div class="p-6 sm:p-8">
+        <h2 class="text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
+          <a class="hover:text-primary" href="/blog/how-to-calculate-swimming-pace/">
+            How to Calculate Swimming Pace: Per 100m, 100yd, and Race Splits
+          </a>
+        </h2>
+        <p class="mt-4 max-w-3xl leading-relaxed text-ink-muted">
+          Learn the simple swim pace formula, work through examples in meters and yards, and turn a race goal into useful training splits. Includes tips for pool course differences and common calculation mistakes.
+        </p>
+        <a
+          class="mt-6 inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-on-primary transition-colors hover:bg-primary-hover"
+          href="/blog/how-to-calculate-swimming-pace/"
+        >
+          Read the guide
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </article>
+  </section>
+</Layout>

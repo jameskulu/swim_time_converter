@@ -31,10 +31,12 @@ const converterLinks = getConverterLinks(locale);
 const calculatorLinks = getCalculatorLinks(locale);
 const homeHref = localizedPath(locale, 'home');
 const guidesHref = localizedPath(locale, 'guides');
+const blogHref = '/blog/';
 const isActive = (link: NavLink) => route === link.route || isNavActive(path, link.href, locale);
 const convertersActive = converterLinks.some(isActive);
 const calculatorsActive = calculatorLinks.some(isActive);
 const guidesActive = route === 'guides' || isNavActive(path, guidesHref, locale);
+const blogActive = isNavActive(path, blogHref, locale);
 ---
 
 <header class="sticky top-0 z-50 border-b border-hairline bg-canvas/80 backdrop-blur-md supports-[backdrop-filter]:bg-canvas/70">
@@ -156,6 +158,18 @@ const guidesActive = route === 'guides' || isNavActive(path, guidesHref, locale)
         aria-current={guidesActive ? 'page' : undefined}
       >
         {ui.guides}
+      </a>
+      <a
+        href={blogHref}
+        class:list={[
+          'rounded-md px-3 py-1.5 text-sm transition-colors',
+          blogActive
+            ? 'bg-surface-2 font-medium text-ink'
+            : 'text-ink-subtle hover:bg-surface-2 hover:text-ink',
+        ]}
+        aria-current={blogActive ? 'page' : undefined}
+      >
+        Blog
       </a>
     </nav>
 
@@ -287,6 +301,16 @@ const guidesActive = route === 'guides' || isNavActive(path, guidesHref, locale)
         aria-current={guidesActive ? 'page' : undefined}
       >
         {ui.guides}
+      </a>
+      <a
+        href={blogHref}
+        class:list={[
+          'rounded-md px-3 py-2.5 text-sm',
+          blogActive ? 'bg-surface-2 font-medium text-ink' : 'text-ink-muted hover:bg-surface-2 hover:text-ink',
+        ]}
+        aria-current={blogActive ? 'page' : undefined}
+      >
+        Blog
       </a>
     </nav>
   </div>
