@@ -1,0 +1,534 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const siteUrl = 'https://onlineswimtimeconverter.com';
+const canonical = `${siteUrl}/blog/scy-vs-scm-vs-lcm/`;
+const title = 'SCY vs SCM vs LCM: Which Pool Course Is Faster?';
+const description =
+  'Compare SCY, SCM and LCM swim courses: turn counts by event, why times differ, the conversion factors involved, worked examples, and when a converted time is unreliable.';
+const publishedDate = '2026-10-27';
+
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  mainEntityOfPage: canonical,
+  datePublished: publishedDate,
+  dateModified: publishedDate,
+  author: {
+    '@type': 'Organization',
+    name: 'Swim Time Converter',
+    url: siteUrl,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Swim Time Converter',
+    logo: {
+      '@type': 'ImageObject',
+      url: `${siteUrl}/og-image.png`,
+    },
+  },
+  articleSection: 'Swimming Courses',
+  keywords: [
+    'scy vs scm',
+    'scy vs lcm',
+    'scm vs lcm',
+    'which swim course is faster',
+    'swimming course conversion',
+    'swim time conversion factors',
+    'short course yards vs long course meters',
+  ],
+};
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: `${siteUrl}/blog/` },
+    { '@type': 'ListItem', position: 3, name: title, item: canonical },
+  ],
+};
+
+const faqs = [
+  {
+    question: 'Is SCY faster than LCM?',
+    answer:
+      'For the same swimmer and the same event distance, yes in almost every case. A 25-yard pool has twice as many lengths, so a 100 has three turns instead of one and a 200 has seven instead of three. Those extra push-offs and underwaters usually make a short-course yards time faster than a long-course meters time.',
+  },
+  {
+    question: 'Is SCM faster than SCY?',
+    answer:
+      'No, not for the same nominal distance. A 100-meter race covers about 9 meters more than a 100-yard race, so SCM times are slower than SCY times. The standard factor set multiplies a short-course yards time by about 1.11 to estimate the short-course meters equivalent.',
+  },
+  {
+    question: 'Which is faster, SCM or LCM?',
+    answer:
+      'SCM is usually faster. Both are metric, but a 25-meter pool has more turns than a 50-meter pool, and each turn gives a swimmer a push-off and glide. For a 200 freestyle the difference is four turns, which the standard model prices at roughly 3.2 seconds.',
+  },
+  {
+    question: 'How do I convert a 100 freestyle from SCY to LCM?',
+    answer:
+      'Multiply the SCY time by 1.11, then add 1.6 seconds for the two turns lost in a 50-meter pool. A 52.43 in short-course yards becomes about 59.80 long-course meters. The converter on this site applies that math automatically for every event and stroke.',
+  },
+  {
+    question: 'Why does my converted time not match my actual swim?',
+    answer:
+      'Course conversions are estimates. The advantage of an extra turn depends on your underwater dolphin kicks, your stroke, your start, your fitness, and how the race was paced. The factors are a population average, not a prediction of your individual result.',
+  },
+  {
+    question: 'Are converted swim times accepted for meet entries?',
+    answer:
+      'Usually not. Meet entries, records and qualifying times are generally based on actual swims in the course being contested, with rules set by the governing body. Use conversions for goal setting, training comparisons and rough seeding, and confirm any entry requirement with the meet host.',
+  },
+];
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+  })),
+};
+---
+
+<Layout
+  title={`${title} | Swim Time Converter`}
+  description={description}
+  canonical={canonical}
+  pageType="article"
+  ogTitle={title}
+  ogDescription={description}
+  jsonLd={[articleLd, breadcrumbLd, faqLd]}
+>
+  <article class="mx-auto w-full max-w-3xl px-4 pb-16 pt-8 sm:px-6 sm:pt-12">
+    <nav aria-label="Breadcrumb" class="text-sm text-ink-subtle">
+      <ol class="flex flex-wrap items-center gap-2">
+        <li><a class="hover:text-ink hover:underline" href="/">Home</a></li>
+        <li aria-hidden="true">/</li>
+        <li><a class="hover:text-ink hover:underline" href="/blog/">Blog</a></li>
+        <li aria-hidden="true">/</li>
+        <li aria-current="page" class="text-ink">SCY vs SCM vs LCM</li>
+      </ol>
+    </nav>
+
+    <header class="mt-8 border-b border-hairline pb-8">
+      <p class="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Swimming courses · Comparison guide</p>
+      <h1 class="mt-3 text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+        SCY vs SCM vs LCM: Which Pool Course Is Faster?
+      </h1>
+      <p class="mt-5 text-lg leading-relaxed text-ink-muted">
+        A 100 freestyle can be a 1:02 in one pool and a 1:11 in another without the swimmer changing at all. The difference is
+        the course — the length of the pool and the number of turns in the race. This guide explains how the three standard
+        courses compare, why times shift between them, and how conversions are calculated.
+      </p>
+      <div class="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-sm text-ink-subtle">
+        <span>By Swim Time Converter</span>
+        <span aria-hidden="true">·</span>
+        <time datetime={publishedDate}>October 27, 2026</time>
+        <span aria-hidden="true">·</span>
+        <span>10 min read</span>
+      </div>
+    </header>
+
+    <div class="mt-8 rounded-xl border border-primary/20 bg-primary/5 p-5 sm:p-6">
+      <h2 class="text-sm font-semibold uppercase tracking-[0.08em] text-primary">The short answer</h2>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-[15px] leading-7 text-ink-muted">
+        <li>For the same nominal distance, <strong class="text-ink">SCY is fastest</strong>, then <strong class="text-ink">SCM</strong>, then <strong class="text-ink">LCM</strong>.</li>
+        <li>The main reason is turns: a 25-yard or 25-meter pool gives a 200 four more turns than a 50-meter pool.</li>
+        <li>Long-distance events are not the same distance: 500 yards is 457.2 meters, so a 500 free and a 400 free cannot be compared directly.</li>
+        <li>Converted times are useful estimates, not official results or guaranteed equivalents.</li>
+      </ul>
+    </div>
+
+    <nav aria-label="Article contents" class="mt-8 rounded-xl border border-hairline bg-surface-1 p-5 sm:p-6">
+      <h2 class="font-semibold text-ink">In this guide</h2>
+      <ol class="mt-3 grid gap-2 text-sm sm:grid-cols-2">
+        <li><a class="text-primary hover:underline" href="#courses">The three courses</a></li>
+        <li><a class="text-primary hover:underline" href="#turn-counts">Turn counts by event</a></li>
+        <li><a class="text-primary hover:underline" href="#why-times-differ">Why times differ</a></li>
+        <li><a class="text-primary hover:underline" href="#conversion-math">How the conversion works</a></li>
+        <li><a class="text-primary hover:underline" href="#worked-examples">Worked examples</a></li>
+        <li><a class="text-primary hover:underline" href="#estimates">Why conversions are estimates</a></li>
+        <li><a class="text-primary hover:underline" href="#compare-fairly">Comparing swimmers fairly</a></li>
+        <li><a class="text-primary hover:underline" href="#common-questions">Common questions</a></li>
+      </ol>
+    </nav>
+
+    <div class="mt-10 space-y-10 text-[15px] leading-7 text-ink-muted sm:text-base">
+      <section>
+        <h2 id="courses" class="text-2xl font-semibold tracking-tight text-ink">The three standard pool courses</h2>
+        <p class="mt-4">
+          Swimming uses three competition courses. The letters describe the pool length and the unit of measurement, and every
+          official time is recorded with its course attached — a 1:00 in SCY and a 1:00 in LCM are not the same swim.
+        </p>
+        <div class="mt-5 overflow-x-auto rounded-xl border border-hairline bg-surface-1">
+          <table class="w-full min-w-[34rem] text-left text-sm">
+            <caption class="sr-only">Pool length, turns per 100, and typical competition for SCY, SCM and LCM</caption>
+            <thead class="bg-surface-2 text-xs uppercase tracking-wide text-ink-subtle">
+              <tr>
+                <th scope="col" class="px-4 py-3 font-semibold">Course</th>
+                <th scope="col" class="px-4 py-3 font-semibold">Pool length</th>
+                <th scope="col" class="px-4 py-3 font-semibold">Turns per 100</th>
+                <th scope="col" class="px-4 py-3 font-semibold">Where you see it</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-hairline text-ink">
+              <tr>
+                <th scope="row" class="px-4 py-3 font-medium">SCY<br /><span class="text-xs font-normal text-ink-subtle">Short Course Yards</span></th>
+                <td class="px-4 py-3">25 yards (22.86 m)</td>
+                <td class="px-4 py-3">3</td>
+                <td class="px-4 py-3 text-ink-muted">U.S. high school, NCAA, most U.S. club and Masters meets</td>
+              </tr>
+              <tr>
+                <th scope="row" class="px-4 py-3 font-medium">SCM<br /><span class="text-xs font-normal text-ink-subtle">Short Course Meters</span></th>
+                <td class="px-4 py-3">25 meters (27.34 yd)</td>
+                <td class="px-4 py-3">3</td>
+                <td class="px-4 py-3 text-ink-muted">World Short Course Championships, European winter season</td>
+              </tr>
+              <tr>
+                <th scope="row" class="px-4 py-3 font-medium">LCM<br /><span class="text-xs font-normal text-ink-subtle">Long Course Meters</span></th>
+                <td class="px-4 py-3">50 meters (54.68 yd)</td>
+                <td class="px-4 py-3">1</td>
+                <td class="px-4 py-3 text-ink-muted">Olympic Games, World Aquatics Championships, most international meets</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4">
+          The unit matters as much as the length. A 100 in a 25-yard pool is 91.44 meters of swimming, while a 100 in a
+          25-meter pool is a full 100 meters. That is nearly 9 meters of extra distance before turns are even considered.
+        </p>
+      </section>
+
+      <section>
+        <h2 id="turn-counts" class="text-2xl font-semibold tracking-tight text-ink">Turn counts by event</h2>
+        <p class="mt-4">
+          A turn is a wall touch that is not the finish. In a 25-yard or 25-meter pool, a 100 has four lengths and therefore
+          three turns. In a 50-meter pool the same race has two lengths and one turn. Longer events magnify the difference.
+        </p>
+        <div class="mt-5 overflow-x-auto rounded-xl border border-hairline bg-surface-1">
+          <table class="w-full min-w-[40rem] text-left text-sm">
+            <caption class="sr-only">Lengths and turns per event in SCY, SCM and LCM</caption>
+            <thead class="bg-surface-2 text-xs uppercase tracking-wide text-ink-subtle">
+              <tr>
+                <th scope="col" class="px-4 py-3 font-semibold">Event</th>
+                <th scope="col" class="px-4 py-3 font-semibold">SCY (lengths / turns)</th>
+                <th scope="col" class="px-4 py-3 font-semibold">SCM (lengths / turns)</th>
+                <th scope="col" class="px-4 py-3 font-semibold">LCM (lengths / turns)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-hairline text-ink">
+              <tr>
+                <th scope="row" class="px-4 py-3 font-medium">50 free</th>
+                <td class="px-4 py-3">2 / 1</td>
+                <td class="px-4 py-3">2 / 1</td>
+                <td class="px-4 py-3">1 / 0</td>
+              </tr>
+              <tr>
+                <th scope="row" class="px-4 py-3 font-medium">100 free</th>
+                <td class="px-4 py-3">4 / 3</td>
+                <td class="px-4 py-3">4 / 3</td>
+                <td class="px-4 py-3">2 / 1</td>
+              </tr>
+              <tr>
+                <th scope="row" class="px-4 py-3 font-medium">200 free</th>
+                <td class="px-4 py-3">8 / 7</td>
+                <td class="px-4 py-3">8 / 7</td>
+                <td class="px-4 py-3">4 / 3</td>
+              </tr>
+              <tr>
+                <th scope="row" class="px-4 py-3 font-medium">500 free / 400 free</th>
+                <td class="px-4 py-3">20 / 19</td>
+                <td class="px-4 py-3">16 / 15</td>
+                <td class="px-4 py-3">8 / 7</td>
+              </tr>
+              <tr>
+                <th scope="row" class="px-4 py-3 font-medium">1000 free / 800 free</th>
+                <td class="px-4 py-3">40 / 39</td>
+                <td class="px-4 py-3">32 / 31</td>
+                <td class="px-4 py-3">16 / 15</td>
+              </tr>
+              <tr>
+                <th scope="row" class="px-4 py-3 font-medium">1650 free / 1500 free</th>
+                <td class="px-4 py-3">66 / 65</td>
+                <td class="px-4 py-3">60 / 59</td>
+                <td class="px-4 py-3">30 / 29</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4">
+          The last three rows are where comparisons go wrong most often. A 500-yard race is 457.2 meters, not 400, so a 500
+          free time is naturally slower than a 400 free time even if the swimmer is in identical form. The 1650 is closer to
+          its metric counterpart — 1508.76 meters against 1500 — but it is still slightly longer.
+        </p>
+      </section>
+
+      <section>
+        <h2 id="why-times-differ" class="text-2xl font-semibold tracking-tight text-ink">Why the same swim is faster in a short-course pool</h2>
+        <p class="mt-4">
+          Every wall gives a swimmer two free advantages: a push-off with leg drive and a period of underwater travel before
+          the first stroke. In a 25-yard pool a 200 freestyle has seven turns; in a 50-meter pool it has three. Those four
+          extra push-offs and underwaters are worth real time, and the amount grows with distance because each length adds
+          another opportunity.
+        </p>
+        <p class="mt-4">
+          Distance and turns pull in opposite directions when you compare yard and meter events. Moving from SCY to SCM keeps
+          the same number of turns but adds distance, which makes the time slower. Moving from SCM to LCM keeps the distance
+          but removes turns, which also makes the time slower. Moving from SCY to LCM does both.
+        </p>
+        <div class="mt-5 rounded-xl border border-hairline bg-surface-1 p-5">
+          <p class="text-sm font-semibold text-ink">The pattern in one line</p>
+          <p class="mt-2 text-sm leading-relaxed text-ink-subtle">
+            More distance and fewer turns both add time. SCY wins on distance, SCM wins on turns, and LCM gives up both.
+          </p>
+        </div>
+        <p class="mt-4">
+          There is a second, smaller effect: pacing. Short-course races are broken into shorter efforts, so swimmers can
+          sprint and recover at each wall. Long-course races reward rhythm and aerobic control. A swimmer with excellent
+          turns and underwaters will convert better from long course to short course than a swimmer who relies on stroke
+          rate, which is why no single factor fits everyone.
+        </p>
+      </section>
+
+      <section>
+        <h2 id="conversion-math" class="text-2xl font-semibold tracking-tight text-ink">How swim course conversions are calculated</h2>
+        <p class="mt-4">
+          A course conversion is not a unit conversion. Changing 100 yards into meters is simple arithmetic; estimating how
+          fast a swimmer would swim 100 meters in a different pool is not. The widely used factor set — the one behind U.S.
+          Masters Swimming, TeamUnify and many meet-management systems — combines a distance factor with a per-turn
+          adjustment.
+        </p>
+
+        <h3 class="mt-6 text-lg font-semibold text-ink">Step 1: the yards-to-meters factor</h3>
+        <p class="mt-2">
+          Short-course yards times are multiplied by <strong class="text-ink">1.11</strong> to estimate the short-course
+          meters equivalent. The raw unit ratio is 1.0936 — one yard is 0.9144 meters — so 1.11 is slightly more generous
+          than pure geometry because it is calibrated against real results rather than distance alone.
+        </p>
+
+        <h3 class="mt-6 text-lg font-semibold text-ink">Step 2: the per-turn adjustment</h3>
+        <p class="mt-2">
+          Moving to a 50-meter pool removes one turn for every 50 meters of race distance. The model assigns each lost turn a
+          fixed number of seconds, depending on stroke:
+        </p>
+        <div class="mt-5 overflow-x-auto rounded-xl border border-hairline bg-surface-1">
+          <table class="w-full min-w-[26rem] text-left text-sm">
+            <caption class="sr-only">Seconds added per missing turn in the standard conversion model</caption>
+            <thead class="bg-surface-2 text-xs uppercase tracking-wide text-ink-subtle">
+              <tr>
+                <th scope="col" class="px-4 py-3 font-semibold">Stroke</th>
+                <th scope="col" class="px-4 py-3 font-semibold">Seconds per turn</th>
+                <th scope="col" class="px-4 py-3 font-semibold">200m event adjustment</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-hairline text-ink">
+              <tr>
+                <th scope="row" class="px-4 py-3 font-medium">Freestyle</th>
+                <td class="px-4 py-3">0.8</td>
+                <td class="px-4 py-3">+3.2 s</td>
+              </tr>
+              <tr>
+                <th scope="row" class="px-4 py-3 font-medium">Backstroke</th>
+                <td class="px-4 py-3">0.6</td>
+                <td class="px-4 py-3">+2.4 s</td>
+              </tr>
+              <tr>
+                <th scope="row" class="px-4 py-3 font-medium">Breaststroke</th>
+                <td class="px-4 py-3">1.0</td>
+                <td class="px-4 py-3">+4.0 s</td>
+              </tr>
+              <tr>
+                <th scope="row" class="px-4 py-3 font-medium">Butterfly</th>
+                <td class="px-4 py-3">0.7</td>
+                <td class="px-4 py-3">+2.8 s</td>
+              </tr>
+              <tr>
+                <th scope="row" class="px-4 py-3 font-medium">Individual medley</th>
+                <td class="px-4 py-3">0.8</td>
+                <td class="px-4 py-3">+3.2 s</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4">
+          Breaststroke carries the largest adjustment because its turn involves an approach, a pull, a breath and a push that
+          is harder to rush than a freestyle flip. The medley uses a blended figure even though its four strokes differ — one
+          of several simplifications that make conversions estimates.
+        </p>
+
+        <h3 class="mt-6 text-lg font-semibold text-ink">Step 3: the distance-freestyle pairings</h3>
+        <p class="mt-2">
+          Yard and meter distance events do not line up, so the standard model uses separate factors for each pairing:
+          500 yd with 400 m (0.8925), 1000 yd with 800 m (0.8925), and 1650 yd with 1500 m (1.02). These factors already fold
+          together the distance difference and the turn difference, which is why they look different from the 1.11 used for
+          sprint events.
+        </p>
+
+        <div class="my-5 rounded-xl border border-primary/20 bg-primary/5 p-5 text-center">
+          <p class="font-mono text-sm font-semibold text-ink sm:text-base">
+            LCM estimate = (SCY time × 1.11) + (event distance ÷ 50 × seconds per turn)
+          </p>
+          <p class="mt-2 text-sm text-ink-subtle">For 50 m, 100 m, 200 m and IM events in the standard factor set.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2 id="worked-examples" class="text-2xl font-semibold tracking-tight text-ink">Worked conversion examples</h2>
+        <p class="mt-4">
+          These examples use the same standard factors as the calculator on this site. They show how much a course change
+          actually moves a time, and why the same factor produces different gaps in different events.
+        </p>
+        <div class="mt-5 overflow-x-auto rounded-xl border border-hairline bg-surface-1">
+          <table class="w-full min-w-[38rem] text-left text-sm">
+            <caption class="sr-only">Example swim times converted from SCY to SCM and LCM</caption>
+            <thead class="bg-surface-2 text-xs uppercase tracking-wide text-ink-subtle">
+              <tr>
+                <th scope="col" class="px-4 py-3 font-semibold">Swim (SCY)</th>
+                <th scope="col" class="px-4 py-3 font-semibold">SCM equivalent</th>
+                <th scope="col" class="px-4 py-3 font-semibold">LCM equivalent</th>
+                <th scope="col" class="px-4 py-3 font-semibold">LCM vs SCY</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-hairline text-ink">
+              <tr>
+                <th scope="row" class="px-4 py-3 font-medium">100 free 52.43</th>
+                <td class="px-4 py-3">58.20</td>
+                <td class="px-4 py-3 font-semibold">59.80</td>
+                <td class="px-4 py-3">+7.37 s (+14.1%)</td>
+              </tr>
+              <tr>
+                <th scope="row" class="px-4 py-3 font-medium">100 breast 1:02.50</th>
+                <td class="px-4 py-3">1:09.38</td>
+                <td class="px-4 py-3 font-semibold">1:11.38</td>
+                <td class="px-4 py-3">+8.88 s (+14.2%)</td>
+              </tr>
+              <tr>
+                <th scope="row" class="px-4 py-3 font-medium">200 IM 2:05.00</th>
+                <td class="px-4 py-3">2:18.75</td>
+                <td class="px-4 py-3 font-semibold">2:21.95</td>
+                <td class="px-4 py-3">+16.95 s (+13.6%)</td>
+              </tr>
+              <tr>
+                <th scope="row" class="px-4 py-3 font-medium">500 free 5:00.00</th>
+                <td class="px-4 py-3">400 free 4:21.35</td>
+                <td class="px-4 py-3 font-semibold">400 free 4:27.75</td>
+                <td class="px-4 py-3">n/a — different distance</td>
+              </tr>
+              <tr>
+                <th scope="row" class="px-4 py-3 font-medium">1650 free 18:00.00</th>
+                <td class="px-4 py-3">1500 free 17:57.60</td>
+                <td class="px-4 py-3 font-semibold">1500 free 18:21.60</td>
+                <td class="px-4 py-3">+21.60 s (+2.0%)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4">
+          Two details are easy to miss. First, the 500 and 1650 rows change event name, not just course: the converted time
+          belongs to a shorter race. Second, the 1650 converts to a faster SCM 1500 because 1508.76 meters becomes 1500
+          meters — the swimmer covers less ground — while the LCM time still gains from the turn adjustment.
+        </p>
+        <p class="mt-4">
+          To run your own numbers, open the <a class="font-medium text-primary hover:underline" href="/">swim time converter</a>
+          and enter any event. The dedicated
+          <a class="font-medium text-primary hover:underline" href="/scy-to-lcm/">SCY to LCM</a>,
+          <a class="font-medium text-primary hover:underline" href="/scy-to-scm/">SCY to SCM</a> and
+          <a class="font-medium text-primary hover:underline" href="/scm-to-lcm/">SCM to LCM</a> pages explain the factors for
+          each pairing in more detail.
+        </p>
+      </section>
+
+      <section>
+        <h2 id="estimates" class="text-2xl font-semibold tracking-tight text-ink">Why converted times are estimates, not predictions</h2>
+        <p class="mt-4">
+          The factors are averages. They describe what tends to happen across a large population of swimmers, not what will
+          happen to one person in one race. Several things can push a real swim well away from the converted number:
+        </p>
+        <ul class="mt-4 list-disc space-y-2 pl-6">
+          <li><strong class="text-ink">Underwater quality.</strong> A swimmer with strong dolphin kicks gains more from each extra wall than the factor assumes; a swimmer who surfaces early gains less.</li>
+          <li><strong class="text-ink">Stroke and turn technique.</strong> Open turns, crossover turns and weak breaststroke turns all change the cost of losing a wall.</li>
+          <li><strong class="text-ink">Event distance.</strong> The per-turn model assumes every turn is worth the same amount, which is less true in a 1650 than in a 100.</li>
+          <li><strong class="text-ink">Pacing profile.</strong> Sprinters and distance swimmers distribute effort differently, and long-course racing changes that distribution.</li>
+          <li><strong class="text-ink">Different factor sets.</strong> NCAA, USA Swimming, U.S. Masters Swimming and commercial calculators do not all publish the same numbers, so two tools can disagree by a second or more.</li>
+        </ul>
+        <p class="mt-4">
+          For that reason, treat a conversion as a way to put a swim in context, not as a substitute for racing the event.
+          The result is most trustworthy when the swimmer is experienced, the event is short, and the courses are close —
+          SCM to LCM, for example, where only turns change.
+        </p>
+      </section>
+
+      <section>
+        <h2 id="compare-fairly" class="text-2xl font-semibold tracking-tight text-ink">How to compare swimmers from different pools fairly</h2>
+        <p class="mt-4">
+          Comparisons get shaky when course, distance and timing method are mixed. A short checklist keeps them honest:
+        </p>
+        <ol class="mt-4 list-decimal space-y-2 pl-6">
+          <li><strong class="text-ink">Match the course first.</strong> Compare SCY with SCY, SCM with SCM, LCM with LCM whenever both swims exist in the same course.</li>
+          <li><strong class="text-ink">Match the distance, not the event nickname.</strong> A 500 free is not a 400 free; a 1650 is not quite a 1500.</li>
+          <li><strong class="text-ink">Convert only when you must.</strong> If one swim is long course and the other short course, convert once, state the assumption, and keep the original times visible.</li>
+          <li><strong class="text-ink">Compare pace per 100 as well as total time.</strong> The <a class="font-medium text-primary hover:underline" href="/pace-calculator/">pace calculator</a> and <a class="font-medium text-primary hover:underline" href="/lengths-converter/">lengths converter</a> make that easier.</li>
+          <li><strong class="text-ink">Use percentages, not just seconds.</strong> Seven seconds on a 52-second 100 is a different gap from seven seconds on a 5-minute 500.</li>
+          <li><strong class="text-ink">Check splits.</strong> Two identical finish times can hide very different races; the <a class="font-medium text-primary hover:underline" href="/split-calculator/">split calculator</a> shows where a race was won or lost.</li>
+        </ol>
+        <p class="mt-4">
+          For training decisions, compare like with like and treat any converted mark as a band rather than a precise target.
+          If you are building a season plan, pair the converter with the
+          <a class="font-medium text-primary hover:underline" href="/css-calculator/">Critical Swim Speed calculator</a> to set
+          threshold paces from swims you have actually done.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-semibold tracking-tight text-ink">Common conversion mistakes</h2>
+        <ul class="mt-4 list-disc space-y-2 pl-6">
+          <li><strong class="text-ink">Treating 1.11 as a unit conversion.</strong> It is a performance factor, not a pure yards-to-meters ratio.</li>
+          <li><strong class="text-ink">Converting 500 free to 400 free and calling it a course change.</strong> The distance changes too.</li>
+          <li><strong class="text-ink">Forgetting that the IM uses one blended turn value.</strong> Fly and breast legs behave differently.</li>
+          <li><strong class="text-ink">Rounding before the final step.</strong> Keep decimal seconds through the calculation and round the result.</li>
+          <li><strong class="text-ink">Using decimal minutes.</strong> 1:30 is 90 seconds, not 1.30 minutes.</li>
+          <li><strong class="text-ink">Submitting a converted time as an official entry.</strong> Meets usually require an actual swim in the contested course; check the host's rules.</li>
+        </ul>
+        <p class="mt-4">
+          If you want the full background on how the factors are built and where they come from, the
+          <a class="font-medium text-primary hover:underline" href="/guides/">conversion guides</a> walk through the method
+          pairing by pairing.
+        </p>
+      </section>
+
+      <section id="common-questions" class="space-y-6">
+        <h2 class="text-2xl font-semibold tracking-tight text-ink">SCY, SCM and LCM questions</h2>
+        {faqs.map((faq) => (
+          <div>
+            <h3 class="text-lg font-semibold text-ink">{faq.question}</h3>
+            <p class="mt-2">{faq.answer}</p>
+          </div>
+        ))}
+      </section>
+    </div>
+
+    <aside class="mt-12 rounded-2xl border border-primary/20 bg-primary/5 p-6 sm:p-8">
+      <h2 class="text-xl font-semibold tracking-tight text-ink">Convert your own swim times</h2>
+      <p class="mt-2 leading-relaxed text-ink-muted">
+        Enter one time and compare equivalent SCY, SCM and LCM results side by side, with the factor and turn adjustment
+        shown for your event.
+      </p>
+      <a
+        href="/"
+        class="mt-5 inline-flex rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-on-primary transition-colors hover:bg-primary-hover"
+      >
+        Open the free swim time converter
+      </a>
+    </aside>
+
+    <p class="mt-8 text-sm leading-relaxed text-ink-subtle">
+      Course conversions are estimates based on published factor sets. They are not official results and should not replace
+      meet entries or a coach's guidance. Check your governing body's rules for any qualifying or record standard.
+    </p>
+  </article>
+</Layout>

@@ -2,7 +2,29 @@
 import Layout from '../../layouts/Layout.astro';
 
 const siteUrl = 'https://onlineswimtimeconverter.com';
-const articleUrl = `${siteUrl}/blog/how-to-calculate-swimming-pace/`;
+
+const posts = [
+  {
+    href: '/blog/scy-vs-scm-vs-lcm/',
+    title: 'SCY vs SCM vs LCM: Which Pool Course Is Faster?',
+    description:
+      'Compare the three competition courses: turn counts by event, why times shift between pools, the conversion factors involved, worked examples, and when a converted time is unreliable.',
+    category: 'Swimming courses · 10 min read',
+    published: '2026-10-27',
+    publishedLabel: 'October 27, 2026',
+    cta: 'Read the comparison',
+  },
+  {
+    href: '/blog/how-to-calculate-swimming-pace/',
+    title: 'How to Calculate Swimming Pace: Per 100m, 100yd, and Race Splits',
+    description:
+      'Learn the simple swim pace formula, work through examples in meters and yards, and turn a race goal into useful training splits. Includes tips for pool course differences and common calculation mistakes.',
+    category: 'Training fundamentals · 8 min read',
+    published: '2026-10-25',
+    publishedLabel: 'October 25, 2026',
+    cta: 'Read the guide',
+  },
+];
 
 const blogLd = {
   '@context': 'https://schema.org',
@@ -10,11 +32,12 @@ const blogLd = {
   name: 'Swim Time Converter Blog',
   url: `${siteUrl}/blog/`,
   description: 'Practical swimming guides for pace, race splits, pool courses, and smarter training.',
-  blogPost: {
+  blogPost: posts.map((post) => ({
     '@type': 'BlogPosting',
-    headline: 'How to Calculate Swimming Pace: Per 100m, 100yd, and Race Splits',
-    url: articleUrl,
-  },
+    headline: post.title,
+    url: `${siteUrl}${post.href}`,
+    datePublished: post.published,
+  })),
 };
 ---
 
@@ -36,30 +59,34 @@ const blogLd = {
 
   <section class="mx-auto w-full max-w-4xl px-4 pb-16 sm:px-6">
     <h2 class="sr-only">Latest swimming articles</h2>
-    <article class="overflow-hidden rounded-2xl border border-hairline bg-surface-1 shadow-sm">
-      <div class="border-b border-hairline bg-primary/5 px-6 py-5 sm:px-8">
-        <p class="text-xs font-semibold uppercase tracking-wide text-primary">Training fundamentals · 8 min read</p>
-        <p class="mt-2 text-sm text-ink-subtle">
-          <time datetime="2026-10-25">October 25, 2026</time>
-        </p>
-      </div>
-      <div class="p-6 sm:p-8">
-        <h2 class="text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
-          <a class="hover:text-primary" href="/blog/how-to-calculate-swimming-pace/">
-            How to Calculate Swimming Pace: Per 100m, 100yd, and Race Splits
-          </a>
-        </h2>
-        <p class="mt-4 max-w-3xl leading-relaxed text-ink-muted">
-          Learn the simple swim pace formula, work through examples in meters and yards, and turn a race goal into useful training splits. Includes tips for pool course differences and common calculation mistakes.
-        </p>
-        <a
-          class="mt-6 inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-on-primary transition-colors hover:bg-primary-hover"
-          href="/blog/how-to-calculate-swimming-pace/"
-        >
-          Read the guide
-          <span aria-hidden="true">→</span>
-        </a>
-      </div>
-    </article>
+    <div class="space-y-8">
+      {
+        posts.map((post) => (
+          <article class="overflow-hidden rounded-2xl border border-hairline bg-surface-1 shadow-sm">
+            <div class="border-b border-hairline bg-primary/5 px-6 py-5 sm:px-8">
+              <p class="text-xs font-semibold uppercase tracking-wide text-primary">{post.category}</p>
+              <p class="mt-2 text-sm text-ink-subtle">
+                <time datetime={post.published}>{post.publishedLabel}</time>
+              </p>
+            </div>
+            <div class="p-6 sm:p-8">
+              <h2 class="text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
+                <a class="hover:text-primary" href={post.href}>
+                  {post.title}
+                </a>
+              </h2>
+              <p class="mt-4 max-w-3xl leading-relaxed text-ink-muted">{post.description}</p>
+              <a
+                class="mt-6 inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-on-primary transition-colors hover:bg-primary-hover"
+                href={post.href}
+              >
+                {post.cta}
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </article>
+        ))
+      }
+    </div>
   </section>
 </Layout>
