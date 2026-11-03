@@ -137,19 +137,36 @@ export const portuguesePages: PageCatalog = {
     ],
   },
   'lengths-converter': {
-    title: 'Conversor de distâncias de natação – Yards em metros e comprimentos de piscina',
-    description: 'Converta distâncias de natação: yards em metros, metros em yards e distâncias em comprimentos de piscina.',
+    title: 'Conversor de distâncias de natação: Yards em metros & comprimentos de piscina',
+    description: 'Converta distâncias de natação instantaneamente: 25 yd em 22.86 m, 500 yd e 1650 yd em metros. Calcule comprimentos exatos para piscinas de 25y, 25m e 50m sem dúvidas.',
     h1: 'Conversor de distâncias e comprimentos de natação',
     lead: 'Converta yards em metros ou metros em yards e veja quantos comprimentos uma distância representa em uma piscina de 25 yards, 25 metros ou 50 metros.',
     sections: [
-      section('Como usar', [], ['Escolha yards e metros, ou distância e comprimentos.', 'Informe uma distância ou um número de comprimentos.', 'Use os valores rápidos para distâncias de natação comuns.', 'Leia os comprimentos completos, o restante ou a distância equivalente.'], ['Escolha yards e metros, ou distância e comprimentos.', 'Informe uma distância ou um número de comprimentos.', 'Use os valores rápidos para distâncias de natação comuns.', 'Leia os comprimentos completos, o restante ou a distância equivalente.']),
-      section('Referência rápida de yards para metros', ['25 yards equivalem a 22.86 metros, 50 yards a 45.72 metros e 1650 yards a 1508.76 metros. No sentido inverso, 25 metros equivalem a 27.34 yards e 1500 metros a 1640.42 yards.']),
-      section('Por que usar o conversor de comprimentos?', ['As perguntas sobre distâncias de piscina afetam os planos de treino. Converta distâncias exatas e conte comprimentos em piscinas de 25 yards, 25 metros e 50 metros.']),
+      section('Como usar', [], ['Escolha yards e metros, ou distância e comprimentos.', 'Informe uma distância ou um número de comprimentos.', 'Use os valores rápidos para distâncias comuns (25, 50, 500, 1650 yd).', 'Leia os comprimentos completos, o restante ou a distância equivalente.'], ['Escolha yards e metros, ou distância e comprimentos.', 'Informe uma distância ou um número de comprimentos.', 'Use os valores rápidos para distâncias comuns (25, 50, 500, 1650 yd).', 'Leia os comprimentos completos, o restante ou a distância equivalente.']),
+      section('Respostas rápidas para distâncias mais procuradas', [
+        'A milha do nadador: 1650 yards equivalem a 1508.76 metros (60.35 comprimentos em piscina de 25m, 66 em 25yd).',
+        'Referência de meio-fundo: 500 yards equivalem a 457.20 metros (20 comprimentos em piscina de 25yd, 18.28 em 25m).',
+        'Comprimento de piscina SCY: 25 yards equivalem a 22.86 metros (75 pés), 2.14 metros menor que uma piscina de 25 metros.',
+      ]),
+      section('Tabela de referência rápida de distâncias padrão de natação', [
+        '25 yd = 22.86 m · 50 yd = 45.72 m · 100 m = 109.36 yd · 200 m = 218.72 yd (8 comprimentos em 25m) · 500 yd = 457.2 m (20 comprimentos em 25yd) · 1000 yd = 914.4 m · 1500 m = 1640.42 yd (60 comprimentos em 25m) · 1650 yd = 1508.76 m (66 comprimentos em 25yd) · 5000 m = 200 comprimentos em 25m.',
+      ]),
+      section('Distância vs. Tempo: Por que tempos de prova exigem outra fórmula', [
+        'A conversão de distância física é linear (1 yard = 0.9144 m). No entanto, os tempos de natação dependem dos impulsos de parede e viradas. Para converter tempos de competição com ajustes de virada, utilize nosso Conversor de tempos de natação.',
+      ]),
     ],
     faqs: [
-      faq('Como converto 25 yards em metros?', 'Multiplique os yards por 0.9144: 25 yards equivalem a 22.86 metros, o comprimento de uma piscina curta em yards.'),
-      faq('Quantos metros são 50 yards?', '50 yards equivalem a 45.72 metros. Outras conversões comuns incluem 100 yards = 91.44 metros e 1650 yards = 1508.76 metros.'),
-      faq('Quantos comprimentos tem uma distância de 1500 metros?', 'São 60 comprimentos em uma piscina de 25 metros e 30 comprimentos em uma piscina de 50 metros. Uma distância de 1650 yards tem 66 comprimentos em uma piscina de 25 yards.'),
+      faq('Como converto 25 yards em metros?', 'Multiplique os yards por 0.9144: 25 yards equivalem a 22.86 metros, o comprimento de uma piscina curta em yards (SCY).'),
+      faq('Quanto é 1650 yards convertidos em metros?', '1650 yards equivalem a 1508.76 metros (1650 × 0.9144). Na natação norte-americana, 1650 yards é a milha de piscina, equivalente aos 1500 metros internacionais.'),
+      faq('Quantos comprimentos são 200m em uma piscina de 25m?', 'Uma prova de 200 metros representa exatamente 8 comprimentos em piscina de 25 metros e 4 comprimentos em piscina olímpica de 50 metros.'),
+      faq('Quantos metros são 500 yards de nado?', '500 yards equivalem a 457.2 metros (500 × 0.9144). Em uma piscina de 25 yards, são 20 comprimentos exatos; em uma de 25 metros, cerca de 18.28 comprimentos.'),
+      faq('Por que 25 yards equivalem a 22.86 metros?', 'Por convenção internacional, 1 yard é exatamente 0.9144 metros. Multiplicando 25 por 0.9144 obtemos 22.86 metros. Uma piscina de 25 metros é cerca de 9.1% mais longa que uma de 25 yards.'),
+      faq('Quantos comprimentos são 5000m em piscina de 25m?', '5000 metros são exatamente 200 comprimentos (ou 100 voltas completas de ida e volta) em piscina de 25 metros.'),
+      faq('Como converto metros em yards?', 'Multiplique os metros por 1.09361: 100 metros equivalem a 109.36 yards e 1500 metros equivalem a 1640.42 yards.'),
+      faq('Quantos metros são 50 yards?', '50 yards equivalem a 45.72 metros (50 × 0.9144). Outros padrões: 100 yd = 91.44 m e 1000 yd = 914.4 m.'),
+      faq('Quantas milhas são 64 comprimentos de uma piscina de 25m?', '64 comprimentos em uma piscina de 25 metros equivalem a 1.600 metros. Como uma milha terrestre tem 1.609.34 metros, 64 comprimentos equivalem a aproximadamente 0.994 milhas: praticamente uma milha completa na água.'),
+      faq('Qual é a diferença entre comprimento (length) e volta (lap)?', 'Um comprimento (length) é uma travessia simples da piscina de borda a borda. Uma volta (lap) inclui tradicionalmente a ida e a volta (dois comprimentos).'),
+      faq('Qual a diferença entre converter distância e converter tempos de natação?', 'A conversão de distância é matemática fixa (1 yd = 0.9144 m). A conversão de tempos considera os impulsos de parede e a diferença no número de viradas entre as piscinas.'),
     ],
   },
   'scy-to-lcm': {
@@ -159,7 +176,7 @@ export const portuguesePages: PageCatalog = {
     lead: 'Converta um tempo de piscina curta em yards em um tempo estimado de piscina longa em metros.',
     sections: [
       section('O que é uma conversão de SCY para LCM?', ['Uma piscina de 25 yards e uma de 50 metros alteram a distância e o número de voltas. O conversor escala o tempo e acrescenta um ajuste por volta para a piscina maior.']),
-      section('Como funciona a estimativa', ['As provas de nado livre usam os pares usuais: 500 Livre para 400 Livre, 1000 Livre para 800 Livre e 1650 Livre para 1500 Livre. Todos os resultados são estimativas.']),
+      section('Como funciona a estimativa', ['As provas de nado livre usam os pares usuais: 500 Livre para 400 Livre, 100 Livre para 800 Livre e 1650 Livre para 1500 Livre. Todos os resultados são estimativas. Para converter distâncias físicas de piscina sem ajustes de virada, visite o conversor de distâncias.']),
     ],
     faqs: [
       faq('Qual é o fator de conversão de SCY para LCM?', 'O fator básico de yards para metros é 1.11, com ajustes de distância e de voltas específicos de cada prova. O nado livre de longa distância usa fatores de pareamento separados.'),
@@ -173,7 +190,7 @@ export const portuguesePages: PageCatalog = {
     lead: 'Converta um tempo de uma piscina de 25 yards em um tempo estimado para uma piscina de 25 metros.',
     sections: [
       section('O que é uma conversão de SCY para SCM?', ['SCY e SCM usam ambas piscinas de 25 comprimentos, portanto o número de voltas é o mesmo. A principal mudança é que um metro é maior que uma yard.']),
-      section('Como funciona a estimativa', ['O fator padrão é 1.11 para provas semelhantes. O nado livre de distância usa pares separados para 500 para 400, 1000 para 800 e 1650 para 1500.']),
+      section('Como funciona a estimativa', ['O fator padrão é 1.11 para provas semelhantes. O nado livre de distância usa pares separados para 500 para 400, 1000 para 800 e 1650 para 1500. Para converter comprimentos e distâncias diretamente sem ajustes de tempo, consulte nosso conversor de distâncias.']),
     ],
     faqs: [
       faq('Qual é o fator de conversão de SCY para SCM?', 'Para provas semelhantes, multiplique os segundos da piscina curta em yards por 1.11, porque um carril de 25 yards é mais curto que um carril de 25 metros.'),

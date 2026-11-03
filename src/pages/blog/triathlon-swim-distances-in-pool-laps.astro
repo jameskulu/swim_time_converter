@@ -1,0 +1,243 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const siteUrl = 'https://onlineswimtimeconverter.com';
+const canonical = `${siteUrl}/blog/triathlon-swim-distances-in-pool-laps/`;
+const title = 'Triathlon Swim Distances in Pool Laps: Sprint, Olympic, 70.3, and Ironman';
+const description =
+  'Convert triathlon swim distances to pool laps and lengths for Sprint (750m), Olympic (1500m), 70.3 Half Ironman (1.2 mi), and Full Ironman (2.4 mi).';
+const publishedDate = '2026-11-03';
+
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  mainEntityOfPage: canonical,
+  datePublished: publishedDate,
+  author: {
+    '@type': 'Organization',
+    name: 'Swim Time Converter',
+    url: siteUrl,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Swim Time Converter',
+    logo: {
+      '@type': 'ImageObject',
+      url: `${siteUrl}/og-image.png`,
+    },
+  },
+  articleSection: 'Triathlon & Open Water',
+  keywords: [
+    '1.2 miles to yards swim',
+    'how far is 2000 yards',
+    'triathlon swim distances in pool laps',
+    'ironman swim lengths',
+    'half ironman swim distance yards',
+    '70.3 swim distance in 25m pool',
+  ],
+};
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: `${siteUrl}/blog/` },
+    { '@type': 'ListItem', position: 3, name: title, item: canonical },
+  ],
+};
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How many yards is a 1.2 mile swim?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'A 1.2-mile swim (the official Half Ironman / 70.3 swim distance) is exactly 2,112 yards (1,931.21 meters). In a 25-yard pool, this equals roughly 84.5 lengths (or 42 full laps).',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How far is 2000 yards in miles and meters?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: '2,000 yards is equal to 1.136 miles (1,828.8 meters). In a 25-yard pool, 2,000 yards is exactly 80 lengths (40 laps). It is one of the most common aerobic benchmark sets for triathletes preparing for a 70.3 swim.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How many laps in a pool is an Ironman swim?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'A full Ironman swim is 2.4 miles (4,224 yards or 3,862.4 meters). In a 25-yard pool, it requires 169 lengths. In a 25-meter pool, it requires 154.5 lengths (77.2 laps). In a 50-meter Olympic pool, it requires 77.2 lengths.',
+      },
+    },
+  ],
+};
+---
+
+<Layout
+  title={`${title} | Swim Time Converter`}
+  description={description}
+  canonical={canonical}
+  pageType="article"
+  ogTitle={title}
+  ogDescription={description}
+  jsonLd={[articleLd, breadcrumbLd, faqLd]}
+>
+  <article class="mx-auto w-full max-w-3xl px-4 pb-16 pt-8 sm:px-6 sm:pt-12">
+    <nav aria-label="Breadcrumb" class="text-sm text-ink-subtle">
+      <ol class="flex flex-wrap items-center gap-2">
+        <li><a class="hover:text-ink hover:underline" href="/">Home</a></li>
+        <li aria-hidden="true">/</li>
+        <li><a class="hover:text-ink hover:underline" href="/blog/">Blog</a></li>
+        <li aria-hidden="true">/</li>
+        <li aria-current="page" class="text-ink">Triathlon swim pool laps</li>
+      </ol>
+    </nav>
+
+    <header class="mt-8 border-b border-hairline pb-8">
+      <p class="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Triathlon &amp; Endurance Swimming</p>
+      <h1 class="mt-3 text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+        Triathlon Swim Distances Converted to Pool Laps: Sprint, Olympic, 70.3, and Ironman
+      </h1>
+      <p class="mt-5 text-lg leading-relaxed text-ink-muted">
+        Training for an open-water triathlon in a standard lap pool? Knowing your exact length counts for Sprint, Olympic, 70.3, and full Ironman distances ensures your training sessions hit race-day volume accurately.
+      </p>
+      <div class="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-sm text-ink-subtle">
+        <span>By Swim Time Converter</span>
+        <span aria-hidden="true">·</span>
+        <time datetime={publishedDate}>November 3, 2026</time>
+        <span aria-hidden="true">·</span>
+        <span>6 min read</span>
+      </div>
+    </header>
+
+    <nav aria-label="Article contents" class="mt-8 rounded-xl border border-hairline bg-surface-1 p-5 sm:p-6">
+      <h2 class="font-semibold text-ink">In this guide</h2>
+      <ol class="mt-3 grid gap-2 text-sm sm:grid-cols-2">
+        <li><a class="text-primary hover:underline" href="#triathlon-distances">Standard triathlon distances overview</a></li>
+        <li><a class="text-primary hover:underline" href="#pool-laps-chart">Laps &amp; lengths conversion chart</a></li>
+        <li><a class="text-primary hover:underline" href="#the-1-2-mile-swim">The 1.2 mile swim (70.3 Half Ironman)</a></li>
+        <li><a class="text-primary hover:underline" href="#how-far-is-2000-yards">How far is 2000 yards?</a></li>
+        <li><a class="text-primary hover:underline" href="#pool-to-open-water">Pacing tips from pool to open water</a></li>
+      </ol>
+    </nav>
+
+    <div class="mt-10 space-y-10 text-[15px] leading-7 text-ink-muted sm:text-base">
+      <section>
+        <h2 id="triathlon-distances" class="text-2xl font-semibold tracking-tight text-ink">Standard triathlon distances overview</h2>
+        <p class="mt-4">
+          Triathlon swim legs follow standardized lengths across four core race formats. While some are designated in meters and others in statute miles, both translate cleanly to pool workouts:
+        </p>
+        <ul class="mt-3 list-disc space-y-2 pl-6">
+          <li><strong>Sprint Triathlon:</strong> 750 meters (~820 yards / 0.466 miles).</li>
+          <li><strong>Olympic / Standard:</strong> 1,500 meters (~1,640 yards / 0.932 miles).</li>
+          <li><strong>Half Ironman (70.3):</strong> 1.2 miles (2,112 yards / 1,931.2 meters).</li>
+          <li><strong>Full Ironman (140.6):</strong> 2.4 miles (4,224 yards / 3,862.4 meters).</li>
+        </ul>
+        <p class="mt-4">
+          For custom calculations, use the <a href="/lengths-converter/" class="font-medium text-primary hover:underline">Swim Distance &amp; Lengths Converter</a> to convert any yardage, meters, or pool length on the fly.
+        </p>
+      </section>
+
+      <section>
+        <h2 id="pool-laps-chart" class="text-2xl font-semibold tracking-tight text-ink">Triathlon pool laps and lengths conversion chart</h2>
+        <p class="mt-4">
+          This table shows the exact number of <strong>lengths</strong> (wall-to-wall) and full down-and-back <strong>laps</strong> needed for each race distance:
+        </p>
+        <div class="mt-5 overflow-x-auto rounded-xl border border-hairline bg-surface-2">
+          <table class="w-full text-left text-sm text-ink-muted">
+            <thead class="border-b border-hairline bg-surface-3/50 text-xs uppercase tracking-wider text-ink">
+              <tr>
+                <th scope="col" class="px-4 py-3">Race Distance</th>
+                <th scope="col" class="px-4 py-3">Official Length</th>
+                <th scope="col" class="px-4 py-3">25-Yard Pool</th>
+                <th scope="col" class="px-4 py-3">25-Meter Pool</th>
+                <th scope="col" class="px-4 py-3">50-Meter Pool</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-hairline">
+              <tr class="hover:bg-surface-3/30">
+                <td class="px-4 py-3 font-semibold text-ink">Sprint Triathlon</td>
+                <td class="px-4 py-3">750 m (820 yd)</td>
+                <td class="px-4 py-3 font-medium text-primary">32.8 lengths (16.4 laps)</td>
+                <td class="px-4 py-3 font-bold text-primary">30 lengths (15 laps)</td>
+                <td class="px-4 py-3 font-bold text-primary">15 lengths</td>
+              </tr>
+              <tr class="hover:bg-surface-3/30">
+                <td class="px-4 py-3 font-semibold text-ink">Olympic Triathlon</td>
+                <td class="px-4 py-3">1,500 m (1,640 yd)</td>
+                <td class="px-4 py-3 font-medium text-primary">65.6 lengths (32.8 laps)</td>
+                <td class="px-4 py-3 font-bold text-primary">60 lengths (30 laps)</td>
+                <td class="px-4 py-3 font-bold text-primary">30 lengths</td>
+              </tr>
+              <tr class="hover:bg-surface-3/30">
+                <td class="px-4 py-3 font-semibold text-ink">70.3 Half Ironman</td>
+                <td class="px-4 py-3">1.2 miles (2,112 yd)</td>
+                <td class="px-4 py-3 font-bold text-primary">84.5 lengths (42.2 laps)</td>
+                <td class="px-4 py-3 font-medium text-primary">77.2 lengths (38.6 laps)</td>
+                <td class="px-4 py-3 font-medium text-primary">38.6 lengths</td>
+              </tr>
+              <tr class="hover:bg-surface-3/30">
+                <td class="px-4 py-3 font-semibold text-ink">Full Ironman (140.6)</td>
+                <td class="px-4 py-3">2.4 miles (4,224 yd)</td>
+                <td class="px-4 py-3 font-bold text-primary">169 lengths (84.5 laps)</td>
+                <td class="px-4 py-3 font-medium text-primary">154.5 lengths (77.2 laps)</td>
+                <td class="px-4 py-3 font-medium text-primary">77.2 lengths</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <h2 id="the-1-2-mile-swim" class="text-2xl font-semibold tracking-tight text-ink">The 1.2 mile swim (70.3 Half Ironman)</h2>
+        <p class="mt-4">
+          One of the top searches among endurance triathletes is <strong class="text-ink">"1.2 miles to yards swim"</strong>.
+        </p>
+        <div class="my-4 rounded-xl border border-primary/20 bg-primary/5 p-4 text-center">
+          <p class="font-mono text-base font-semibold text-ink sm:text-lg">
+            1.2 miles = 2,112 yards = 1,931.21 meters
+          </p>
+        </div>
+        <p>
+          In training, swimming an awkward 84.5 lengths is often simplified. Most coaches structure peak 70.3 training blocks around <strong>2,100 yards (84 lengths)</strong> or a round <strong>2,000 meters (80 lengths in a 25m pool)</strong>.
+        </p>
+      </section>
+
+      <section>
+        <h2 id="how-far-is-2000-yards" class="text-2xl font-semibold tracking-tight text-ink">How far is 2000 yards?</h2>
+        <p class="mt-4">
+          Swimmers frequently ask: <strong class="text-ink">"How far is 2000 yards in miles and meters?"</strong>
+        </p>
+        <ul class="mt-3 list-disc space-y-2 pl-6">
+          <li><strong>In Meters:</strong> 2,000 × 0.9144 = 1,828.8 meters.</li>
+          <li><strong>In Miles:</strong> 2,000 ÷ 1,760 = 1.136 statute miles.</li>
+          <li><strong>In a 25-Yard Pool:</strong> Exactly <strong>80 lengths</strong> (or 40 full laps).</li>
+          <li><strong>In a 25-Meter Pool:</strong> Approximately <strong>73.1 lengths</strong>.</li>
+        </ul>
+        <p class="mt-4">
+          2,000 yards is the cornerstone workout volume for fitness and master swimmers because it represents just over an aerobic mile, testing steady-state endurance without excessive neuromuscular fatigue.
+        </p>
+      </section>
+
+      <section>
+        <h2 id="pool-to-open-water" class="text-2xl font-semibold tracking-tight text-ink">Pacing tips from pool to open water</h2>
+        <p class="mt-4">
+          Pool swimming has regular push-offs and lane lines. Open water swimming has sighting, chop, currents, and zero walls.
+        </p>
+        <ul class="mt-3 list-disc space-y-2 pl-6">
+          <li><strong>Account for Wall Glides:</strong> Swimmers lose about 3 to 7 seconds per 100 meters in open water compared to a short-course pool simply because there are no flip-turns or wall glide phases.</li>
+          <li><strong>Determine Your CSS (Critical Swim Speed):</strong> Calculate your aerobic threshold pace per 100 with our <a href="/css-calculator/" class="font-medium text-primary hover:underline">Critical Swim Speed Calculator</a> to avoid burning out in the first 400 meters of the race.</li>
+          <li><strong>Set Pacing Intervals:</strong> Plan interval targets and rest send-offs using our <a href="/interval-calculator/" class="font-medium text-primary hover:underline">Interval Calculator</a>.</li>
+        </ul>
+      </section>
+    </div>
+  </article>
+</Layout>

@@ -1,0 +1,242 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const siteUrl = 'https://onlineswimtimeconverter.com';
+const canonical = `${siteUrl}/blog/swim-distance-vs-time-conversion/`;
+const title = "Distance vs. Time Conversion in Swimming: Why 0.9144 Doesn't Work for Times";
+const description =
+  'Learn why you cannot simply multiply swimming times by 0.9144 or 1.0936. Understand wall physics, turn factors, and how to convert SCY, SCM, and LCM times accurately.';
+const publishedDate = '2026-11-03';
+
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  mainEntityOfPage: canonical,
+  datePublished: publishedDate,
+  author: {
+    '@type': 'Organization',
+    name: 'Swim Time Converter',
+    url: siteUrl,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Swim Time Converter',
+    logo: {
+      '@type': 'ImageObject',
+      url: `${siteUrl}/og-image.png`,
+    },
+  },
+  articleSection: 'Swimming Technical Guides',
+  keywords: [
+    'yards to meters time conversion',
+    'convert swim times from yards to meters',
+    'yard to meter swim time conversion',
+    'swim time conversion formula',
+    'scy to lcm conversion calculation',
+  ],
+};
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: `${siteUrl}/blog/` },
+    { '@type': 'ListItem', position: 3, name: title, item: canonical },
+  ],
+};
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Why cannot I multiply my swim time by 0.9144 to convert yards to meters?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Because distance and time do not scale equally in the water. 1 yard is 0.9144 meters in linear length, but swimming includes push-offs off the wall where a swimmer travels up to twice as fast as their surface stroking speed. When changing course lengths, the number of turns changes, radically altering the total elapsed time.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How do you accurately convert swim times from yards to meters?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Accurate swimming conversion uses the Colorado factor method: it applies a base course factor (typically ~1.11 between yards and meters) plus a stroke-specific turn time adjustment (e.g. 0.8 seconds per extra turn in freestyle, 1.0 second in breaststroke).',
+      },
+    },
+  ],
+};
+---
+
+<Layout
+  title={`${title} | Swim Time Converter`}
+  description={description}
+  canonical={canonical}
+  pageType="article"
+  ogTitle={title}
+  ogDescription={description}
+  jsonLd={[articleLd, breadcrumbLd, faqLd]}
+>
+  <article class="mx-auto w-full max-w-3xl px-4 pb-16 pt-8 sm:px-6 sm:pt-12">
+    <nav aria-label="Breadcrumb" class="text-sm text-ink-subtle">
+      <ol class="flex flex-wrap items-center gap-2">
+        <li><a class="hover:text-ink hover:underline" href="/">Home</a></li>
+        <li aria-hidden="true">/</li>
+        <li><a class="hover:text-ink hover:underline" href="/blog/">Blog</a></li>
+        <li aria-hidden="true">/</li>
+        <li aria-current="page" class="text-ink">Distance vs time conversion</li>
+      </ol>
+    </nav>
+
+    <header class="mt-8 border-b border-hairline pb-8">
+      <p class="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Technical Swimming · Conversions</p>
+      <h1 class="mt-3 text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+        Distance vs. Time Conversion: Why You Can’t Just Multiply Yards by 0.9144 for Swim Times
+      </h1>
+      <p class="mt-5 text-lg leading-relaxed text-ink-muted">
+        A common pitfall among coaches, swimmers, and parents is applying raw distance math (multiplying by 0.9144 or 1.0936) to convert finish times. Here is the hydrodynamic science of why distance math fails for swim times, and how real conversions work.
+      </p>
+      <div class="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-sm text-ink-subtle">
+        <span>By Swim Time Converter</span>
+        <span aria-hidden="true">·</span>
+        <time datetime={publishedDate}>November 3, 2026</time>
+        <span aria-hidden="true">·</span>
+        <span>7 min read</span>
+      </div>
+    </header>
+
+    <nav aria-label="Article contents" class="mt-8 rounded-xl border border-hairline bg-surface-1 p-5 sm:p-6">
+      <h2 class="font-semibold text-ink">In this guide</h2>
+      <ol class="mt-3 grid gap-2 text-sm sm:grid-cols-2">
+        <li><a class="text-primary hover:underline" href="#the-math-trap">The linear math trap</a></li>
+        <li><a class="text-primary hover:underline" href="#wall-physics">The physics of the pool wall</a></li>
+        <li><a class="text-primary hover:underline" href="#turn-counts">Turn count comparison across courses</a></li>
+        <li><a class="text-primary hover:underline" href="#the-colorado-method">The proper conversion formula (Colorado Method)</a></li>
+        <li><a class="text-primary hover:underline" href="#worked-example">Worked example: 100 Free SCY to LCM</a></li>
+      </ol>
+    </nav>
+
+    <div class="mt-10 space-y-10 text-[15px] leading-7 text-ink-muted sm:text-base">
+      <section>
+        <h2 id="the-math-trap" class="text-2xl font-semibold tracking-tight text-ink">The linear math trap</h2>
+        <p class="mt-4">
+          On land, if you run 100 meters at a constant pace, converting that distance to 109.36 yards is straightforward linear arithmetic. But in competitive swimming:
+        </p>
+        <div class="my-4 rounded-xl border border-primary/20 bg-primary/5 p-4 text-center">
+          <p class="font-mono text-base font-semibold text-ink sm:text-lg">
+            Physical Distance: 100 Yards = 91.44 Meters (Fixed Math)<br />
+            Swim Finish Time: 100 Yards SCY ≠ 91.44% of a 100 Meter LCM Time!
+          </p>
+        </div>
+        <p>
+          If you simply want to convert physical pool distances without timing effects, use our <a href="/lengths-converter/" class="font-medium text-primary hover:underline">Swim Distance &amp; Lengths Converter</a>. But if you are converting race and qualifying times, here is why you must use a dedicated <a href="/" class="font-medium text-primary hover:underline">Swim Time Converter</a>.
+        </p>
+      </section>
+
+      <section>
+        <h2 id="wall-physics" class="text-2xl font-semibold tracking-tight text-ink">The physics of the pool wall</h2>
+        <p class="mt-4">
+          The human body travels at its fastest velocity in swimming during two moments:
+        </p>
+        <ol class="mt-3 list-decimal space-y-2 pl-6">
+          <li><strong>The Start:</strong> Diving off the starting block into a streamline (up to 4.5 m/s).</li>
+          <li><strong>The Flip Turn &amp; Push-Off:</strong> Pushing off the solid wall with legs into an underwater dolphin kick (2.5 to 3.2 m/s).</li>
+        </ol>
+        <p class="mt-4">
+          In contrast, surface free-swimming stroking speed for elite athletes is only about 1.7 to 2.0 m/s. Every wall touch gives a swimmer a speed surge while expending less aerobic energy than stroking through the water.
+        </p>
+      </section>
+
+      <section>
+        <h2 id="turn-counts" class="text-2xl font-semibold tracking-tight text-ink">Turn count comparison across courses</h2>
+        <p class="mt-4">
+          Because Short Course Yards (SCY) pools are 25 yards (22.86 m) long and Long Course Meters (LCM) pools are 50 meters long, short-course races have far more walls:
+        </p>
+        <div class="mt-5 overflow-x-auto rounded-xl border border-hairline bg-surface-2">
+          <table class="w-full text-left text-sm text-ink-muted">
+            <thead class="border-b border-hairline bg-surface-3/50 text-xs uppercase tracking-wider text-ink">
+              <tr>
+                <th scope="col" class="px-4 py-3">Event</th>
+                <th scope="col" class="px-4 py-3">SCY (25yd) Turns</th>
+                <th scope="col" class="px-4 py-3">LCM (50m) Turns</th>
+                <th scope="col" class="px-4 py-3">Extra Push-Offs in Yards</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-hairline">
+              <tr>
+                <td class="px-4 py-3 font-semibold text-ink">100 Freestyle</td>
+                <td class="px-4 py-3 font-medium text-primary">3 turns</td>
+                <td class="px-4 py-3 font-medium text-ink">1 turn</td>
+                <td class="px-4 py-3 text-ink">+2 turns (+1.6 seconds advantage)</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 font-semibold text-ink">200 Freestyle</td>
+                <td class="px-4 py-3 font-medium text-primary">7 turns</td>
+                <td class="px-4 py-3 font-medium text-ink">3 turns</td>
+                <td class="px-4 py-3 text-ink">+4 turns (+3.2 seconds advantage)</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 font-semibold text-ink">500y / 400m Free</td>
+                <td class="px-4 py-3 font-medium text-primary">19 turns</td>
+                <td class="px-4 py-3 font-medium text-ink">7 turns</td>
+                <td class="px-4 py-3 text-ink">+12 turns (+9.6 seconds advantage)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <h2 id="the-colorado-method" class="text-2xl font-semibold tracking-tight text-ink">The proper conversion formula (Colorado Method)</h2>
+        <p class="mt-4">
+          Recognized governing bodies (such as USA Swimming, NCAA, and US Masters Swimming) rely on the Colorado Timing Systems conversion factor method.
+        </p>
+        <p class="mt-3">
+          To convert from SCY to LCM:
+        </p>
+        <div class="my-4 rounded-xl border border-primary/20 bg-primary/5 p-4 text-center">
+          <p class="font-mono text-base font-semibold text-ink sm:text-lg">
+            LCM Time = (SCY Time in Seconds × 1.11) + (Extra Turns × Stroke Adjustment)
+          </p>
+        </div>
+        <p>
+          Standard stroke adjustments per extra turn:
+        </p>
+        <ul class="mt-3 list-disc space-y-2 pl-6">
+          <li><strong>Freestyle:</strong> +0.80 seconds per turn</li>
+          <li><strong>Backstroke:</strong> +0.60 seconds per turn</li>
+          <li><strong>Breaststroke:</strong> +1.00 seconds per turn</li>
+          <li><strong>Butterfly:</strong> +0.70 seconds per turn</li>
+          <li><strong>Individual Medley:</strong> +0.80 seconds per turn</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 id="worked-example" class="text-2xl font-semibold tracking-tight text-ink">Worked example: 100 Free SCY to LCM</h2>
+        <p class="mt-4">
+          Suppose a swimmer posts a <strong>50.00 second</strong> 100-yard freestyle (SCY).
+        </p>
+        <ol class="mt-3 list-decimal space-y-2 pl-6">
+          <li><strong>Step 1 (Base Factor):</strong> 50.00 × 1.11 = 55.50 seconds.</li>
+          <li><strong>Step 2 (Turn Correction):</strong> A 100 SCY has 3 turns; a 100 LCM has 1 turn. The SCY swimmer benefited from 2 extra wall push-offs. Adding 2 × 0.8s = 1.60 seconds.</li>
+          <li><strong>Total LCM Projected Time:</strong> 55.50 + 1.60 = <strong>57.10 seconds</strong>.</li>
+        </ol>
+        <p class="mt-4">
+          If you had erroneously applied linear distance math ($50.00 \div 0.9144$), you would have calculated an absurd <strong>54.68 seconds</strong> — underestimating the long-course time by nearly 2.5 full seconds!
+        </p>
+        <p class="mt-4">
+          Try our interactive calculators:
+        </p>
+        <div class="mt-3 flex flex-wrap gap-4 text-sm font-semibold">
+          <a href="/scy-to-lcm/" class="text-primary hover:underline">SCY to LCM Calculator →</a>
+          <a href="/scy-to-scm/" class="text-primary hover:underline">SCY to SCM Calculator →</a>
+          <a href="/" class="text-primary hover:underline">All Courses Comparison Tool →</a>
+        </div>
+      </section>
+    </div>
+  </article>
+</Layout>

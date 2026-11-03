@@ -137,19 +137,36 @@ export const italianPages: PageCatalog = {
     ],
   },
   'lengths-converter': {
-    title: 'Convertitore distanze di nuoto – Iarde in metri e lunghezze piscina',
-    description: 'Converti distanze di nuoto: iarde in metri, metri in iarde e distanze in lunghezze piscina.',
+    title: 'Convertitore distanze di nuoto: Iarde in metri & vasche piscina',
+    description: 'Converti distanze di nuoto all\'istante: 25 yd in 22.86 m, 500 yd e 1650 yd in metri. Calcola le vasche esatte per piscine da 25y, 25m e 50m senza dubbi.',
     h1: 'Convertitore distanze e lunghezze di nuoto',
     lead: 'Converti iarde in metri o metri in iarde, poi scopri quante vasche corrispondono a una distanza in una piscina da 25 iarde, 25 metri o 50 metri.',
     sections: [
-      section('Come usarlo', [], ['Scegli iarde e metri oppure distanza e vasche.', 'Inserisci una distanza o un numero di vasche.', 'Usa le impostazioni rapide per le distanze di nuoto comuni.', 'Leggi le vasche complete, il resto o la distanza equivalente.'], ['Scegli iarde e metri oppure distanza e vasche.', 'Inserisci una distanza o un numero di vasche.', 'Usa le impostazioni rapide per le distanze di nuoto comuni.', 'Leggi le vasche complete, il resto o la distanza equivalente.']),
-      section('Riferimento rapido iarde-metri', ['25 iarde equivalgono a 22.86 metri, 50 iarde a 45.72 metri e 1650 iarde a 1508.76 metri. Nell’altra direzione, 25 metri equivalgono a 27.34 iarde e 1500 metri a 1640.42 iarde.']),
-      section('Perché usare il convertitore di vasche?', ['Le domande sulla distanza della piscina influenzano i piani di allenamento. Converti distanze esatte e conta le vasche in piscine da 25 iarde, 25 metri e 50 metri.']),
+      section('Come usarlo', [], ['Scegli iarde e metri oppure distanza e vasche.', 'Inserisci una distanza o un numero di vasche.', 'Usa le impostazioni rapide per le distanze comuni (25, 50, 500, 1650 yd).', 'Leggi le vasche complete, il resto o la distanza equivalente.'], ['Scegli iarde e metri oppure distanza e vasche.', 'Inserisci una distanza o un numero di vasche.', 'Usa le impostazioni rapide per le distanze comuni (25, 50, 500, 1650 yd).', 'Leggi le vasche complete, il resto o la distanza equivalente.']),
+      section('Risposte rapide alle distanze più cercate', [
+        'Il miglio del nuotatore: 1650 iarde equivalgono a 1508.76 metri (60.35 vasche in piscina da 25m, 66 in 25yd).',
+        'Riferimento mezzofondo: 500 iarde equivalgono a 457.20 metri (20 vasche in piscina da 25yd, 18.28 in 25m).',
+        'Lunghezza vasca SCY: 25 iarde equivalgono a 22.86 metri (75 piedi), 2.14 metri più corta di una piscina da 25 metri.',
+      ]),
+      section('Riferimento rapido distanze standard di nuoto', [
+        '25 yd = 22.86 m · 50 yd = 45.72 m · 100 m = 109.36 yd · 200 m = 218.72 yd (8 vasche in 25m) · 500 yd = 457.2 m (20 vasche in 25yd) · 1000 yd = 914.4 m · 1500 m = 1640.42 yd (60 vasche in 25m) · 1650 yd = 1508.76 m (66 vasche in 25yd) · 5000 m = 200 vasche in 25m.',
+      ]),
+      section('Distanza vs Tempo: Perché i tempi di gara richiedono un\'altra formula', [
+        'La conversione di distanza fisica è lineare (1 iarda = 0.9144 m). Tuttavia, i tempi di nuoto dipendono dalle spinte al muro e dalle virate. Per convertire tempi di gara con correzione delle virate, usa il nostro Convertitore tempi di nuoto.',
+      ]),
     ],
     faqs: [
-      faq('Come converto 25 iarde in metri?', 'Moltiplica le iarde per 0.9144: 25 iarde equivalgono a 22.86 metri, la lunghezza di una piscina in corto corsia a iarde.'),
-      faq('Quanti metri sono 50 iarde?', '50 iarde equivalgono a 45.72 metri. Altre conversioni comuni sono 100 iarde = 91.44 metri e 1650 iarde = 1508.76 metri.'),
-      faq('Quante vasche sono 1500 metri?', 'Sono 60 vasche in una piscina da 25 metri e 30 in una da 50 metri. Una nuotata di 1650 iarde è 66 vasche in una piscina da 25 iarde.'),
+      faq('Come converto 25 iarde in metri?', 'Moltiplica le iarde per 0.9144: 25 iarde equivalgono a 22.86 metri, la lunghezza di una piscina corta in iarde (SCY).'),
+      faq('A quanti metri corrispondono 1650 iarde?', '1650 iarde equivalgono a 1508.76 metri (1650 × 0.9144). Nel nuoto americano, questa distanza è nota come il miglio in piscina, equivalente ai 1500 metri internazionali.'),
+      faq('Quante vasche sono 200m in una piscina da 25m?', 'Una nuotata di 200 metri equivale esattamente a 8 vasche in una piscina da 25 metri e a 4 vasche in una piscina olimpionica da 50 metri.'),
+      faq('Quanti metri sono 500 iarde di nuoto?', '500 iarde equivalgono a 457.2 metri (500 × 0.9144). In una piscina da 25 iarde sono esattamente 20 vasche; in una da 25 metri circa 18.28 vasche.'),
+      faq('Perché 25 iarde equivalgono a 22.86 metri?', 'Per definizione internazionale, 1 iarda è esattamente 0.9144 metri. Moltiplicando 25 per 0.9144 si ottengono 22.86 metri. Una piscina da 25 metri è circa il 9.1% più lunga di una da 25 iarde.'),
+      faq('Quante vasche sono 5000m in una piscina da 25m?', '5000 metri sono esattamente 200 vasche (o 100 giri completi di andata e ritorno) in una piscina da 25 metri.'),
+      faq('Come converto metri in iarde?', 'Moltiplica i metri per 1.09361: 100 metri equivalgono a 109.36 iarde e 1500 metri equivalgono a 1640.42 iarde.'),
+      faq('Quanti metri sono 50 iarde?', '50 iarde equivalgono a 45.72 metri (50 × 0.9144). Altri standard: 100 yd = 91.44 m e 1000 yd = 914.4 m.'),
+      faq('Quante miglia sono 64 vasche di una piscina da 25m?', '64 vasche in una piscina da 25 metri equivalgono a 1.600 metri. Poiché un miglio terrestre è di 1.609.34 metri, 64 vasche sono circa 0.994 miglia: praticamente un miglio completo in acqua.'),
+      faq('Qual è la differenza tra lunghezza (length) e giro (lap)?', 'Una lunghezza (length) è una singola traversata della vasca da parete a parete. Un giro (lap) include tradizionalmente l\'andata e il ritorno (due vasche).'),
+      faq('Qual è la differenza tra convertire distanza e convertire tempi di nuoto?', 'La conversione di distanza è matematica fissa (1 yd = 0.9144 m). La conversione dei tempi considera le spinte nelle virate e la differenza nel numero di virate tra le vasche.'),
     ],
   },
   'scy-to-lcm': {
@@ -159,7 +176,7 @@ export const italianPages: PageCatalog = {
     lead: 'Converti un tempo in una piscina corta da 25 iarde in un tempo stimato in una piscina lunga da 50 metri.',
     sections: [
       section('Che cos’è la conversione da SCY a LCM?', ['Una piscina da 25 iarde e una da 50 metri cambiano la distanza e il numero di virate. Il convertitore scala il tempo e aggiunge una correzione per ogni virata della piscina più grande.']),
-      section('Come funziona la stima', ['Le gare di stile libero usano le abbinamenti abituali: 500 stile libero con 400 stile libero, 1000 con 800 e 1650 con 1500. Tutti i risultati sono stime.']),
+      section('Come funziona la stima', ['Le gare di stile libero usano le abbinamenti abituali: 500 stile libero con 400 stile libero, 1000 con 800 e 1650 con 1500. Tutti i risultati sono stime. Per convertire direttamente distanze di piscina senza correzione delle virate, visita il convertitore di distanze.']),
     ],
     faqs: [
       faq('Qual è il fattore di conversione da SCY a LCM?', 'Il fattore base da iarde a metri è 1.11, con correzioni per distanza e virate specifiche della gara. Lo stile libero di lunga distanza usa fattori di abbinamento separati.'),
@@ -173,7 +190,7 @@ export const italianPages: PageCatalog = {
     lead: 'Converti un tempo in una piscina da 25 iarde in un tempo stimato per una piscina da 25 metri.',
     sections: [
       section('Che cos’è la conversione da SCY a SCM?', ['SCY e SCM usano entrambe piscine da 25 vasche, quindi il numero di virate è uguale. La differenza principale è che un metro è più lungo di un yard.']),
-      section('Come funziona la stima', ['Il fattore standard è 1.11 per gare simili. Lo stile libero sulla distanza usa abbinamenti separati da 500 a 400, da 1000 a 800 e da 1650 a 1500.']),
+      section('Come funziona la stima', ['Il fattore standard è 1.11 per gare simili. Lo stile libero sulla distanza usa abbinamenti separati da 500 a 400, da 1000 a 800 e da 1650 a 1500. Per convertire direttamente vasche e distanze di allenamento senza variazioni di tempo, vedi il nostro convertitore di distanze.']),
     ],
     faqs: [
       faq('Qual è il fattore di conversione da SCY a SCM?', 'Per gare simili, moltiplica i secondi della corsia corta in iarde per 1.11 perché una vasca da 25 iarde è più corta di una da 25 metri.'),

@@ -137,19 +137,36 @@ export const englishPages: PageCatalog = {
     ],
   },
   'lengths-converter': {
-    title: 'Swim Distance Converter – Yards to Meters & Pool Lengths',
-    description: 'Convert swim distances: yards to meters, meters to yards and distances to pool lengths.',
+    title: 'Swim Distance Converter: Yards to Meters & Pool Lengths',
+    description: 'Convert swim distances instantly: 25 yd to 22.86 m, 500 yd, and 1650 yd to meters. Calculate exact pool lengths for 25y, 25m, and 50m pools with zero guesswork.',
     h1: 'Swim Distance & Lengths Converter',
     lead: 'Convert yards to meters or meters to yards, then see how many lengths a distance represents in a 25-yard, 25-meter or 50-meter pool.',
     sections: [
-      section('How to use it', [], ['Choose yards and meters or distance and lengths.', 'Enter a distance or number of lengths.', 'Use quick presets for common swim distances.', 'Read the full lengths, remainder or equivalent distance.'], ['Choose yards and meters or distance and lengths.', 'Enter a distance or number of lengths.', 'Use quick presets for common swim distances.', 'Read the full lengths, remainder or equivalent distance.']),
-      section('Yards to meters quick reference', ['25 yards equals 22.86 meters, 50 yards equals 45.72 meters and 1650 yards equals 1508.76 meters. In the other direction, 25 meters equals 27.34 yards and 1500 meters equals 1640.42 yards.']),
-      section('Why use the lengths converter?', ['Pool distance questions affect training plans. Convert exact distances and count lengths for 25-yard, 25-meter and 50-meter pools.']),
+      section('How to use it', [], ['Choose yards and meters or distance and lengths.', 'Enter a distance or number of lengths.', 'Use quick presets for common swim distances (25, 50, 500, 1650 yd).', 'Read the full lengths, remainder, or equivalent distance.'], ['Choose yards and meters or distance and lengths.', 'Enter a distance or number of lengths.', 'Use quick presets for common swim distances (25, 50, 500, 1650 yd).', 'Read the full lengths, remainder, or equivalent distance.']),
+      section('Popular quick distance answers', [
+        'The Swimmer\'s Mile: 1650 yards equals 1508.76 meters (60.35 lengths in a 25m pool, 66 lengths in 25yd).',
+        'Mid-Distance Benchmark: 500 yards equals 457.20 meters (20 lengths in a 25yd pool, 18.28 in 25m).',
+        'SCY Pool Length: 25 yards equals 22.86 meters (75 feet), which is 2.14 meters shorter than a 25-meter pool.',
+      ]),
+      section('Standard swimming distances quick reference', [
+        '25 yd = 22.86 m · 50 yd = 45.72 m · 100 m = 109.36 yd · 200 m = 218.72 yd (8 lengths in 25m) · 500 yd = 457.2 m (20 lengths in 25yd) · 1000 yd = 914.4 m · 1500 m = 1640.42 yd (60 lengths in 25m) · 1650 yd = 1508.76 m (66 lengths in 25yd) · 5000 m = 200 lengths in 25m.',
+      ]),
+      section('Distance vs. Time: Why race times need a different formula', [
+        'Physical distance conversion is linear (1 yard = 0.9144 meters). However, swimming times depend on turn push-offs and wall glides. To convert competition times with turn adjustments, use our Swim Time Converter.',
+      ]),
     ],
     faqs: [
-      faq('How do I convert 25 yards to meters?', 'Multiply yards by 0.9144: 25 yards equals 22.86 meters, the length of a short-course yards pool.'),
-      faq('What is 50 yards in meters?', '50 yards equals 45.72 meters. Other common conversions include 100 yards = 91.44 meters and 1650 yards = 1508.76 meters.'),
-      faq('How many lengths is a 1500-meter swim?', 'It is 60 lengths in a 25-meter pool and 30 lengths in a 50-meter pool. A 1650-yard swim is 66 lengths in a 25-yard pool.'),
+      faq('How do I convert 25 yards to meters?', 'Multiply yards by 0.9144: 25 yards equals 22.86 meters, the length of a short-course yards (SCY) pool.'),
+      faq('What is 1650 yards converted to meters?', '1650 yards is equal to 1,508.76 meters (1650 × 0.9144). In U.S. competitive swimming, the 1650-yard freestyle is known as the pool mile, matching the international 1500-meter event.'),
+      faq('How many lengths is 200m in a 25m pool?', 'A 200-meter swim is exactly 8 lengths in a 25-meter pool and 4 lengths in a 50-meter Olympic pool. In a 25-yard pool, 200 meters equals roughly 8.75 lengths.'),
+      faq('How many meters is a 500-yard swim?', 'A 500-yard swim equals 457.2 meters (500 × 0.9144). In a 25-yard pool, this equals exactly 20 lengths. In a 25-meter pool, it takes approximately 18.28 lengths.'),
+      faq('Why is 25 yards equal to 22.86 meters?', 'By international definition, 1 yard is exactly 0.9144 meters. Multiplying 25 by 0.9144 gives 22.86 meters. A 25-meter pool is roughly 9.1% longer than a 25-yard pool.'),
+      faq('How many lengths is 5000m in a 25m pool?', '5000 meters is exactly 200 lengths (or 100 full down-and-back laps) in a 25-meter pool.'),
+      faq('How do I convert meters to yards?', 'Multiply meters by 1.09361: 100 meters equals 109.36 yards, and 1500 meters equals 1640.42 yards.'),
+      faq('What is 50 yards in meters?', '50 yards equals 45.72 meters (50 × 0.9144). Other standards: 100 yd = 91.44 m and 1000 yd = 914.4 m.'),
+      faq('How many miles is 64 lengths of a 25m pool?', '64 lengths in a 25-meter pool equals 1,600 meters. Since a land mile is 1,609.34 meters, 64 lengths is roughly 0.994 miles — practically a full mile in the water.'),
+      faq('What is the difference between a length and a lap?', 'A length is one single crossing of the pool from wall to wall. A lap is traditionally two lengths (down and back to your starting wall).'),
+      faq('What is the difference between converting distance vs. converting swim times?', 'Distance conversion is fixed math (1 yard = 0.9144 m). Swim time conversion accounts for wall push-offs and turn count differences between courses.'),
     ],
   },
   'scy-to-lcm': {
@@ -159,7 +176,7 @@ export const englishPages: PageCatalog = {
     lead: 'Convert a short-course yards time into an estimated long-course meters time.',
     sections: [
       section('What is an SCY to LCM conversion?', ['A 25-yard pool and a 50-meter pool change the distance and number of turns. The converter scales the time and adds a per-turn adjustment for the larger pool.']),
-      section('How the estimate works', ['Distance freestyle events use their usual pairings: 500 Free to 400 Free, 1000 Free to 800 Free and 1650 Free to 1500 Free. Every result is an estimate.']),
+      section('How the estimate works', ['Distance freestyle events use their usual pairings: 500 Free to 400 Free, 1000 Free to 800 Free and 1650 Free to 1500 Free. Every result is an estimate. To convert physical pool distances without turn adjustments, visit the swim distance converter.']),
     ],
     faqs: [
       faq('What is the SCY to LCM conversion factor?', 'The base yard-to-meter factor is 1.11, with event-specific distance and turn adjustments. Long-distance freestyle uses separate pairing factors.'),
@@ -173,7 +190,7 @@ export const englishPages: PageCatalog = {
     lead: 'Convert a 25-yard pool time into an estimated 25-meter pool time.',
     sections: [
       section('What is an SCY to SCM conversion?', ['SCY and SCM both use 25-length pools, so the number of turns is the same. The main change is that a meter is longer than a yard.']),
-      section('How the estimate works', ['The standard factor is 1.11 for similar events. Distance freestyle uses separate pairings for 500 to 400, 1000 to 800 and 1650 to 1500.']),
+      section('How the estimate works', ['The standard factor is 1.11 for similar events. Distance freestyle uses separate pairings for 500 to 400, 1000 to 800 and 1650 to 1500. To convert pool lengths and workout distances directly without time adjustments, see our swim distance converter.']),
     ],
     faqs: [
       faq('What is the SCY to SCM conversion factor?', 'For similar events, multiply short-course yard seconds by 1.11 because a 25-yard lane is shorter than a 25-meter lane.'),

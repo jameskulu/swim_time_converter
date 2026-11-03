@@ -7,35 +7,58 @@ import CalculatorLinks from '../../components/CalculatorLinks.astro';
 const faqs = [
   {
     question: 'How do I convert 25 yards to meters?',
-    answer: 'Multiply yards by 0.9144: 25 yards × 0.9144 = 22.86 meters. That is the length of a short course yards (SCY) pool — a 25 yd pool is about 2.14 m shorter than a 25 m pool. Use the Yards ↔ meters mode above or the quick picks (25 yd, 50 yd, 1650 yd) to convert any swim distance.',
+    answer:
+      'Multiply yards by 0.9144: 25 yards × 0.9144 = 22.86 meters. That is the exact length of a short course yards (SCY) pool — about 2.14 meters (7 feet) shorter than a 25-meter pool. Use the calculator above to convert any custom yardage or meters instantly.',
+  },
+  {
+    question: 'What is 1650 yards converted to meters?',
+    answer:
+      '1650 yards is equal to 1,508.76 meters (1650 × 0.9144). In American competitive swimming (SCY), the 1650-yard freestyle is known as the "pool mile," which closely corresponds to the international 1500-meter freestyle event.',
+  },
+  {
+    question: 'How many lengths is 200m in a 25m pool?',
+    answer:
+      'A 200-meter swim is exactly 8 lengths in a 25-meter pool (or 4 lengths in a 50-meter Olympic pool). In a 25-yard pool, 200 meters equals roughly 218.72 yards, which is 8.75 lengths.',
+  },
+  {
+    question: 'How many meters is a 500-yard swim?',
+    answer:
+      'A 500-yard swim is 457.2 meters (500 × 0.9144). In a 25-yard pool, this equals exactly 20 lengths. In a 25-meter pool, it takes approximately 18.28 lengths.',
+  },
+  {
+    question: 'Why is 25 yards equal to 22.86 meters?',
+    answer:
+      'By international agreement, 1 yard is defined as exactly 0.9144 meters. Multiplying 25 yards by 0.9144 yields 22.86 meters. Because 25 meters is 27.34 yards, a 25-meter pool is roughly 9.1% longer than a 25-yard pool.',
+  },
+  {
+    question: 'How many lengths is 5000m in a 25m pool?',
+    answer:
+      'A 5000-meter workout is exactly 200 lengths in a 25-meter pool (or 100 full laps down-and-back) and 100 lengths in a 50-meter Olympic pool.',
   },
   {
     question: 'How do I convert meters to yards?',
-    answer: 'Multiply meters by 1.09361: 100 meters × 1.09361 = 109.36 yards, and the 1500 m pool mile is 1640.42 yards (just under the 1650-yard U.S. mile). The converter does this both ways instantly.',
+    answer:
+      'Multiply meters by 1.09361: 100 meters × 1.09361 = 109.36 yards, and 1500 meters equals 1640.42 yards (just under the 1650-yard U.S. event).',
   },
   {
     question: 'What is 50 yards in meters?',
-    answer: '50 yards is 45.72 meters (50 × 0.9144). Common swim conversions: 100 yd = 91.44 m, 500 yd = 457.2 m, 1000 yd = 914.4 m and 1650 yd = 1508.76 m.',
+    answer:
+      '50 yards is 45.72 meters (50 × 0.9144). Other standard event equivalents: 100 yd = 91.44 m, 200 yd = 182.88 m, 500 yd = 457.2 m, 1000 yd = 914.4 m, and 1650 yd = 1508.76 m.',
+  },
+  {
+    question: 'How many miles is 64 lengths of a 25m pool?',
+    answer:
+      '64 lengths in a 25-meter pool equals 1,600 meters (64 × 25 m). Since 1 international statute mile is 1,609.34 meters, 64 lengths is roughly 0.994 miles — practically a full mile in the water.',
   },
   {
     question: 'What is the difference between a length and a lap?',
-    answer: 'A length is one crossing of the pool — 25 m in a short-course pool, 50 m in long course. A lap is usually two lengths, down and back. Counting your swim in laps (as many distance trackers do) simply doubles the length count.',
+    answer:
+      'A length is one single crossing of the pool from wall to wall (e.g. 25m in a 25m pool). A lap is traditionally two lengths (down and back to your starting wall). Most digital swim trackers allow you to log by either lengths or laps.',
   },
   {
-    question: 'Why does a 25-yard pool matter for conversion?',
-    answer: '25 yards is 22.86 meters, so 1000 yards in a SCY pool is shorter than 1000 meters in an SCM pool. If you mix pools, convert yards to meters (~0.9144 and the turns correction from the course converter) before comparing distances like the 500 and 1500.',
-  },
-  {
-    question: 'How many lengths is the pool mile?',
-    answer: 'In a 25 m pool: 1500 m = 60 lengths. In a 25 yd pool: 1650 yd = 66 lengths. In a 50 m pool: 1500 m = 30 lengths; a long-course 1650 would be 33 lengths. The converter handles all three pools.',
-  },
-  {
-    question: 'How many lengths is a 500, 1000 or 1500 swim?',
-    answer: 'In a 25-yard pool: 500 yd = 20 lengths and 1000 yd = 40 lengths. In a 25-meter pool: 500 m = 20 lengths, 1000 m = 40 and 1500 m = 60 lengths. In a 50 m pool: 500 m = 10 lengths, 1000 m = 20 and 1500 m = 30. Enter your distance to get the exact count with any remainder.',
-  },
-  {
-    question: 'Can I convert a swim time along with the yards-to-meters distance?',
-    answer: 'Yes — a distance conversion answers "how far", but swim times move between courses with turns and factor adjustments. After you convert 25 yards to 22.86 meters or 50 yards to 45.72 meters, use the SCY to SCM or course converters to transfer your actual times, and the Speed calculator to project them across events.',
+    question: 'What is the difference between converting distance vs. converting swim times?',
+    answer:
+      'Distance conversion is fixed math (1 yard = 0.9144 meters). Swim time conversion is physiological: swimmers gain speed from wall push-offs and turns. Because a 25-yard pool has more turns than a 50-meter pool, you cannot simply multiply finish times by 0.9144. Use our dedicated Swim Time Converter to convert race and split times.',
   },
 ];
 
@@ -60,23 +83,55 @@ const webAppLd = {
 ---
 
 <Layout
-  title="Swim Distance Converter – Yards to Meters & Pool Lengths – Swim Time Converter"
-  description="Convert swim distances: yards to meters (25 yd = 22.86 m, 50 yd = 45.72 m), meters to yards, and distances to pool lengths for 25-yard, 25-meter and 50-meter pools."
+  title="Swim Distance Converter: Yards to Meters & Pool Lengths"
+  description="Convert swim distances instantly: 25 yd to 22.86 m, 500 yd, and 1650 yd to meters. Calculate exact pool lengths for 25y, 25m, and 50m pools with zero guesswork."
   jsonLd={[webAppLd, faqLd]}
 >
-  <section class="mx-auto w-full max-w-3xl px-4 pb-10 pt-10 sm:px-6">
+  <section class="mx-auto w-full max-w-3xl px-4 pb-8 pt-10 sm:px-6">
     <h1 class="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">Swim Distance &amp; Lengths Converter</h1>
     <p class="mt-4 text-base leading-relaxed text-ink-muted">
       Convert yards to meters or meters to yards for any swim distance, then see how many lengths that is in a 25-yard,
-      25-meter or 50-meter pool.
+      25-meter, or 50-meter pool.
     </p>
+
+    <!-- Disambiguation Intent Banner -->
+    <div class="mt-6 flex flex-wrap items-center gap-2 rounded-xl border border-primary/20 bg-primary/5 p-4 text-sm text-ink-muted">
+      <span class="font-semibold text-ink">Need to convert race times?</span>
+      <span>
+        To convert finish times with turn adjustments across SCY, SCM, and LCM, visit our
+        <a href="/" class="font-medium text-primary hover:underline">Swim Time Converter</a> or
+        <a href="/scy-to-lcm/" class="font-medium text-primary hover:underline">SCY to LCM Converter</a>.
+      </span>
+    </div>
   </section>
 
   <section id="calculator" class="mx-auto w-full max-w-3xl scroll-mt-24 px-4 sm:px-6">
     <LengthsConverter client:load />
   </section>
 
-  <section class="mx-auto w-full max-w-3xl px-4 py-14 sm:px-6">
+  <!-- High Opportunity Quick Answers Callout Cards -->
+  <section class="mx-auto w-full max-w-3xl px-4 pt-10 sm:px-6">
+    <h2 class="text-lg font-semibold tracking-tight text-ink">Popular Quick Distance Answers</h2>
+    <div class="mt-4 grid gap-3 sm:grid-cols-3">
+      <div class="rounded-xl border border-hairline bg-surface-1 p-4">
+        <p class="text-xs font-semibold uppercase tracking-wider text-primary">The Swimmer's Mile</p>
+        <p class="mt-1 text-lg font-bold text-ink">1650 Yd = 1,508.8 M</p>
+        <p class="mt-1 text-xs text-ink-subtle">60.35 lengths in 25m pool (66 lengths in 25yd)</p>
+      </div>
+      <div class="rounded-xl border border-hairline bg-surface-1 p-4">
+        <p class="text-xs font-semibold uppercase tracking-wider text-primary">Mid-Distance Benchmark</p>
+        <p class="mt-1 text-lg font-bold text-ink">500 Yd = 457.2 M</p>
+        <p class="mt-1 text-xs text-ink-subtle">20 lengths in 25yd pool (18.28 lengths in 25m)</p>
+      </div>
+      <div class="rounded-xl border border-hairline bg-surface-1 p-4">
+        <p class="text-xs font-semibold uppercase tracking-wider text-primary">SCY Pool Length</p>
+        <p class="mt-1 text-lg font-bold text-ink">25 Yd = 22.86 M</p>
+        <p class="mt-1 text-xs text-ink-subtle">1 length (75 ft), 2.14m shorter than 25m</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto w-full max-w-3xl px-4 py-12 sm:px-6">
     <h2 class="text-2xl font-semibold tracking-tight text-ink">How to Use It</h2>
     <ol class="mt-5 space-y-4">
       <li class="flex gap-3">
@@ -109,21 +164,128 @@ const webAppLd = {
     </ol>
   </section>
 
+  <!-- Complete Standard Distances Matrix Table -->
   <section class="border-y border-hairline bg-surface-1 py-14">
     <div class="mx-auto w-full max-w-3xl px-4 sm:px-6">
-      <h2 class="text-2xl font-semibold tracking-tight text-ink">Yards to Meters Quick Reference</h2>
-      <div class="mt-6 space-y-3 text-[15px] leading-relaxed text-ink-muted">
-        <p><strong class="text-ink">Yards → meters</strong> (× 0.9144): 25 yd = <strong class="text-ink">22.86 m</strong> · 50 yd = <strong class="text-ink">45.72 m</strong> · 100 yd = 91.44 m · 500 yd = 457.2 m · 1000 yd = 914.4 m · 1650 yd = 1508.76 m.</p>
-        <p><strong class="text-ink">Meters → yards</strong> (× 1.09361): 25 m = 27.34 yd · 100 m = 109.36 yd · 400 m = 437.45 yd · 1500 m = <strong class="text-ink">1640.42 yd</strong>.</p>
-        <p><strong class="text-ink">25 m pool:</strong> 100 m = 4 lengths · 200 m = 8 · 400 m = 16 · 1500 m = 60.</p>
-        <p><strong class="text-ink">50 m pool:</strong> 100 m = 2 lengths · 200 m = 4 · 400 m = 8 · 1500 m = 30.</p>
-        <p><strong class="text-ink">25 yd pool:</strong> 100 yd = 4 lengths · 200 yd = 8 · 500 yd = 20 · 1000 yd = 40 · 1650 yd = 66.</p>
-        <p>Roughly speaking, a 25 yd pool is about 9% shorter than a 25 m pool, so yardage adds up faster — compare like for like using the <a href="/scm-to-scy/" class="font-medium text-primary hover:underline">course converter</a> when mixing pools.</p>
+      <h2 class="text-2xl font-semibold tracking-tight text-ink">Standard Swimming Distances &amp; Pool Lengths Chart</h2>
+      <p class="mt-2 text-sm text-ink-subtle">
+        Quick reference for common workout distances converted between yards and meters, plus exact length counts per pool size.
+      </p>
+
+      <div class="mt-6 overflow-x-auto rounded-xl border border-hairline bg-surface-2">
+        <table class="w-full text-left text-sm text-ink-muted">
+          <thead class="border-b border-hairline bg-surface-3/50 text-xs uppercase tracking-wider text-ink">
+            <tr>
+              <th scope="col" class="px-4 py-3">Event / Distance</th>
+              <th scope="col" class="px-4 py-3">Yards</th>
+              <th scope="col" class="px-4 py-3">Meters</th>
+              <th scope="col" class="px-4 py-3">25y Pool</th>
+              <th scope="col" class="px-4 py-3">25m Pool</th>
+              <th scope="col" class="px-4 py-3">50m Pool</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-hairline">
+            <tr class="hover:bg-surface-3/30">
+              <td class="px-4 py-2.5 font-medium text-ink">25 yd (SCY length)</td>
+              <td class="px-4 py-2.5">25 yd</td>
+              <td class="px-4 py-2.5 font-medium text-primary">22.86 m</td>
+              <td class="px-4 py-2.5">1</td>
+              <td class="px-4 py-2.5">0.91</td>
+              <td class="px-4 py-2.5">0.46</td>
+            </tr>
+            <tr class="hover:bg-surface-3/30">
+              <td class="px-4 py-2.5 font-medium text-ink">50 yd (Sprint)</td>
+              <td class="px-4 py-2.5">50 yd</td>
+              <td class="px-4 py-2.5 font-medium text-primary">45.72 m</td>
+              <td class="px-4 py-2.5">2</td>
+              <td class="px-4 py-2.5">1.83</td>
+              <td class="px-4 py-2.5">0.91</td>
+            </tr>
+            <tr class="hover:bg-surface-3/30">
+              <td class="px-4 py-2.5 font-medium text-ink">100 m</td>
+              <td class="px-4 py-2.5 font-medium text-primary">109.36 yd</td>
+              <td class="px-4 py-2.5">100 m</td>
+              <td class="px-4 py-2.5">4.37</td>
+              <td class="px-4 py-2.5">4</td>
+              <td class="px-4 py-2.5">2</td>
+            </tr>
+            <tr class="hover:bg-surface-3/30">
+              <td class="px-4 py-2.5 font-medium text-ink">200 m</td>
+              <td class="px-4 py-2.5 font-medium text-primary">218.72 yd</td>
+              <td class="px-4 py-2.5">200 m</td>
+              <td class="px-4 py-2.5">8.75</td>
+              <td class="px-4 py-2.5 font-semibold text-ink">8 lengths</td>
+              <td class="px-4 py-2.5 font-semibold text-ink">4 lengths</td>
+            </tr>
+            <tr class="hover:bg-surface-3/30">
+              <td class="px-4 py-2.5 font-medium text-ink">500 yd</td>
+              <td class="px-4 py-2.5">500 yd</td>
+              <td class="px-4 py-2.5 font-medium text-primary">457.20 m</td>
+              <td class="px-4 py-2.5 font-semibold text-ink">20 lengths</td>
+              <td class="px-4 py-2.5">18.28</td>
+              <td class="px-4 py-2.5">9.14</td>
+            </tr>
+            <tr class="hover:bg-surface-3/30">
+              <td class="px-4 py-2.5 font-medium text-ink">1000 yd</td>
+              <td class="px-4 py-2.5">1000 yd</td>
+              <td class="px-4 py-2.5 font-medium text-primary">914.40 m</td>
+              <td class="px-4 py-2.5 font-semibold text-ink">40 lengths</td>
+              <td class="px-4 py-2.5">36.57</td>
+              <td class="px-4 py-2.5">18.28</td>
+            </tr>
+            <tr class="hover:bg-surface-3/30">
+              <td class="px-4 py-2.5 font-medium text-ink">1500 m (Olympic Mile)</td>
+              <td class="px-4 py-2.5 font-medium text-primary">1640.42 yd</td>
+              <td class="px-4 py-2.5">1500 m</td>
+              <td class="px-4 py-2.5">65.62</td>
+              <td class="px-4 py-2.5 font-semibold text-ink">60 lengths</td>
+              <td class="px-4 py-2.5 font-semibold text-ink">30 lengths</td>
+            </tr>
+            <tr class="hover:bg-surface-3/30">
+              <td class="px-4 py-2.5 font-medium text-ink">1650 yd (Pool Mile)</td>
+              <td class="px-4 py-2.5">1650 yd</td>
+              <td class="px-4 py-2.5 font-medium text-primary">1508.76 m</td>
+              <td class="px-4 py-2.5 font-semibold text-ink">66 lengths</td>
+              <td class="px-4 py-2.5">60.35</td>
+              <td class="px-4 py-2.5">30.17</td>
+            </tr>
+            <tr class="hover:bg-surface-3/30">
+              <td class="px-4 py-2.5 font-medium text-ink">5000 m (Endurance)</td>
+              <td class="px-4 py-2.5 font-medium text-primary">5468.07 yd</td>
+              <td class="px-4 py-2.5">5000 m</td>
+              <td class="px-4 py-2.5">218.72</td>
+              <td class="px-4 py-2.5 font-semibold text-ink">200 lengths</td>
+              <td class="px-4 py-2.5 font-semibold text-ink">100 lengths</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pool Dimension Comparison -->
+      <div class="mt-8 grid gap-4 sm:grid-cols-3">
+        <div class="rounded-xl border border-hairline bg-surface-2 p-4">
+          <h3 class="text-sm font-semibold text-ink">25-Yard Pool (SCY)</h3>
+          <p class="mt-1 text-xs text-ink-subtle">Standard in US High School &amp; NCAA</p>
+          <p class="mt-2 text-xs text-ink-muted"><strong>Length:</strong> 75 feet = 22.86 meters</p>
+          <p class="text-xs text-ink-muted"><strong>Difference:</strong> 2.14 m shorter than 25m</p>
+        </div>
+        <div class="rounded-xl border border-hairline bg-surface-2 p-4">
+          <h3 class="text-sm font-semibold text-ink">25-Meter Pool (SCM)</h3>
+          <p class="mt-1 text-xs text-ink-subtle">International Short Course Standard</p>
+          <p class="mt-2 text-xs text-ink-muted"><strong>Length:</strong> 82.02 feet = 27.34 yards</p>
+          <p class="text-xs text-ink-muted"><strong>Difference:</strong> 9.14% longer than 25 yards</p>
+        </div>
+        <div class="rounded-xl border border-hairline bg-surface-2 p-4">
+          <h3 class="text-sm font-semibold text-ink">50-Meter Pool (LCM)</h3>
+          <p class="mt-1 text-xs text-ink-subtle">Olympic &amp; World Championship Course</p>
+          <p class="mt-2 text-xs text-ink-muted"><strong>Length:</strong> 164.04 feet = 54.68 yards</p>
+          <p class="text-xs text-ink-muted"><strong>Difference:</strong> Exactly double a 25m pool</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Why use it -->
+  <!-- Detailed Guidance -->
   <section class="border-t border-hairline bg-surface-1 py-16">
     <div class="mx-auto w-full max-w-3xl px-4 sm:px-6">
       <h2 class="text-2xl font-semibold tracking-tight text-ink sm:text-3xl">Why Use the Swim Distances &amp; Lengths Converter?</h2>
@@ -136,36 +298,33 @@ const webAppLd = {
         </p>
       </div>
 
-      <h3 class="mt-8 text-lg font-semibold tracking-tight text-ink">The yards to meters conversions swimmers actually google</h3>
+      <h3 class="mt-8 text-lg font-semibold tracking-tight text-ink">The yards to meters conversions swimmers actually search</h3>
       <div class="mt-3 space-y-4 text-[15px] leading-relaxed text-ink-muted">
         <p>
-          <strong class="font-semibold text-ink">Swim time converter 25 yards to meters</strong> = 22.86 m,
-          <strong class="font-semibold text-ink">25 meters to yards</strong> = 27.34 yd,{" "}
-          <strong class="font-semibold text-ink">50 yards to meters</strong> = 45.72 m, and the 1650 to a 1500 is a common
-          train trip for U.S. swimmers heading to a meters meet. Whether you search the "usa" or "uk" phrasing, the answer
-          is the same, and it is on this page: type the number, read both sides.
+          <strong class="font-semibold text-ink">25 yards to meters</strong> = 22.86 m,
+          <strong class="font-semibold text-ink">25 meters to yards</strong> = 27.34 yd,
+          <strong class="font-semibold text-ink">50 yards to meters</strong> = 45.72 m, and the
+          <strong class="font-semibold text-ink">1650 yards to meters</strong> conversion is 1508.76 m.
+          Whether you search with U.S. yardage or international metric courses, you get instant math without rounding errors.
         </p>
       </div>
 
-      <h3 class="mt-8 text-lg font-semibold tracking-tight text-ink">From meters and yards to a set you can coach</h3>
+      <h3 class="mt-8 text-lg font-semibold tracking-tight text-ink">From meters and yards to workout sets you can swim</h3>
       <div class="mt-3 space-y-4 text-[15px] leading-relaxed text-ink-muted">
         <p>
-          Once you know how far, you need to know how many times you cross the pool. The distance-to-lengths mode answers
-          "how many lengths is 500, 1000 or 1500?" in any of the three pool lengths, and the lengths-to-distance mode
-          totals a set from a wall-counter count. Pair the result with the{" "}
-          <a href="/interval-calculator/" class="font-medium text-primary hover:underline">Interval Calculator</a> and you
-          can build and count a complete practice from one plan.
+          Once you know the exact physical distance, you need to know how many times you will touch the wall. The distance-to-lengths mode answers
+          "how many lengths is 200m, 500yd or 5000m?" in any course. Then pair your yardage with the
+          <a href="/interval-calculator/" class="font-medium text-primary hover:underline">Interval Calculator</a> to build customized training sets or the
+          <a href="/pace-calculator/" class="font-medium text-primary hover:underline">Pace Calculator</a> to calculate your per-100 target pace.
         </p>
       </div>
 
-      <h3 class="mt-8 text-lg font-semibold tracking-tight text-ink">One tool for U.S. yards and international meters</h3>
+      <h3 class="mt-8 text-lg font-semibold tracking-tight text-ink">Distance vs. Time: Why Race Times Need a Different Formula</h3>
       <div class="mt-3 space-y-4 text-[15px] leading-relaxed text-ink-muted">
         <p>
-          The U.S. races in 25-yard pools; the rest of the swimming world uses 25- and 50-meter pools. Distance conversion
-          is where those worlds meet, so this converter handles all three pool lengths and both unit directions with no
-          setup. Then pass the result to the{" "}
-          <a href="/scy-to-scm/" class="font-medium text-primary hover:underline">course converter</a> when you need the
-          equivalent <em>times</em>, not just the distances.
+          Remember that physical distance conversion is straightforward linear mathematics (1 yard = 0.9144 meters).
+          However, when converting <em>swim times</em> between SCY, SCM, and LCM, turns make a dramatic difference. Swimmers travel faster off the push-off and glide than while swimming at surface speed, so courses with more walls (like 25-yard pools) yield faster times than long-course 50-meter pools.
+          For event finish times, use our <a href="/" class="font-medium text-primary hover:underline">Swim Time Converter</a> or <a href="/scy-to-lcm/" class="font-medium text-primary hover:underline">SCY to LCM course converter</a>.
         </p>
       </div>
     </div>

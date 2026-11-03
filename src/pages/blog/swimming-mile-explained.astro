@@ -1,0 +1,266 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const siteUrl = 'https://onlineswimtimeconverter.com';
+const canonical = `${siteUrl}/blog/swimming-mile-explained/`;
+const title = "The Swimmer's Mile Explained: Laps, Lengths, Yards, and Meters";
+const description =
+  'Demystify the swimming mile: learn why 1650 yards and 1500 meters are called a mile, how many lengths to swim in 25y, 25m, and 50m pools, and the 64 lengths rule.';
+const publishedDate = '2026-11-03';
+
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  mainEntityOfPage: canonical,
+  datePublished: publishedDate,
+  author: {
+    '@type': 'Organization',
+    name: 'Swim Time Converter',
+    url: siteUrl,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Swim Time Converter',
+    logo: {
+      '@type': 'ImageObject',
+      url: `${siteUrl}/og-image.png`,
+    },
+  },
+  articleSection: 'Swimming Guides',
+  keywords: [
+    'meters in a mile swim',
+    'swimming mile',
+    '64 lengths of a 25m pool in miles',
+    '1650 yards to miles',
+    'how many lengths is a mile in a pool',
+    '1500m vs 1650 yards',
+  ],
+};
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: `${siteUrl}/blog/` },
+    { '@type': 'ListItem', position: 3, name: title, item: canonical },
+  ],
+};
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How many meters is a swimming mile?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'In competitive metric swimming (Olympics and World Championships), the swimming mile is standardized as 1,500 meters. However, an actual statute mile is 1,609.34 meters. In a 25-meter pool, swimming 64 lengths equals 1,600 meters, which is within 9 meters of a true land mile.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How many lengths is 64 lengths of a 25m pool in miles?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: '64 lengths in a 25-meter pool equals 1,600 meters (about 1,749.8 yards). Because a land mile is 1,609.34 meters, 64 lengths represents 0.994 miles — practically a full mile.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Why is the 1650 yard freestyle called a mile?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'A true mile on land is 1,760 yards. When U.S. swimming established short-course yards competition, 1,650 yards was chosen because 66 lengths in a 25-yard pool closely matched the pacing and duration of the international 1,500-meter freestyle event.',
+      },
+    },
+  ],
+};
+---
+
+<Layout
+  title={`${title} | Swim Time Converter`}
+  description={description}
+  canonical={canonical}
+  pageType="article"
+  ogTitle={title}
+  ogDescription={description}
+  jsonLd={[articleLd, breadcrumbLd, faqLd]}
+>
+  <article class="mx-auto w-full max-w-3xl px-4 pb-16 pt-8 sm:px-6 sm:pt-12">
+    <nav aria-label="Breadcrumb" class="text-sm text-ink-subtle">
+      <ol class="flex flex-wrap items-center gap-2">
+        <li><a class="hover:text-ink hover:underline" href="/">Home</a></li>
+        <li aria-hidden="true">/</li>
+        <li><a class="hover:text-ink hover:underline" href="/blog/">Blog</a></li>
+        <li aria-hidden="true">/</li>
+        <li aria-current="page" class="text-ink">Swimming mile explained</li>
+      </ol>
+    </nav>
+
+    <header class="mt-8 border-b border-hairline pb-8">
+      <p class="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Distance &amp; Pool Lengths · Deep Dive</p>
+      <h1 class="mt-3 text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+        The Swimmer's Mile Explained: How Many Laps, Lengths, Yards, and Meters in a Pool Mile?
+      </h1>
+      <p class="mt-5 text-lg leading-relaxed text-ink-muted">
+        Ask a runner how long a mile is and you will always get 1,760 yards (5,280 feet or 1,609.34 meters). But ask a swimmer, and the answer depends on the pool course: it could be 1,650 yards, 1,500 meters, or 64 lengths in a 25-meter pool. Here is the full breakdown.
+      </p>
+      <div class="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-sm text-ink-subtle">
+        <span>By Swim Time Converter</span>
+        <span aria-hidden="true">·</span>
+        <time datetime={publishedDate}>November 3, 2026</time>
+        <span aria-hidden="true">·</span>
+        <span>7 min read</span>
+      </div>
+    </header>
+
+    <nav aria-label="Article contents" class="mt-8 rounded-xl border border-hairline bg-surface-1 p-5 sm:p-6">
+      <h2 class="font-semibold text-ink">In this guide</h2>
+      <ol class="mt-3 grid gap-2 text-sm sm:grid-cols-2">
+        <li><a class="text-primary hover:underline" href="#the-three-miles">The three different "miles" in swimming</a></li>
+        <li><a class="text-primary hover:underline" href="#lengths-matrix">Pool lengths per mile chart</a></li>
+        <li><a class="text-primary hover:underline" href="#the-64-lengths-rule">The 64 lengths in a 25m pool rule</a></li>
+        <li><a class="text-primary hover:underline" href="#laps-vs-lengths">Lengths vs. laps explained</a></li>
+        <li><a class="text-primary hover:underline" href="#why-1650-not-1760">Why 1650 yards instead of 1760?</a></li>
+        <li><a class="text-primary hover:underline" href="#faqs">Frequently asked questions</a></li>
+      </ol>
+    </nav>
+
+    <div class="mt-10 space-y-10 text-[15px] leading-7 text-ink-muted sm:text-base">
+      <section>
+        <h2 id="the-three-miles" class="text-2xl font-semibold tracking-tight text-ink">The three different "miles" in swimming</h2>
+        <p class="mt-4">
+          Swimmers encounter three distinct numbers when discussing a mile:
+        </p>
+        <div class="mt-5 grid gap-4 sm:grid-cols-3">
+          <div class="rounded-xl border border-hairline bg-surface-1 p-4">
+            <p class="text-xs font-semibold uppercase tracking-wider text-primary">The True Statute Mile</p>
+            <p class="mt-1 text-lg font-bold text-ink">1,760 Yards</p>
+            <p class="mt-1 text-xs text-ink-subtle">1,609.34 meters (5,280 ft). The exact physical land mile.</p>
+          </div>
+          <div class="rounded-xl border border-hairline bg-surface-1 p-4">
+            <p class="text-xs font-semibold uppercase tracking-wider text-primary">The U.S. "Pool Mile" (SCY)</p>
+            <p class="mt-1 text-lg font-bold text-ink">1,650 Yards</p>
+            <p class="mt-1 text-xs text-ink-subtle">1,508.76 meters. Swum in high school, NCAA, and US Masters.</p>
+          </div>
+          <div class="rounded-xl border border-hairline bg-surface-1 p-4">
+            <p class="text-xs font-semibold uppercase tracking-wider text-primary">The Olympic / Metric Mile</p>
+            <p class="mt-1 text-lg font-bold text-ink">1,500 Meters</p>
+            <p class="mt-1 text-xs text-ink-subtle">1,640.42 yards. Swum at the Olympic Games &amp; World Aquatics.</p>
+          </div>
+        </div>
+        <p class="mt-4">
+          To calculate custom distances or convert lengths into exact meters and yards, use our free <a href="/lengths-converter/" class="font-medium text-primary hover:underline">Swim Distance &amp; Lengths Converter</a>.
+        </p>
+      </section>
+
+      <section>
+        <h2 id="lengths-matrix" class="text-2xl font-semibold tracking-tight text-ink">Pool lengths per mile chart</h2>
+        <p class="mt-4">
+          Here is how each definition of the mile translates into the three standard swimming pool lengths:
+        </p>
+        <div class="mt-5 overflow-x-auto rounded-xl border border-hairline bg-surface-2">
+          <table class="w-full text-left text-sm text-ink-muted">
+            <thead class="border-b border-hairline bg-surface-3/50 text-xs uppercase tracking-wider text-ink">
+              <tr>
+                <th scope="col" class="px-4 py-3">Mile Definition</th>
+                <th scope="col" class="px-4 py-3">Actual Distance</th>
+                <th scope="col" class="px-4 py-3">25-Yard Pool</th>
+                <th scope="col" class="px-4 py-3">25-Meter Pool</th>
+                <th scope="col" class="px-4 py-3">50-Meter Pool</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-hairline">
+              <tr class="hover:bg-surface-3/30">
+                <td class="px-4 py-3 font-semibold text-ink">U.S. Pool Mile (1650 Yd)</td>
+                <td class="px-4 py-3">1,508.76 m / 1,650 yd</td>
+                <td class="px-4 py-3 font-bold text-primary">66 lengths</td>
+                <td class="px-4 py-3">60.35 lengths</td>
+                <td class="px-4 py-3">30.17 lengths</td>
+              </tr>
+              <tr class="hover:bg-surface-3/30">
+                <td class="px-4 py-3 font-semibold text-ink">Metric Mile (1500 M)</td>
+                <td class="px-4 py-3">1,500 m / 1,640.42 yd</td>
+                <td class="px-4 py-3">65.62 lengths</td>
+                <td class="px-4 py-3 font-bold text-primary">60 lengths</td>
+                <td class="px-4 py-3 font-bold text-primary">30 lengths</td>
+              </tr>
+              <tr class="hover:bg-surface-3/30">
+                <td class="px-4 py-3 font-semibold text-ink">True Land Mile (1760 Yd)</td>
+                <td class="px-4 py-3">1,609.34 m / 1,760 yd</td>
+                <td class="px-4 py-3">70.4 lengths</td>
+                <td class="px-4 py-3 font-bold text-primary">64.37 lengths</td>
+                <td class="px-4 py-3">32.19 lengths</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <h2 id="the-64-lengths-rule" class="text-2xl font-semibold tracking-tight text-ink">The 64 lengths in a 25m pool rule</h2>
+        <p class="mt-4">
+          One of the most frequently asked questions in community and fitness swimming is: <strong class="text-ink">"How many miles is 64 lengths of a 25m pool?"</strong>
+        </p>
+        <p class="mt-3">
+          If you swim in a 25-meter pool (common in the UK, Europe, Australia, and worldwide fitness clubs):
+        </p>
+        <div class="my-4 rounded-xl border border-primary/20 bg-primary/5 p-4 text-center">
+          <p class="font-mono text-base font-semibold text-ink sm:text-lg">
+            64 lengths × 25 meters = 1,600 meters (0.9942 statute miles)
+          </p>
+        </div>
+        <p>
+          Since 1 full land mile is 1,609.34 meters, <strong>64 lengths is 99.4% of a true mile</strong> (missing only 9.34 meters, or roughly one-third of another length). This is why many swim coaches, lifeguards, and fitness trackers round 64 lengths to an even "one mile workout."
+        </p>
+      </section>
+
+      <section>
+        <h2 id="laps-vs-lengths" class="text-2xl font-semibold tracking-tight text-ink">Lengths vs. laps: Don't get tripped up</h2>
+        <p class="mt-4">
+          In casual conversation, swimmers often use "length" and "lap" interchangeably, but there is a technical difference:
+        </p>
+        <ul class="mt-3 list-disc space-y-2 pl-6">
+          <li><strong>A Length:</strong> Swimming from one end of the pool to the opposite wall once (e.g. 25m in a 25m pool).</li>
+          <li><strong>A Lap:</strong> Swimming down and back to the starting wall (2 lengths = 50m in a 25m pool).</li>
+        </ul>
+        <p class="mt-3">
+          If your watch or fitness tracker counts <em>laps</em> (down and back), cut the length totals in half: a 1500m swim is <strong>30 laps</strong> in a 25m pool, and a 1650yd swim is <strong>33 laps</strong> in a 25yd pool.
+        </p>
+      </section>
+
+      <section>
+        <h2 id="why-1650-not-1760" class="text-2xl font-semibold tracking-tight text-ink">Why 1650 yards instead of 1760?</h2>
+        <p class="mt-4">
+          Why did American swimming pick 1,650 yards instead of the true 1,760-yard mile? The answer comes down to pool mathematics and international alignment.
+        </p>
+        <p class="mt-3">
+          In a 25-yard pool, 1,760 yards equals 70.4 lengths — an awkward number that does not end at either pool wall cleanly. 1,650 yards, however, equals exactly <strong>66 lengths</strong> (33 down-and-back laps), ending directly at the starting block wall. Furthermore, 1,650 yards (1,508.8 meters) closely mirrors the international 1,500-meter Olympic distance, allowing NCAA and USA Swimming competitors to compare race strategies with international long-course athletes.
+        </p>
+      </section>
+
+      <section id="faqs" class="border-t border-hairline pt-10">
+        <h2 class="text-2xl font-semibold tracking-tight text-ink">Frequently asked questions</h2>
+        <div class="mt-6 space-y-6">
+          <div>
+            <h3 class="text-base font-semibold text-ink">How long does it take to swim a mile?</h3>
+            <p class="mt-2 text-sm text-ink-muted">
+              For recreational swimmers, a 1500m or 1650yd swim takes between 30 and 45 minutes (approx. 2:00 to 2:45 per 100m pace). Intermediate fitness swimmers usually finish in 24 to 30 minutes, while competitive swimmers complete the mile in 15 to 20 minutes. You can calculate your pace with our <a href="/pace-calculator/" class="font-medium text-primary hover:underline">Pace Calculator</a>.
+            </p>
+          </div>
+          <div>
+            <h3 class="text-base font-semibold text-ink">How do I convert my 1650 yard time to a 1500 meter time?</h3>
+            <p class="mt-2 text-sm text-ink-muted">
+              Because 1650 yards is 66 lengths with 65 push-offs, you gain substantial wall-speed. Long course 1500m has only 29 turns. To convert race times between courses accurately with turn deductions, visit our <a href="/scy-to-lcm/" class="font-medium text-primary hover:underline">SCY to LCM Converter</a>.
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </article>
+</Layout>
+

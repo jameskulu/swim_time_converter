@@ -137,19 +137,36 @@ export const germanPages: PageCatalog = {
     ],
   },
   'lengths-converter': {
-    title: 'Schwimmstrecken-Umrechner – Yards in Meter und Bahnenlängen',
-    description: 'Rechne Schwimmstrecken um: Yards in Meter, Meter in Yards und Strecken in Bahnenlängen.',
+    title: 'Schwimmstrecken-Umrechner: Yards in Meter & Bahnenlängen',
+    description: 'Rechne Schwimmstrecken sofort um: 25 yd in 22.86 m, 500 yd und 1650 yd in Meter. Berechne exakte Bahnen für 25y, 25m und 50m Becken ohne Raten.',
     h1: 'Umrechner für Schwimmstrecken und Bahnenlängen',
     lead: 'Rechne Yards in Meter oder Meter in Yards um und sieh, wie viele Bahnen eine Strecke in einem 25-Yard-, 25-Meter- oder 50-Meter-Becken entspricht.',
     sections: [
-      section('So verwendest du ihn', [], ['Wähle Yards und Meter oder Strecke und Bahnen.', 'Gib eine Strecke oder eine Anzahl von Bahnen ein.', 'Nutze Schnellvorgaben für häufige Schwimmstrecken.', 'Lies vollständige Bahnen, den Rest oder die gleichwertige Strecke ab.'], ['Wähle Yards und Meter oder Strecke und Bahnen.', 'Gib eine Strecke oder eine Anzahl von Bahnen ein.', 'Nutze Schnellvorgaben für häufige Schwimmstrecken.', 'Lies vollständige Bahnen, den Rest oder die gleichwertige Strecke ab.']),
-      section('Schnellübersicht Yards zu Metern', ['25 Yards entsprechen 22.86 Metern, 50 Yards entsprechen 45.72 Metern und 1650 Yards entsprechen 1508.76 Metern. Umgekehrt entsprechen 25 Meter 27.34 Yards und 1500 Meter 1640.42 Yards.']),
-      section('Warum den Bahnen-Umrechner verwenden?', ['Fragen zu Beckenstrecken beeinflussen Trainingspläne. Rechne genaue Strecken um und zähle Bahnen in 25-Yard-, 25-Meter- und 50-Meter-Becken.']),
+      section('So verwendest du ihn', [], ['Wähle Yards und Meter oder Strecke und Bahnen.', 'Gib eine Strecke oder eine Anzahl von Bahnen ein.', 'Nutze Schnellvorgaben für häufige Schwimmstrecken (25, 50, 500, 1650 yd).', 'Lies vollständige Bahnen, den Rest oder die gleichwertige Strecke ab.'], ['Wähle Yards und Meter oder Strecke und Bahnen.', 'Gib eine Strecke oder eine Anzahl von Bahnen ein.', 'Nutze Schnellvorgaben für häufige Schwimmstrecken (25, 50, 500, 1650 yd).', 'Lies vollständige Bahnen, den Rest oder die gleichwertige Strecke ab.']),
+      section('Häufig gesuchte Distanzen auf einen Blick', [
+        'Die Schwimmer-Meile: 1650 Yards entsprechen 1508.76 Metern (60.35 Bahnen im 25m-Becken, 66 im 25yd-Becken).',
+        'Mittelstrecken-Benchmark: 500 Yards entsprechen 457.20 Metern (20 Bahnen im 25yd-Becken, 18.28 im 25m-Becken).',
+        'SCY-Beckenlänge: 25 Yards entsprechen 22.86 Metern (75 Fuß) – 2.14 Meter kürzer als ein 25-Meter-Becken.',
+      ]),
+      section('Schnellübersicht Standard-Schwimmstrecken', [
+        '25 yd = 22.86 m · 50 yd = 45.72 m · 100 m = 109.36 yd · 200 m = 218.72 yd (8 Bahnen in 25m) · 500 yd = 457.2 m (20 Bahnen in 25yd) · 1000 yd = 914.4 m · 1500 m = 1640.42 yd (60 Bahnen in 25m) · 1650 yd = 1508.76 m (66 Bahnen in 25yd) · 5000 m = 200 Bahnen in 25m.',
+      ]),
+      section('Distanz vs. Zeit: Warum Wettkampfzeiten eine andere Formel brauchen', [
+        'Die reine Distanzumrechnung ist linear (1 Yard = 0.9144 m). Schwimmzeiten hängen jedoch von Wendenabdrücken und Gleitphasen ab. Für Wettkampfzeitumrechnungen mit Wendenanpassung nutze unseren Schwimmzeit-Umrechner.',
+      ]),
     ],
     faqs: [
-      faq('Wie rechne ich 25 Yards in Meter um?', 'Multipliziere die Yards mit 0.9144: 25 Yards entsprechen 22.86 Metern, der Länge eines Kurzstreckenbeckens in Yards.'),
-      faq('Wie viele Meter sind 50 Yards?', '50 Yards entsprechen 45.72 Metern. Weitere häufige Umrechnungen sind 100 Yards = 91.44 Meter und 1650 Yards = 1508.76 Meter.'),
-      faq('Wie viele Bahnen sind 1500 Meter Schwimmen?', 'Das sind 60 Bahnen in einem 25-Meter-Becken und 30 Bahnen in einem 50-Meter-Becken. 1650 Yards sind 66 Bahnen in einem 25-Yard-Becken.'),
+      faq('Wie rechne ich 25 Yards in Meter um?', 'Multipliziere die Yards mit 0.9144: 25 Yards entsprechen 22.86 Metern, der Länge eines Kurzstreckenbeckens in Yards (SCY).'),
+      faq('Wie viele Meter sind 1650 Yards umgerechnet?', '1650 Yards entsprechen 1508.76 Metern (1650 × 0.9144). Im US-Schwimmsport ist dies als Becken-Meile bekannt und entspricht dem internationalen 1500-Meter-Rennen.'),
+      faq('Wie viele Bahnen sind 200m in einem 25m-Becken?', 'Ein 200-Meter-Schwimmen entspricht genau 8 Bahnen in einem 25-Meter-Becken und 4 Bahnen in einem 50-Meter-Olympia-Becken.'),
+      faq('Wie viele Meter sind 500 Yards Schwimmen?', '500 Yards entsprechen 457.2 Metern (500 × 0.9144). Im 25-Yard-Becken sind das exakt 20 Bahnen; im 25-Meter-Becken ca. 18.28 Bahnen.'),
+      faq('Warum entsprechen 25 Yards genau 22.86 Metern?', 'Nach internationaler Definition ist 1 Yard exakt 0.9144 Meter. 25 × 0.9144 ergibt 22.86 Meter. Ein 25-Meter-Becken ist rund 9.1% länger als ein 25-Yard-Becken.'),
+      faq('Wie viele Bahnen sind 5000m in einem 25m-Becken?', '5000 Meter entsprechen genau 200 Bahnen (oder 100 Hin- und Rückrunden) in einem 25-Meter-Becken.'),
+      faq('Wie rechne ich Meter in Yards um?', 'Multipliziere Meter mit 1.09361: 100 Meter entsprechen 109.36 Yards, und 1500 Meter entsprechen 1640.42 Yards.'),
+      faq('Wie viele Meter sind 50 Yards?', '50 Yards entsprechen 45.72 Metern (50 × 0.9144). Weitere Werte: 100 yd = 91.44 m und 1000 yd = 914.4 m.'),
+      faq('Wie viele Meilen sind 64 Bahnen eines 25m-Beckens?', '64 Bahnen in einem 25-Meter-Becken entsprechen 1.600 Metern. Da eine Landmeile 1.609.34 Meter beträgt, sind 64 Bahnen ca. 0.994 Meilen – praktisch eine volle Meile im Wasser.'),
+      faq('Was ist der Unterschied zwischen einer Bahn (Length) und einer Runde (Lap)?', 'Eine Bahn (Length) ist das einmalige Durchschwimmen des Beckens von Wand zu Wand. Eine Runde (Lap) umfasst traditionell Hin- und Rückweg (zwei Bahnen).'),
+      faq('Was ist der Unterschied zwischen Distanz- und Zeitumrechnung?', 'Die Distanzumrechnung ist feste Mathematik (1 yd = 0.9144 m). Die Zeitumrechnung berücksichtigt Wendenabdrücke und unterschiedliche Wendenzahlen je Beckenlänge.'),
     ],
   },
   'scy-to-lcm': {
@@ -159,7 +176,7 @@ export const germanPages: PageCatalog = {
     lead: 'Rechne eine Zeit aus einer kurzen Yards-Bahn in eine geschätzte Zeit aus einer langen Meter-Bahn um.',
     sections: [
       section('Was ist eine SCY-zu-LCM-Umrechnung?', ['Ein 25-Yard-Becken und ein 50-Meter-Becken verändern die Strecke und die Anzahl der Wendungen. Der Umrechner skaliert die Zeit und addiert für das größere Becken eine Anpassung pro Wendung.']),
-      section('So funktioniert die Schätzung', ['Freistilwettkämpfe verwenden ihre üblichen Zuordnungen: 500 Freistil zu 400 Freistil, 1000 Freistil zu 800 Freistil und 1650 Freistil zu 1500 Freistil. Alle Ergebnisse sind Schätzungen.']),
+      section('So funktioniert die Schätzung', ['Freistilwettkämpfe verwenden ihre üblichen Zuordnungen: 500 Freistil zu 400 Freistil, 1000 Freistil zu 800 Freistil und 1650 Freistil zu 1500 Freistil. Alle Ergebnisse sind Schätzungen. Zur reinen Umrechnung von Beckendistanzen ohne Wendenanpassung nutze unseren Distanzumrechner.']),
     ],
     faqs: [
       faq('Was ist der Umrechnungsfaktor von SCY zu LCM?', 'Der grundlegende Faktor von Yards zu Metern beträgt 1.11, ergänzt um distanz- und wendungsbezogene Anpassungen für die jeweilige Disziplin. Langstreckenfreistil verwendet eigene Zuordnungsfaktoren.'),
@@ -173,7 +190,7 @@ export const germanPages: PageCatalog = {
     lead: 'Rechne eine Zeit aus einem 25-Yard-Becken in eine geschätzte Zeit aus einem 25-Meter-Becken um.',
     sections: [
       section('Was ist eine SCY-zu-SCM-Umrechnung?', ['SCY und SCM verwenden beide Becken mit 25 Bahnen, daher ist die Anzahl der Wendungen gleich. Die wichtigste Änderung ist, dass ein Meter länger als eine Yard ist.']),
-      section('So funktioniert die Schätzung', ['Der Standardfaktor beträgt 1.11 für ähnliche Disziplinen. Langstreckenfreistil verwendet eigene Zuordnungen für 500 zu 400, 1000 zu 800 und 1650 zu 1500.']),
+      section('So funktioniert die Schätzung', ['Der Standardfaktor beträgt 1.11 für ähnliche Disziplinen. Langstreckenfreistil verwendet eigene Zuordnungen für 500 zu 400, 1000 zu 800 und 1650 zu 1500. Um Beckenbahnen und Trainingsdistanzen direkt ohne Zeitanpassung umzurechnen, siehe unseren Distanzumrechner.']),
     ],
     faqs: [
       faq('Was ist der Umrechnungsfaktor von SCY zu SCM?', 'Für ähnliche Disziplinen multiplizierst du die Sekunden der kurzen Yards-Bahn mit 1.11, weil eine 25-Yard-Bahn kürzer als eine 25-Meter-Bahn ist.'),

@@ -137,19 +137,36 @@ export const spanishPages: PageCatalog = {
     ],
   },
   'lengths-converter': {
-    title: 'Conversor de distancias de natación – Yardas a metros y longitudes de piscina',
-    description: 'Convierte distancias de natación: yardas a metros, metros a yardas y distancias a longitudes de piscina.',
+    title: 'Conversor de distancias de natación: Yardas a metros y longitudes de piscina',
+    description: 'Convierte distancias de natación al instante: 25 yd a 22.86 m, 500 yd y 1650 yd a metros. Calcula longitudes exactas para piscinas de 25y, 25m y 50m sin dudas.',
     h1: 'Conversor de distancias y longitudes de natación',
     lead: 'Convierte yardas a metros o metros a yardas y descubre cuántas longitudes representa una distancia en una piscina de 25 yardas, 25 metros o 50 metros.',
     sections: [
-      section('Cómo usarlo', [], ['Elige entre yardas y metros, o entre distancia y longitudes.', 'Introduce una distancia o un número de longitudes.', 'Usa los valores predefinidos para distancias de natación habituales.', 'Lee las longitudes completas, el resto o la distancia equivalente.'], ['Elige entre yardas y metros, o entre distancia y longitudes.', 'Introduce una distancia o un número de longitudes.', 'Usa los valores predefinidos para distancias de natación habituales.', 'Lee las longitudes completas, el resto o la distancia equivalente.']),
-      section('Referencia rápida de yardas a metros', ['25 yardas equivalen a 22.86 metros, 50 yardas a 45.72 metros y 1650 yardas a 1508.76 metros. En la otra dirección, 25 metros equivalen a 27.34 yardas y 1500 metros a 1640.42 yardas.']),
-      section('¿Por qué usar el conversor de longitudes?', ['Las preguntas sobre distancias de piscina afectan a los planes de entrenamiento. Convierte distancias exactas y cuenta longitudes en piscinas de 25 yardas, 25 metros y 50 metros.']),
+      section('Cómo usarlo', [], ['Elige entre yardas y metros, o entre distancia y longitudes.', 'Introduce una distancia o un número de longitudes.', 'Usa los valores predefinidos para distancias habituales (25, 50, 500, 1650 yd).', 'Lee las longitudes completas, el resto o la distancia equivalente.'], ['Elige entre yardas y metros, o entre distancia y longitudes.', 'Introduce una distancia o un número de longitudes.', 'Usa los valores predefinidos para distancias habituales (25, 50, 500, 1650 yd).', 'Lee las longitudes completas, el resto o la distancia equivalente.']),
+      section('Respuestas rápidas a distancias populares', [
+        'La milla del nadador: 1650 yardas equivalen a 1508.76 metros (60.35 longitudes en piscina de 25m, 66 en 25yd).',
+        'Referencia de medio fondo: 500 yardas equivalen a 457.20 metros (20 longitudes en piscina de 25yd, 18.28 en 25m).',
+        'Longitud de piscina SCY: 25 yardas equivalen a 22.86 metros (75 pies), 2.14 metros más corta que una piscina de 25 metros.',
+      ]),
+      section('Referencia rápida de distancias estándar de natación', [
+        '25 yd = 22.86 m · 50 yd = 45.72 m · 100 m = 109.36 yd · 200 m = 218.72 yd (8 longitudes en 25m) · 500 yd = 457.2 m (20 longitudes en 25yd) · 1000 yd = 914.4 m · 1500 m = 1640.42 yd (60 longitudes en 25m) · 1650 yd = 1508.76 m (66 longitudes en 25yd) · 5000 m = 200 longitudes en 25m.',
+      ]),
+      section('Distancia vs. Tiempo: Por qué los tiempos de carrera necesitan otra fórmula', [
+        'La conversión de distancia física es lineal (1 yarda = 0.9144 m). Sin embargo, los tiempos de natación dependen de los impulsos de pared y virajes. Para convertir tiempos de competición con ajustes de viraje, utiliza nuestro Conversor de tiempos de natación.',
+      ]),
     ],
     faqs: [
-      faq('¿Cómo convierto 25 yardas a metros?', 'Multiplica las yardas por 0.9144: 25 yardas equivalen a 22.86 metros, la longitud de una piscina corta en yardas.'),
-      faq('¿Cuántos metros son 50 yardas?', '50 yardas equivalen a 45.72 metros. Otras conversiones comunes incluyen 100 yardas = 91.44 metros y 1650 yardas = 1508.76 metros.'),
-      faq('¿Cuántas longitudes tiene una natación de 1500 metros?', 'Son 60 longitudes en una piscina de 25 metros y 30 longitudes en una piscina de 50 metros. Una distancia de 1650 yardas representa 66 longitudes en una piscina de 25 yardas.'),
+      faq('¿Cómo convierto 25 yardas a metros?', 'Multiplica las yardas por 0.9144: 25 yardas equivalen a 22.86 metros, la longitud de una piscina corta en yardas (SCY).'),
+      faq('¿Cuánto es 1650 yardas convertidas a metros?', '1650 yardas equivalen a 1,508.76 metros (1650 × 0.9144). En la natación estadounidense, las 1650 yardas se conocen como la milla de piscina, equivalente a la prueba internacional de 1500 metros.'),
+      faq('¿Cuántas longitudes son 200m en una piscina de 25m?', 'Una natación de 200 metros son exactamente 8 longitudes en una piscina de 25 metros y 4 longitudes en una piscina olímpica de 50 metros.'),
+      faq('¿Cuántos metros son 500 yardas de natación?', 'Un nado de 500 yardas equivale a 457.2 metros (500 × 0.9144). En una piscina de 25 yardas, son exactamente 20 longitudes; en una de 25 metros, son unas 18.28 longitudes.'),
+      faq('¿Por qué 25 yardas equivalen a 22.86 metros?', 'Por definición internacional, 1 yarda son exactamente 0.9144 metros. Al multiplicar 25 por 0.9144 se obtienen 22.86 metros. Una piscina de 25 metros es aproximadamente un 9.1% más larga que una de 25 yardas.'),
+      faq('¿Cuántas longitudes son 5000m en una piscina de 25m?', '5000 metros son exactamente 200 longitudes (o 100 vueltas completas de ida y vuelta) en una piscina de 25 metros.'),
+      faq('¿Cómo convierto metros a yardas?', 'Multiplica los metros por 1.09361: 100 metros equivalen a 109.36 yardas y 1500 metros equivalen a 1640.42 yardas.'),
+      faq('¿Cuántos metros son 50 yardas?', '50 yardas equivalen a 45.72 metros (50 × 0.9144). Otros estándares: 100 yd = 91.44 m y 1000 yd = 914.4 m.'),
+      faq('¿Cuántas millas son 64 longitudes de una piscina de 25m?', '64 longitudes en una piscina de 25 metros equivalen a 1,600 metros. Dado que una milla terrestre son 1,609.34 metros, 64 longitudes son aproximadamente 0.994 millas: prácticamente una milla completa en el agua.'),
+      faq('¿Cuál es la diferencia entre longitud y vuelta (lap)?', 'Una longitud es cruzar la piscina una vez de pared a pared. Una vuelta (lap) son tradicionalmente dos longitudes (ida y vuelta a la pared de salida).'),
+      faq('¿Cuál es la diferencia entre convertir distancia y convertir tiempos de natación?', 'La distancia es matemática fija (1 yd = 0.9144 m). La conversión de tiempos considera el impulso de los virajes en la pared y la diferencia de vueltas entre piscinas.'),
     ],
   },
   'scy-to-lcm': {
@@ -159,7 +176,7 @@ export const spanishPages: PageCatalog = {
     lead: 'Convierte un tiempo de piscina corta en yardas en un tiempo estimado de piscina larga en metros.',
     sections: [
       section('¿Qué es una conversión de SCY a LCM?', ['Una piscina de 25 yardas y una de 50 metros cambian la distancia y el número de vueltas. El conversor escala el tiempo y añade un ajuste por vuelta para la piscina más grande.']),
-      section('Cómo funciona la estimación', ['Las pruebas de estilo libre usan sus combinaciones habituales: 500 Free a 400 Free, 1000 Free a 800 Free y 1650 Free a 1500 Free. Todos los resultados son estimaciones.']),
+      section('Cómo funciona la estimación', ['Las pruebas de estilo libre usan sus combinaciones habituales: 500 Free a 400 Free, 1000 Free a 800 Free y 1650 Free a 1500 Free. Todos los resultados son estimaciones. Para convertir distancias físicas de piscina sin ajustes de viraje, visita el conversor de distancias.']),
     ],
     faqs: [
       faq('¿Cuál es el factor de conversión de SCY a LCM?', 'El factor base de yardas a metros es 1.11, con ajustes de distancia y vueltas específicos para cada prueba. El estilo libre de larga distancia usa factores de combinación independientes.'),
@@ -173,7 +190,7 @@ export const spanishPages: PageCatalog = {
     lead: 'Convierte un tiempo de una piscina de 25 yardas en un tiempo estimado para una piscina de 25 metros.',
     sections: [
       section('¿Qué es una conversión de SCY a SCM?', ['SCY y SCM usan ambas piscinas de 25 longitudes, por lo que el número de vueltas es el mismo. El cambio principal es que un metro es más largo que una yarda.']),
-      section('Cómo funciona la estimación', ['El factor estándar es 1.11 para pruebas similares. El estilo libre de distancia usa combinaciones independientes para 500 a 400, 1000 a 800 y 1650 a 1500.']),
+      section('Cómo funciona la estimación', ['El factor estándar es 1.11 para pruebas similares. El estilo libre de distancia usa combinaciones independientes para 500 a 400, 1000 a 800 y 1650 a 1500. Para convertir longitudes y distancias directamente sin ajustes de tiempo, consulta nuestro conversor de distancias.']),
     ],
     faqs: [
       faq('¿Cuál es el factor de conversión de SCY a SCM?', 'Para pruebas similares, multiplica los segundos de piscina corta en yardas por 1.11 porque un carril de 25 yardas es más corto que uno de 25 metros.'),

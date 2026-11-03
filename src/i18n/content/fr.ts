@@ -137,19 +137,36 @@ export const frenchPages: PageCatalog = {
     ],
   },
   'lengths-converter': {
-    title: 'Convertisseur de distances de nage – Yards en mètres et longueurs de piscine',
-    description: 'Convertissez les distances de nage : yards en mètres, mètres en yards et distances en longueurs de piscine.',
+    title: 'Convertisseur de distances de nage : Yards en mètres & longueurs de bassin',
+    description: 'Convertissez instantanément vos distances : 25 yd en 22.86 m, 500 yd et 1650 yd en mètres. Calculez les longueurs exactes en bassin de 25y, 25m et 50m sans hésitation.',
     h1: 'Convertisseur de distances et longueurs de nage',
     lead: 'Convertissez les yards en mètres ou les mètres en yards, puis voyez combien de longueurs une distance représente dans une piscine de 25 yards, 25 mètres ou 50 mètres.',
     sections: [
-      section('Comment l’utiliser', [], ['Choisissez yards et mètres, ou distance et longueurs.', 'Saisissez une distance ou un nombre de longueurs.', 'Utilisez les réglages rapides pour les distances de nage courantes.', 'Lisez les longueurs complètes, le reste ou la distance équivalente.'], ['Choisissez yards et mètres, ou distance et longueurs.', 'Saisissez une distance ou un nombre de longueurs.', 'Utilisez les réglages rapides pour les distances de nage courantes.', 'Lisez les longueurs complètes, le reste ou la distance équivalente.']),
-      section('Référence rapide yards-mètres', ['25 yards valent 22.86 mètres, 50 yards valent 45.72 mètres et 1650 yards valent 1508.76 mètres. Dans l’autre sens, 25 mètres valent 27.34 yards et 1500 mètres valent 1640.42 yards.']),
-      section('Pourquoi utiliser le convertisseur de longueurs ?', ['Les questions sur les distances de piscine influencent les plans d’entraînement. Convertissez des distances exactes et comptez les longueurs dans les piscines de 25 yards, 25 mètres et 50 mètres.']),
+      section('Comment l’utiliser', [], ['Choisissez yards et mètres, ou distance et longueurs.', 'Saisissez une distance ou un nombre de longueurs.', 'Utilisez les réglages rapides pour les distances courantes (25, 50, 500, 1650 yd).', 'Lisez les longueurs complètes, le reste ou la distance équivalente.'], ['Choisissez yards et mètres, ou distance et longueurs.', 'Saisissez une distance ou un nombre de longueurs.', 'Utilisez les réglages rapides pour les distances courantes (25, 50, 500, 1650 yd).', 'Lisez les longueurs complètes, le reste ou la distance équivalente.']),
+      section('Réponses rapides aux distances les plus recherchées', [
+        'Le mile du nageur : 1650 yards valent 1508.76 mètres (60.35 longueurs en bassin de 25m, 66 en 25yd).',
+        'Repère demi-fond : 500 yards valent 457.20 mètres (20 longueurs en bassin de 25yd, 18.28 en 25m).',
+        'Longueur de bassin SCY : 25 yards valent 22.86 mètres (75 pieds), soit 2.14 mètres de moins qu’un bassin de 25 mètres.',
+      ]),
+      section('Tableau de référence rapide des distances de nage standard', [
+        '25 yd = 22.86 m · 50 yd = 45.72 m · 100 m = 109.36 yd · 200 m = 218.72 yd (8 longueurs en 25m) · 500 yd = 457.2 m (20 longueurs en 25yd) · 1000 yd = 914.4 m · 1500 m = 1640.42 yd (60 longueurs en 25m) · 1650 yd = 1508.76 m (66 longueurs en 25yd) · 5000 m = 200 longueurs en 25m.',
+      ]),
+      section('Distance vs Temps : Pourquoi les temps de course exigent une formule différente', [
+        'La conversion des distances physiques est linéaire (1 yard = 0.9144 m). En revanche, les temps de nage dépendent des poussées aux murs et des virages. Pour convertir vos chronos avec ajustements de virage, utilisez notre Convertisseur de temps de nage.',
+      ]),
     ],
     faqs: [
-      faq('Comment convertir 25 yards en mètres ?', 'Multipliez les yards par 0.9144 : 25 yards valent 22.86 mètres, la longueur d’une piscine courte en yards.'),
-      faq('Combien font 50 yards en mètres ?', '50 yards valent 45.72 mètres. Autres conversions courantes : 100 yards = 91.44 mètres et 1650 yards = 1508.76 mètres.'),
-      faq('Combien de longueurs représente une nage de 1500 mètres ?', 'Cela représente 60 longueurs dans une piscine de 25 mètres et 30 longueurs dans une piscine de 50 mètres. Une nage de 1650 yards représente 66 longueurs dans une piscine de 25 yards.'),
+      faq('Comment convertir 25 yards en mètres ?', 'Multipliez les yards par 0.9144 : 25 yards valent 22.86 mètres, la longueur d’une piscine courte en yards (SCY).'),
+      faq('Combien font 1650 yards convertis en mètres ?', '1650 yards valent 1508.76 mètres (1650 × 0.9144). En natation américaine, cette distance est appelée mile de bassin et correspond au 1500 mètres international.'),
+      faq('Combien de longueurs représente un 200m dans un bassin de 25m ?', 'Une nage de 200 mètres représente exactement 8 longueurs en bassin de 25 mètres et 4 longueurs en bassin olympique de 50 mètres.'),
+      faq('Combien de mètres représentent 500 yards de nage ?', '500 yards valent 457.2 mètres (500 × 0.9144). En bassin de 25 yards, cela fait 20 longueurs pile ; en bassin de 25 mètres, environ 18.28 longueurs.'),
+      faq('Pourquoi 25 yards valent-ils 22.86 mètres ?', 'Par définition internationale, 1 yard équivaut exactement à 0.9144 mètre. 25 × 0.9144 donne 22.86 mètres. Un bassin de 25 mètres est environ 9.1% plus long qu’un bassin de 25 yards.'),
+      faq('Combien de longueurs représente 5000m en bassin de 25m ?', '5000 mètres représentent exactement 200 longueurs (soit 100 allers-retours complets) dans une piscine de 25 mètres.'),
+      faq('Comment convertir des mètres en yards ?', 'Multipliez les mètres par 1.09361 : 100 mètres valent 109.36 yards et 1500 mètres valent 1640.42 yards.'),
+      faq('Combien font 50 yards en mètres ?', '50 yards valent 45.72 mètres (50 × 0.9144). Autres standards : 100 yd = 91.44 m et 1000 yd = 914.4 m.'),
+      faq('Combien de miles représentent 64 longueurs d’un bassin de 25m ?', '64 longueurs en bassin de 25 mètres valent 1 600 mètres. Un mile terrestre valant 1 609.34 mètres, 64 longueurs représentent 0.994 mile, soit pratiquement un mile complet dans l’eau.'),
+      faq('Quelle est la différence entre une longueur (length) et un tour (lap) ?', 'Une longueur correspond à une traversée simple d’un mur à l’autre. Un tour (lap) comprend traditionnellement l’aller et le retour (deux longueurs).'),
+      faq('Quelle est la différence entre convertir une distance et convertir un temps ?', 'La conversion de distance est mathématique fixe (1 yd = 0.9144 m). La conversion de chrono prend en compte les virages et la vitesse acquise lors de la poussée au mur.'),
     ],
   },
   'scy-to-lcm': {
@@ -159,7 +176,7 @@ export const frenchPages: PageCatalog = {
     lead: 'Convertissez un temps en petit bassin en yards en un temps estimé en grand bassin en mètres.',
     sections: [
       section('Qu’est-ce qu’une conversion SCY vers LCM ?', ['Une piscine de 25 yards et une piscine de 50 mètres modifient la distance et le nombre de virages. Le convertisseur met le temps à l’échelle et ajoute un ajustement par virage pour la plus grande piscine.']),
-      section('Comment fonctionne l’estimation', ['Les épreuves de nage libre utilisent leurs associations habituelles : 500 Libre vers 400 Libre, 1000 Libre vers 800 Libre et 1650 Libre vers 1500 Libre. Tous les résultats sont des estimations.']),
+      section('Comment fonctionne l’estimation', ['Les épreuves de nage libre utilisent leurs associations habituelles : 500 Libre vers 400 Libre, 1000 Libre vers 800 Libre et 1650 Libre vers 1500 Libre. Tous les résultats sont des estimations. Pour convertir les distances brutes sans ajustement de virage, consultez le convertisseur de distances.']),
     ],
     faqs: [
       faq('Quel est le facteur de conversion SCY vers LCM ?', 'Le facteur de base yard-mètre est 1.11, avec des ajustements de distance et de virage propres à chaque épreuve. La nage libre longue utilise des facteurs d’association distincts.'),
@@ -173,7 +190,7 @@ export const frenchPages: PageCatalog = {
     lead: 'Convertissez un temps en piscine de 25 yards en temps estimé pour une piscine de 25 mètres.',
     sections: [
       section('Qu’est-ce qu’une conversion SCY vers SCM ?', ['SCY et SCM utilisent tous deux des piscines de 25 longueurs : le nombre de virages est donc identique. Le principal changement est qu’un mètre est plus long qu’un yard.']),
-      section('Comment fonctionne l’estimation', ['Le facteur standard est 1.11 pour les épreuves similaires. La nage libre sur distance utilise des associations distinctes pour 500 vers 400, 1000 vers 800 et 1650 vers 1500.']),
+      section('Comment fonctionne l’estimation', ['Le facteur standard est 1.11 pour les épreuves similaires. La nage libre sur distance utilise des associations distinctes pour 500 vers 400, 1000 vers 800 et 1650 vers 1500. Pour convertir directement les longueurs et distances d’entraînement sans ajustement de temps, consultez notre convertisseur de distances.']),
     ],
     faqs: [
       faq('Quel est le facteur de conversion SCY vers SCM ?', 'Pour des épreuves similaires, multipliez les secondes du petit bassin en yards par 1.11, car un couloir de 25 yards est plus court qu’un couloir de 25 mètres.'),
