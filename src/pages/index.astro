@@ -10,7 +10,7 @@ const faqs = [
   {
     question: 'What is a swim time converter?',
     answer:
-      'A swim time converter estimates how your time in one pool type would compare to an equivalent time in another pool type. Because a 50-meter pool, a 25-meter pool, and a 25-yard pool all pace differently, the same effort produces different finish times in each course.',
+      'A swim time converter (or time converter swimming calculator) estimates how your time in one pool type compares to an equivalent time in another pool type. Because a 50-meter pool, a 25-meter pool, and a 25-yard pool all pace differently, this swim converter models the impact of turns and course distances to calculate equivalent finish times.',
   },
   {
     question: 'What is SCY in swimming?',
@@ -28,6 +28,11 @@ const faqs = [
     question: 'How do I convert SCY to LCM?',
     answer:
       'Select SCY as the course you are converting from, choose your event and time, then select LCM as the target. This converter applies a documented yard-to-meter factor plus a per-turn adjustment for the larger number of turns in a 25-yard pool.',
+  },
+  {
+    question: 'How do I convert LCM to SCY?',
+    answer:
+      'Select LCM (Long Course Meters) as your starting course, enter your event and time, and choose SCY (Short Course Yards) as your target. The swim converter automatically calculates the conversion factor and credits the time advantage gained from the extra wall push-offs in a 25-yard pool.',
   },
   {
     question: 'Why are SCY and LCM times different?',
@@ -80,10 +85,10 @@ const appLd = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
   name: 'Swim Time Converter',
-  alternateName: 'Swimming Time Converter',
+  alternateName: ['Swimming Time Converter', 'Swim Converter', 'Time Converter Swimming'],
   url: `${siteUrl}/`,
   description:
-    'Convert swimming times between SCY, SCM, and LCM. Compare equivalent swim times across courses with a free swimming time converter.',
+    'Convert swimming times between SCY, SCM, and LCM. Free swim converter and time converter swimming tool for SCY to LCM and LCM to SCY conversions.',
   applicationCategory: 'SportsApplication',
   operatingSystem: 'Web',
   browserRequirements: 'Requires a modern web browser with JavaScript enabled',
@@ -94,18 +99,18 @@ const appLd = {
 
 <Layout
   title="Swim Time Converter: SCY, SCM & LCM Calculator"
-  description="Convert swimming times between SCY, SCM and LCM plus yards to meters (25 yd = 22.86 m). Free swim time calculator for USA, UK and international swimmers."
+  description="Convert swimming times between SCY, SCM and LCM with our free swim converter. Accurate SCY to LCM and LCM to SCY time converter swimming tool."
   jsonLd={[appLd, faqLd]}
 >  <!-- Hero -->
   <section class="mx-auto w-full max-w-6xl px-4 pb-10 pt-12 sm:px-6 sm:pt-16">
     <div class="mx-auto max-w-2xl text-center">
-      <p class="text-[13px] font-medium uppercase tracking-[0.08em] text-primary">Free Swimming Calculator</p>
+      <p class="text-[13px] font-medium uppercase tracking-[0.08em] text-primary">Free Swimming Calculator &amp; Swim Converter</p>
       <h1 class="mt-3 text-4xl font-semibold tracking-tight text-ink sm:text-5xl">Swim Time Converter</h1>
       <p class="mt-4 text-lg text-ink-muted">
-        Convert swimming times between SCY, SCM, and LCM courses — with yards to meters built in.
+        Convert swimming times between SCY, SCM, and LCM courses — the all-in-one time converter swimming tool with yards to meters built in.
       </p>
       <p class="mt-2 text-sm text-ink-subtle">
-        Enter your event and time to see equivalent swimming times across different course lengths.
+        Whether you need an SCY to LCM, LCM to SCY, or SCM conversion, enter your event and time to see equivalent swim times across courses.
       </p>
       <div class="mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm">
         <a href="/pace-calculator/" class="font-medium text-primary hover:underline">Pace Calculator</a>
@@ -519,30 +524,23 @@ const appLd = {
       <h3 class="mt-8 text-lg font-semibold tracking-tight text-ink">Yards to meters — the swim time converter and its distance twin</h3>
       <div class="mt-3 space-y-4 text-[15px] leading-relaxed text-ink-muted">
         <p>
-          Pool lengths get confusing quickly: <strong class="font-semibold text-ink">swim time converter 25 yards to
-          meters</strong> is 22.86 meters (that is a US short course pool), <strong class="font-semibold text-ink">50 yards
-          to meters</strong> is 45.72 meters, and the 1650-yard mile is 1508.76 meters. On the flip side, a
-          <strong class="font-semibold text-ink">swim time converter meters to yards</strong> shows 25 meters = 27.34 yards
-          and 1500 meters = 1640.42 yards. Many swimmers search for a "swim time converter 25 meters to yards" — that exact
-          conversion, plus a dedicated{" "}
-          <a href="/lengths-converter/" class="font-medium text-primary hover:underline">lengths and distance converter</a>,
-          is built in here.
+          Pool lengths get confusing quickly: a <strong class="font-semibold text-ink">swim time converter 25 yards to meters</strong> shows 22.86 meters (the length of a US short course pool), while a <strong class="font-semibold text-ink">swim time converter 50 yards to meters</strong> yields 45.72 meters, and the 1650-yard mile is 1508.76 meters. Whether you need a <strong class="font-semibold text-ink">swim time converter yards to meters</strong> or a reverse <strong class="font-semibold text-ink">meters to yards swim time converter</strong>, our tool handles both time adjustments and distance translations.
         </p>
         <p>
-          In the USA, high school, NCAA and Masters swimming almost all race in yards, while the rest of the swimming world —
-          the UK, Europe and Olympic programs — races in meters. A single tool that handles both is why "swim time converter
-          25 yards to meters usa" and its meter-first cousin return here.
+          On the flip side, looking up a <strong class="font-semibold text-ink">swim time converter meters to yards</strong> shows 25 meters = 27.34 yards and 1500 meters = 1640.42 yards. Swimmers who search for a "swim time converter 25 meters to yards" or a dedicated <strong class="font-semibold text-ink">yards to meters swim time converter</strong> get exact event times here, plus a companion <a href="/lengths-converter/" class="font-medium text-primary hover:underline">lengths and distance converter</a> for workouts.
+        </p>
+        <p>
+          In the USA, high school, NCAA and Masters swimming almost all race in yards, while the rest of the swimming world — the UK, Europe and Olympic programs — races in meters. As a versatile <strong class="font-semibold text-ink">usa swim time converter</strong> that handles both systems effortlessly, that is why "swim time converter 25 yards to meters usa" and its international metric counterparts point here.
         </p>
       </div>
 
-      <h3 class="mt-8 text-lg font-semibold tracking-tight text-ink">Short course to long course, in either direction</h3>
+      <h3 class="mt-8 text-lg font-semibold tracking-tight text-ink">Short course to long course: SCY to LCM &amp; LCM to SCY</h3>
       <div class="mt-3 space-y-4 text-[15px] leading-relaxed text-ink-muted">
         <p>
           The <strong class="font-semibold text-ink">short course to long course swim time converter</strong> is the heart
-          of the site. A <a href="/scy-to-lcm/" class="font-medium text-primary hover:underline">SCY to LCM swim time
+          of the site. A dedicated <a href="/scy-to-lcm/" class="font-medium text-primary hover:underline">SCY to LCM swim time
           converter</a> takes a 25-yard pool time and projects it to a 50-meter pool; SCM to LCM swaps 25-meter short course
-          for long course; and every reverse pairing — LCM to SCY, LCM to SCM, SCM to SCY — is one click away. The method
-          combines a documented course factor with a per-turn adjustment, the same approach used by US Masters Swimming.
+          for long course; and the reverse <a href="/lcm-to-scy/" class="font-medium text-primary hover:underline">LCM to SCY converter</a> projects 50-meter times back to 25-yard pools. As an all-around <strong class="font-semibold text-ink">swim converter</strong>, this <strong class="font-semibold text-ink">time converter swimming</strong> tool combines documented course factors with stroke-specific per-turn adjustments, matching the standard approach used across competition.
         </p>
         <p>
           Used this way, the tool doubles as a <strong class="font-semibold text-ink">swim time difference calculator</strong>:
@@ -554,31 +552,17 @@ const appLd = {
       <h3 class="mt-8 text-lg font-semibold tracking-tight text-ink">From the U.S. to the UK: one tool for every course</h3>
       <div class="mt-3 space-y-4 text-[15px] leading-relaxed text-ink-muted">
         <p>
-          Course names differ, but the math is shared. U.S. swimmers get the yards speed they know from NCAA and age-group
-          racing; a UK "<strong class="font-semibold text-ink">swim time converter</strong>" audience trains in 25-meter pools
-          in winter and 50-meter pools in summer, so SCM-to-LCM is second nature; and swimmers aiming at Swimming World and
-          Olympic benchmarks think in long course. This converter speaks all three languages, so "swim time converter"
-          search intent looks the same whether the traffic comes from the USA, the UK or anywhere else the swimming world
-          races.
+          Course names differ, but the math is shared. U.S. swimmers get the yards speed they know from NCAA and age-group racing; a dedicated <strong class="font-semibold text-ink">swim time converter uk</strong> audience trains in 25-meter pools in winter and 50-meter pools in summer, so SCM-to-LCM is second nature. For competitive athletes searching for a <strong class="font-semibold text-ink">swim time converter swimming world</strong> alternative or aiming at Olympic trials, this converter speaks all three courses transparently.
         </p>
       </div>
 
       <h3 class="mt-8 text-lg font-semibold tracking-tight text-ink">The best swim time converter tool — free, private, in your browser</h3>
       <div class="mt-3 space-y-4 text-[15px] leading-relaxed text-ink-muted">
         <p>
-          Better than fumbling through columned tables from Swimswam or Swimming World, and lighter than the feature-heavy
-          club apps, this works entirely in your browser: no accounts, no sign-ups, no data sent anywhere, and zero cost for
-          unlimited conversions. Every result is clearly labelled as an estimate — the honest caveat of any course
-          conversion — and historical factor sets used by federations are applied transparently.
+          Designed as a clean, fast alternative to the traditional <strong class="font-semibold text-ink">swimswam swim time converter</strong> and PDF tables from Swimming World, this works entirely in your browser: no accounts, no sign-ups, no invasive ads or data sent anywhere, and zero cost for unlimited conversions. Every result is clearly labelled as an estimate — the honest caveat of any course conversion — using standard Colorado Timing Systems factors.
         </p>
         <p>
-          Choose this as your every-meet <strong class="font-semibold text-ink">swim time converter tool</strong>, bookmark
-          it for the season, and pair it with the{" "}
-          <a href="/pace-calculator/" class="font-medium text-primary hover:underline">pace</a>,{" "}
-          <a href="/split-calculator/" class="font-medium text-primary hover:underline">split</a>,{" "}
-          <a href="/interval-calculator/" class="font-medium text-primary hover:underline">interval</a> and{" "}
-          <a href="/calories-calculator/" class="font-medium text-primary hover:underline">calorie</a> calculators to plan a
-          whole season from one place.
+          Choose this as your every-meet <strong class="font-semibold text-ink">swim time converter tool</strong>, bookmark it for the season, and pair it with the <a href="/pace-calculator/" class="font-medium text-primary hover:underline">pace</a>, <a href="/split-calculator/" class="font-medium text-primary hover:underline">split</a>, <a href="/interval-calculator/" class="font-medium text-primary hover:underline">interval</a> and <a href="/calories-calculator/" class="font-medium text-primary hover:underline">calorie</a> calculators to plan a whole season from one place.
         </p>
       </div>
     </div>
